@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script type="text/javascript" src="js/loanshrinker.js"></script>
+  <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="span8">
+        <form class="form-inline">
+          <input type="text" class="input-small" placeholder="Principal Remaining">
+          <input type="text" class="input-small" placeholder="EMI">
+          <input type="text" class="input-small" placeholder="Interest">
+          <button type="submit" class="btn">Calculate</button>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span8" id="repaymentTable">
+        <table class="table table-condensed">
+          <caption>Loan Payment Schedule</caption>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Prin Rem</th>
+              <th>Prin Paid</th>
+              <th>Int paid</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <script>
+              displayTable(2290889, 22489, 10.25, 1);
+            </script>  
+          </tbody>
+        </table>
+      </div>
+
+      <div class="span4" id="chart_div">
+      </div>
+    </div>
+
+    <ul id="scheduleTable">
+      
+    </ul>
+  </div>
+</body
+</html>

@@ -1,0 +1,7 @@
+#repaymentTable {
+    height: 300px;
+    overflow: auto;
+    border: 1px;
+    display: none;
+}
+
