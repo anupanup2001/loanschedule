@@ -8,26 +8,32 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
     var principalRem = principal;
     var emiInt = principal * roi/12.0/100.0;
     var emiPrin = emi - emiInt;
+    var month = new Date(2013,0,1);
     arrSchedule.push({
 	principalRem:principalRem,
 	emi: currEmi,
 	roi: currRoi,
 	emiInt: emiInt,
-	emiPrin: emiPrin
+	emiPrin: emiPrin,
+        month: month
     });
 
     //Now calculate remaining period
+    var currMonth = month;
     for (var i = 1; principalRem - emiPrin > 0; i++) {
 	principalRem = principalRem - emiPrin;
 	emiInt = principalRem * roi/12.0/100.0;
 	emiPrin = currEmi - emiInt;
+        currMonth = new Date(currMonth);
+        currMonth.setMonth(currMonth.getMonth() + 1);
 
 	arrSchedule.push({
 	    principalRem: principalRem,
 	    emi: currEmi,
 	    roi: currRoi,
 	    emiInt: emiInt,
-	    emiPrin: emiPrin
+	    emiPrin: emiPrin,
+            month: currMonth
 	});
     }
     return arrSchedule;
@@ -37,5 +43,6 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
     var arr = calculateLoanSchedule(2290889, 22489, 10.25, 1);
     for (var i = 0; i < arr.length; i++) {
      console.log("<li>" + arr[i].principalRem + "</li>");
+     console.log("<li>" + arr[i].month + "</li>");
     }
 */

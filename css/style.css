@@ -2,6 +2,10 @@
     height: 300px;
     overflow: auto;
     border: 1px;
-    display: none;
+//    display: none;
 }
 
+
+#results-row {
+    border: 1px solid black;
+}

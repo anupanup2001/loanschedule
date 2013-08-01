@@ -1,8 +1,25 @@
 //var totPrinPaid = 0;
 //var totIntPaid = 0;
+
+var month_names = new Array ( );
+month_names[month_names.length] = "Jan";
+month_names[month_names.length] = "Feb";
+month_names[month_names.length] = "Mar";
+month_names[month_names.length] = "Apr";
+month_names[month_names.length] = "May";
+month_names[month_names.length] = "Jun";
+month_names[month_names.length] = "Jul";
+month_names[month_names.length] = "Aug";
+month_names[month_names.length] = "Sep";
+month_names[month_names.length] = "Oct";
+month_names[month_names.length] = "Nov";
+month_names[month_names.length] = "Dec";
+
+
 $(document).ready(function() {
     //$("#repaymenTable")
     $('.btn').click(function(event){
+        
         $("#repaymentTable").slideDown(1000);
         event.preventDefault();
 
@@ -20,7 +37,8 @@ var displayTable = function(prin, emi, roi, startDate) {
         strTableData += "<td>" + arr[i].principalRem.toFixed(2) + "</td>";
         strTableData += "<td>" + arr[i].emiPrin.toFixed(2) + "</td>";
         strTableData += "<td>" + arr[i].emiInt.toFixed(2) + "</td>";
-        strTableData += "<td>" + "Jan 2013" + "</td>";
+        strTableData += "<td>" + month_names[arr[i].month.getMonth()] + " " +
+            arr[i].month.getFullYear() + "</td>";
         strTableData += "</tr>";
     }
     
