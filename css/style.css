@@ -9,3 +9,12 @@
 #results-row {
     border: 1px solid black;
 }
+
+#chart_div {
+    margin: auto;
+}
+
+#lastEmiInfo span {
+    font-weight: bold;
+    color: rgb(0, 122, 255);
+}

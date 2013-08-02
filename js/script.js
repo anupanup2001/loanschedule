@@ -15,6 +15,8 @@ month_names[month_names.length] = "Oct";
 month_names[month_names.length] = "Nov";
 month_names[month_names.length] = "Dec";
 
+//Moved google.load to top to fix this bug -> http://stackoverflow.com/questions/9519673/why-does-google-load-cause-my-page-to-go-blank
+google.load('visualization', '1.0', {'packages':['corechart']});
 
 $(document).ready(function() {
     //$("#repaymenTable")
@@ -25,9 +27,13 @@ $(document).ready(function() {
 
     });
 
+    var $tb = $('#repaymentTable table tbody');
+    var emiMonthArray = calculateLoanSchedule(2290889, 22489, 10.25, 1);
+    displayTable($tb, emiMonthArray);
+
 });
-var displayTable = function(prin, emi, roi, startDate) {
-    var arr = calculateLoanSchedule(2290889, 22489, 10.25, 1);
+var displayTable = function(elem, arr) {
+    //var arr = calculateLoanSchedule(2290889, 22489, 10.25, 1);
 
     var strTableData = "";
 
@@ -42,7 +48,14 @@ var displayTable = function(prin, emi, roi, startDate) {
         strTableData += "</tr>";
     }
     
-    document.write(strTableData);
+//    document.write(strTableData);
+    elem.html(strTableData);
+//    
+//elem.text(strTableData);
+    var strLastEmiInfo = "Last EMI is <span>" + month_names[arr[arr.length - 1].month.getMonth()] + " " +
+        arr[arr.length-1].month.getFullYear() + "</span>";
+    $("#lastEmiInfo div h3").html(strLastEmiInfo);
+    
     var totPrinPaid = 0;
     var totIntPaid = 0;
     for(var i = 0; i < arr.length; i++) {
@@ -51,7 +64,7 @@ var displayTable = function(prin, emi, roi, startDate) {
     }
 
     // Load the Visualization API and the piechart package.
-    google.load('visualization', '1.0', {'packages':['corechart']});
+    
 
     // Set a callback to run when the Google Visualization API is loaded.
     google.setOnLoadCallback(drawChart);
@@ -72,7 +85,7 @@ var displayTable = function(prin, emi, roi, startDate) {
 
         // Set chart options
         var options = {'title':'Total Loan Repayment Components',
-                       'width':400,
+                       'width':350,
                        'height':300,
                        'is3D': true};
 
@@ -80,8 +93,6 @@ var displayTable = function(prin, emi, roi, startDate) {
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
-
-
 
 };
 

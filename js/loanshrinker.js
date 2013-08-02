@@ -23,7 +23,11 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
     for (var i = 1; principalRem - emiPrin > 0; i++) {
 	principalRem = principalRem - emiPrin;
 	emiInt = principalRem * roi/12.0/100.0;
-	emiPrin = currEmi - emiInt;
+        emiPrin = currEmi - emiInt;
+        //For last month, emi should only be to complete loan.
+        if (emiPrin > principalRem) {
+            emiPrin = principalRem;
+        }
         currMonth = new Date(currMonth);
         currMonth.setMonth(currMonth.getMonth() + 1);
 
