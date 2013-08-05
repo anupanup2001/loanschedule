@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-glyphicons.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
   <script type="text/javascript" src="js/loanshrinker.js"></script>
@@ -17,43 +18,46 @@
     <div class="row">
       <div class="col-lg-12">
         <form class="form-inline">
-          <input type="text" class="input-small" placeholder="Principal Remaining">
-          <input type="text" class="input-small" placeholder="EMI">
-          <input type="text" class="input-small" placeholder="Interest">
-          <button type="submit" class="btn">Calculate</button>
+          <input type="text" class="input-small" placeholder="Principal Remaining" id="inpPrinRemain">
+          <input type="text" class="input-small" placeholder="EMI" id="inpEmi">
+          <input type="text" class="input-small" placeholder="Interest" id="inpInterest">
+          <input type="text" class="input-small" placeholder="mmyyyy" id="inpStartDate">
+          <button type="button" class="btn btn-primary" id="btnCalculate">Calculate</button>
         </form>
       </div>
     </div>
-    <div class="row" id="results-row">
-      <div class="col-lg-6" id="repaymentTable">
-        <table class="table table-condensed">
-          <caption>Loan Payment Schedule</caption>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Prin Rem</th>
-              <th>Prin Paid</th>
-              <th>Int paid</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!--
-            <script>
-              displayTable(2290889, 22489, 10.25, 1);
-            </script> -->  
-          </tbody>
-        </table>
+    <div class="userBody">
+      <div class="row" id="results-row">
+        <div class="col-lg-6" id="repaymentTable">
+          <table class="table table-condensed">
+            <caption>Loan Payment Schedule</caption>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Prin Rem</th>
+                <th>Prin Paid</th>
+                <th>Int paid</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--
+                  <script>
+                    displayTable(2290889, 22489, 10.25, 1);
+                  </script> -->  
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-lg-6" id="chart_div">
+        </div>
+
+
       </div>
-
-      <div class="col-lg-6" id="chart_div">
-      </div>
-
-
-    </div>
-    <div class="row" id="lastEmiInfo">
-      <div class="col-lg-12">
-        <h3></h3>
+      <div class="row" id="lastEmiInfo">
+        <div class="col-lg-12">
+          <h3><span class="glyphicon glyphicon-arrow-right"> </span><span class="message"></span></h3>
+        </div>
       </div>
     </div>
   </div>

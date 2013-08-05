@@ -14,7 +14,11 @@
     margin: auto;
 }
 
-#lastEmiInfo span {
+#lastEmiInfo span.emphasize {
     font-weight: bold;
     color: rgb(0, 122, 255);
+}
+
+.userBody {
+    display:none;
 }

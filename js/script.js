@@ -20,16 +20,22 @@ google.load('visualization', '1.0', {'packages':['corechart']});
 
 $(document).ready(function() {
     //$("#repaymenTable")
-    $('.btn').click(function(event){
-        
-        $("#repaymentTable").slideDown(1000);
-        event.preventDefault();
+    $('#btnCalculate').click(function(event){
+        var prin = parseFloat($('#inpPrinRemain').val());
+        var emi = parseFloat($('#inpEmi').val());
+        var interest = parseFloat($('#inpInterest').val());
+        var startDate = $('#inpStartDate').val();
+        var startMonth = startDate.slice(0,2);
+        var startYear = startDate.slice(2);
+        $(".userBody").show();
+//        event.preventDefault();
+        var $tb = $('#repaymentTable table tbody');
+//        var emiMonthArray = calculateLoanSchedule(2290889, 22489, 10.25, 1);
+        var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth - 1, 1));
+        displayTable($tb, emiMonthArray);
 
     });
 
-    var $tb = $('#repaymentTable table tbody');
-    var emiMonthArray = calculateLoanSchedule(2290889, 22489, 10.25, 1);
-    displayTable($tb, emiMonthArray);
 
 });
 var displayTable = function(elem, arr) {
@@ -52,9 +58,9 @@ var displayTable = function(elem, arr) {
     elem.html(strTableData);
 //    
 //elem.text(strTableData);
-    var strLastEmiInfo = "Last EMI is <span>" + month_names[arr[arr.length - 1].month.getMonth()] + " " +
+    var strLastEmiInfo = 'Last EMI is <span class="emphasize">' + month_names[arr[arr.length - 1].month.getMonth()] + " " +
         arr[arr.length-1].month.getFullYear() + "</span>";
-    $("#lastEmiInfo div h3").html(strLastEmiInfo);
+    $("#lastEmiInfo div h3 .message").html(strLastEmiInfo);
     
     var totPrinPaid = 0;
     var totIntPaid = 0;
@@ -67,12 +73,12 @@ var displayTable = function(elem, arr) {
     
 
     // Set a callback to run when the Google Visualization API is loaded.
-    google.setOnLoadCallback(drawChart);
+//    google.setOnLoadCallback(drawChart);
 
     // Callback that creates and populates a data table,
     // instantiates the pie chart, passes in the data and
     // draws it.
-    function drawChart() {
+//    function drawChart() {
 
         // Create the data table.
         var data = new google.visualization.DataTable();
@@ -92,7 +98,7 @@ var displayTable = function(elem, arr) {
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
-    }
+//    }
 
 };
 

@@ -8,7 +8,8 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
     var principalRem = principal;
     var emiInt = principal * roi/12.0/100.0;
     var emiPrin = emi - emiInt;
-    var month = new Date(2013,0,1);
+//    var month = new Date(2013,0,1);
+    var month = startDate;
     arrSchedule.push({
 	principalRem:principalRem,
 	emi: currEmi,

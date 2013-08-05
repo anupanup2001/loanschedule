@@ -12,7 +12,7 @@ app.get('/', function(request, response) {
 app.configure(function(){
     app.use('/js', express.static(__dirname + '/js'));
     app.use('/css', express.static(__dirname + '/css'));
-    app.use('/img', express.static(__dirname + '/img'));
+    app.use('/fonts', express.static(__dirname + '/fonts'));
 });
 var port = process.env.PORT || 8888;
 app.listen(port, function() {
