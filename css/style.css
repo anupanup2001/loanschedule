@@ -22,3 +22,8 @@
 .userBody {
     display:none;
 }
+
+.inputForm .errorMsg {
+    color: red;
+    font-weight: bold;
+}

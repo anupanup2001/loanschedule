@@ -27,6 +27,17 @@ $(document).ready(function() {
         var startDate = $('#inpStartDate').val();
         var startMonth = startDate.slice(0,2);
         var startYear = startDate.slice(2);
+
+        //Error check for negative amortization
+        if (prin * interest*0.01/12 >= emi) {
+            $('.inputForm .errorMsg').html('Negative Amortization... EMI has to be more than ' +
+                                          (prin * interest*0.01/12).toFixed(2) + '. Try again with sane values!');
+            $('.userBody').hide();
+            return;
+        }
+        else {
+            $('.inputForm .errorMsg').html('');
+        }
         $(".userBody").show();
 //        event.preventDefault();
         var $tb = $('#repaymentTable table tbody');
@@ -58,7 +69,7 @@ var displayTable = function(elem, arr) {
     elem.html(strTableData);
 //    
 //elem.text(strTableData);
-    var strLastEmiInfo = 'Last EMI is <span class="emphasize">' + month_names[arr[arr.length - 1].month.getMonth()] + " " +
+    var strLastEmiInfo = 'No. of months: ' + arr.length + ' Last EMI is <span class="emphasize">' + month_names[arr[arr.length - 1].month.getMonth()] + " " +
         arr[arr.length-1].month.getFullYear() + "</span>";
     $("#lastEmiInfo div h3 .message").html(strLastEmiInfo);
     
