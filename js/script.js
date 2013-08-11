@@ -91,25 +91,88 @@ var displayTable = function(elem, arr) {
     // draws it.
 //    function drawChart() {
 
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Repayment Component');
-        data.addColumn('number', 'Rupee');
-        data.addRows([
-            ['Principal', Math.ceil(totPrinPaid * 100)/100],
-            ['Interest', Math.ceil(totIntPaid * 100)/100]
-        ]);
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Repayment Component');
+    data.addColumn('number', 'Rupee');
+    data.addRows([
+        ['Principal', Math.ceil(totPrinPaid * 100)/100],
+        ['Interest', Math.ceil(totIntPaid * 100)/100]
+    ]);
 
-        // Set chart options
-        var options = {'title':'Total Loan Repayment Components',
-                       'width':350,
-                       'height':300,
-                       'is3D': true};
+    // Set chart options
+    var options = {'title':'Repayment Component',
+                   'width':325,
+                   'height':300,
+                   'is3D': true};
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+    // Instantiate and draw our chart, passing in some options.
+//    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    var chart = new google.visualization.PieChart($('#chart_div')[0]);
+    chart.draw(data, options);
 //    }
+
+    //Draw column chart
+
+
+    var $colChartDiv = $('#bar_chart_div');
+
+    drawColumnChart($colChartDiv[0], arr);
 
 };
 
+
+/**
+* This function draws barChart for EMI data 
+*/
+var drawColumnChart = function(colChartDiv, arrEmi) {
+    var dataArr = [[]];
+    dataArr[0][0] = 'Year';
+    dataArr[0][1] = 'Intrst';
+    dataArr[0][2] = 'Prin';
+
+
+    var currYear = arrEmi[0].month.getFullYear();
+    var currYearPrin = 0;
+    var currYearInt = 0;
+
+    for (var i = 0; i < arrEmi.length; i++) {
+        if (arrEmi[i].month.getFullYear() == currYear) {
+            currYearPrin += arrEmi[i].emiPrin;
+            currYearInt += arrEmi[i].emiInt;
+        }
+        else {
+            dataArr.push([currYear+'', Math.ceil(currYearInt*100)/100, Math.ceil(currYearPrin*100)/100]);
+            currYear = arrEmi[i].month.getFullYear();
+            currYearInt = 0;
+            currYearPrin = 0;
+        }
+    }
+
+    dataArr.push([currYear+'', currYearInt, currYearPrin]);
+    /*for (var i = 1; i < 20; i++) {
+        dataArr.push([2004 + i + '', 100 + i * 10, 400 + i * 5]);
+//        dataArr[i][0] = 2004 + i;
+//        dataArr[i][1] = 100 + i * 10;
+//        dataArr[i][2] = 400 + i * 5;
+    }*/
+
+    var data = google.visualization.arrayToDataTable(dataArr);
+    /*
+
+    var data = google.visualization.arrayToDataTable([
+        ['Year', 'Sales', 'Expenses'],
+        ['2004',  1000,      400],
+        ['2005',  1170,      460],
+        ['2006',  660,       1120],
+        ['2007',  1030,      540]
+    ]); */
+
+    var options = {
+        title: 'Yearwise Principal & Interest',
+        hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+    };
+
+    var chart = new google.visualization.ColumnChart(colChartDiv);
+    chart.draw(data, options);
+}
