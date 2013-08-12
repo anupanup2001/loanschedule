@@ -96,8 +96,8 @@ var displayTable = function(elem, arr) {
     data.addColumn('string', 'Repayment Component');
     data.addColumn('number', 'Rupee');
     data.addRows([
-        ['Principal', Math.ceil(totPrinPaid * 100)/100],
-        ['Interest', Math.ceil(totIntPaid * 100)/100]
+        ['Interest', Math.ceil(totIntPaid * 100)/100],
+        ['Principal', Math.ceil(totPrinPaid * 100)/100]
     ]);
 
     // Set chart options
