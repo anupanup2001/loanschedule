@@ -20,11 +20,15 @@
     <div class="row">
       <div class="col-lg-12 inputForm">
         <form class="form-inline">
-          <input type="text" class="input-small" placeholder="Principal Remaining" id="inpPrinRemain">
-          <input type="text" class="input-small" placeholder="EMI" id="inpEmi">
-          <input type="text" class="input-small" placeholder="Interest" id="inpInterest">
-          <input type="text" class="input-small" placeholder="mmyyyy" id="inpStartDate">
-          <button type="button" class="btn btn-primary" id="btnCalculate">Calculate</button>
+          <label for="inpPrinRemain">Principal Ramining</label>
+          <input type="text" class="input-small" placeholder="Principal Remaining" name="inpPrinRemain" id="inpPrinRemain">
+          <label for="inpEmi">EMI</label>
+          <input type="text" class="input-small" placeholder="EMI" nam="inpEmi" id="inpEmi">
+          <label for="inpInterest">Interest</label>
+          <input type="text" class="input-small" placeholder="Interest" name="inpInterest" id="inpInterest">
+          <label for="inpStartDate">Start Month</label>
+          <input type="text" class="input-small" placeholder="mmyyyy" name="inpStartDate" id="inpStartDate">
+          <button type="button" class="btn btn-primary" name="btnCalculate" id="btnCalculate">Calculate</button>
         </form>
         <p><span class="errorMsg"></span>
       </div>
