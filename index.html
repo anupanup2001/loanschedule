@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" media="screen">
   <link rel="stylesheet" type="text/css" href="css/bootstrap-glyphicons.css">
+  <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
-  <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+  <!--script type="text/javascript" src="js/jquery-1.10.2.js"></script-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script type="text/javascript" src="js/loanshrinker.js"></script>
   <script type="text/javascript" src="js/bootstrap.js"></script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -19,11 +21,15 @@
     <div class="row">
       <div class="col-lg-12 inputForm">
         <form class="form-inline">
-          <input type="text" class="input-small" placeholder="Principal Remaining" id="inpPrinRemain">
-          <input type="text" class="input-small" placeholder="EMI" id="inpEmi">
-          <input type="text" class="input-small" placeholder="Interest" id="inpInterest">
-          <input type="text" class="input-small" placeholder="mmyyyy" id="inpStartDate">
-          <button type="button" class="btn btn-primary" id="btnCalculate">Calculate</button>
+          <label for="inpPrinRemain">Principal Ramining</label>
+          <input type="text" class="input-small" placeholder="Principal Remaining" name="inpPrinRemain" id="inpPrinRemain">
+          <label for="inpEmi">EMI</label>
+          <input type="text" class="input-small" placeholder="EMI" nam="inpEmi" id="inpEmi">
+          <label for="inpInterest">Interest</label>
+          <input type="text" class="input-small" placeholder="Interest" name="inpInterest" id="inpInterest">
+          <label for="inpStartDate">Start Month</label>
+          <input type="text" class="input-small" placeholder="mmyyyy" name="inpStartDate" id="inpStartDate">
+          <button type="button" class="btn btn-primary" name="btnCalculate" id="btnCalculate">Calculate</button>
         </form>
         <p><span class="errorMsg"></span>
       </div>
