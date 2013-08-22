@@ -45,10 +45,18 @@ $(document).ready(function() {
         var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth - 1, 1));
         displayTable($tb, emiMonthArray);
 
+
+        $('#repaymentTable tbody tr').click(function(event) {
+            alert(this.rowIndex);
+        });
+
     });
 
 
+
+
 });
+
 var displayTable = function(elem, arr) {
     //var arr = calculateLoanSchedule(2290889, 22489, 10.25, 1);
 
