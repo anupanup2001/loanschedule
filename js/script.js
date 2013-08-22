@@ -96,8 +96,8 @@ var displayTable = function(elem, arr) {
     data.addColumn('string', 'Repayment Component');
     data.addColumn('number', 'Rupee');
     data.addRows([
-        ['Interest', Math.ceil(totIntPaid * 100)/100],
-        ['Principal', Math.ceil(totPrinPaid * 100)/100]
+        ['Interest', Math.round(totIntPaid * 100)/100],
+        ['Principal', Math.round(totPrinPaid * 100)/100]
     ]);
 
     // Set chart options
@@ -142,14 +142,14 @@ var drawColumnChart = function(colChartDiv, arrEmi) {
             currYearInt += arrEmi[i].emiInt;
         }
         else {
-            dataArr.push([currYear+'', Math.ceil(currYearInt*100)/100, Math.ceil(currYearPrin*100)/100]);
+            dataArr.push([currYear+'', Math.round(currYearInt*100)/100, Math.round(currYearPrin*100)/100]);
             currYear = arrEmi[i].month.getFullYear();
             currYearInt = 0;
             currYearPrin = 0;
         }
     }
 
-    dataArr.push([currYear+'', currYearInt, currYearPrin]);
+    dataArr.push([currYear+'', Math.round(currYearInt*100)/100, Math.round(currYearPrin*100)/100]);
     /*for (var i = 1; i < 20; i++) {
         dataArr.push([2004 + i + '', 100 + i * 10, 400 + i * 5]);
 //        dataArr[i][0] = 2004 + i;
