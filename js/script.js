@@ -80,16 +80,11 @@ var displayTable = function(elem, arr) {
         totIntPaid += arr[i].emiInt;
     }
 
-    // Load the Visualization API and the piechart package.
-    
+    //Fill in total message below PI diagram chart
 
-    // Set a callback to run when the Google Visualization API is loaded.
-//    google.setOnLoadCallback(drawChart);
-
-    // Callback that creates and populates a data table,
-    // instantiates the pie chart, passes in the data and
-    // draws it.
-//    function drawChart() {
+    $(".totMsg #totPrinMsg").text(Math.round(totPrinPaid*100)/100);
+    $(".totMsg #totIntMsg").text(Math.round(totIntPaid*100)/100);
+    $(".totMsg #totPrinPlusIntMsg").text(Math.round((totPrinPaid + totIntPaid)*100)/100);
 
     // Create the data table.
     var data = new google.visualization.DataTable();
@@ -110,7 +105,6 @@ var displayTable = function(elem, arr) {
 //    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
     var chart = new google.visualization.PieChart($('#chart_div')[0]);
     chart.draw(data, options);
-//    }
 
     //Draw column chart
 

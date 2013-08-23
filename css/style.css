@@ -39,3 +39,7 @@
     margin: auto;
     margin-bottom: 10px;
 }
+
+.round-border span {
+    color: #dc3912;
+}
