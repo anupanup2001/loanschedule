@@ -49,6 +49,11 @@ $(document).ready(function() {
 
 
 });
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 var displayTable = function(elem, arr) {
     //var arr = calculateLoanSchedule(2290889, 22489, 10.25, 1);
 
@@ -82,9 +87,9 @@ var displayTable = function(elem, arr) {
 
     //Fill in total message below PI diagram chart
 
-    $(".totMsg #totPrinMsg").text(Math.round(totPrinPaid*100)/100);
-    $(".totMsg #totIntMsg").text(Math.round(totIntPaid*100)/100);
-    $(".totMsg #totPrinPlusIntMsg").text(Math.round((totPrinPaid + totIntPaid)*100)/100);
+    $(".totMsg #totPrinMsg").text(numberWithCommas(Math.round(totPrinPaid*100)/100));
+    $(".totMsg #totIntMsg").text(numberWithCommas(Math.round(totIntPaid*100)/100));
+    $(".totMsg #totPrinPlusIntMsg").text(numberWithCommas(Math.round((totPrinPaid + totIntPaid)*100)/100));
 
     // Create the data table.
     var data = new google.visualization.DataTable();
