@@ -31,3 +31,11 @@
 #bar_chart_div {
     height: 300px;
 }
+
+.round-border {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding-left: 25px;
+    margin: auto;
+    margin-bottom: 10px;
+}
