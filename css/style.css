@@ -43,3 +43,7 @@
 .round-border span {
     color: #dc3912;
 }
+
+.ui-datepicker-calendar {
+    display: none;
+}
