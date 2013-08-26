@@ -88,8 +88,8 @@ var displayTable = function(elem, arr) {
 //    
 //elem.text(strTableData);
     var strLastEmiInfo = 'No. of months: ' + arr.length + ' Last EMI is <span class="emphasize">' + month_names[arr[arr.length - 1].month.getMonth()] + " " +
-        arr[arr.length-1].month.getFullYear() + "</span>";
-    $("#lastEmiInfo div h3 .message").html(strLastEmiInfo);
+        arr[arr.length-1].month.getFullYear() + ".</span> ";
+    $("#lastEmiInfo div h4 .message").html(strLastEmiInfo);
     
     var totPrinPaid = 0;
     var totIntPaid = 0;
