@@ -30,13 +30,15 @@ $(document).ready(function() {
 
         //Error check for negative amortization
         if (prin * interest*0.01/12 >= emi) {
-            $('.inputForm .errorMsg').html('Negative Amortization... EMI has to be more than ' +
+            $('.errorMsg span').html('Negative Amortization... EMI has to be more than ' +
                                           (prin * interest*0.01/12).toFixed(2) + '. Try again with sane values!');
+            var a = $('.errorMsg').show();
             $('.userBody').hide();
             return;
         }
         else {
-            $('.inputForm .errorMsg').html('');
+            $('.errorMsg span').html('');
+            $('.errorMsg').hide();
         }
         $(".userBody").show();
 //        event.preventDefault();
