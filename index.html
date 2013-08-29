@@ -7,8 +7,8 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap-glyphicons.css">
   <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
-  <!--script type="text/javascript" src="js/jquery-1.10.2.js"></script-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
   <script type="text/javascript" src="js/loanshrinker.js"></script>
   <script type="text/javascript" src="js/bootstrap.js"></script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -22,18 +22,23 @@
       <div class="col-lg-12 inputForm">
         <form class="form-inline">
           <label for="inpPrinRemain">Principal Ramining</label>
-          <input type="text" class="input-small" placeholder="Principal Remaining" name="inpPrinRemain" id="inpPrinRemain">
+          <input type="text" class="input-small" placeholder="Principal Remaining" name="inpPrinRemain" id="inpPrinRemain" title="Loan amount remaining as on a particular date">
           <label for="inpEmi">EMI</label>
-          <input type="text" class="input-small" placeholder="EMI" nam="inpEmi" id="inpEmi">
+          <input type="text" class="input-small" placeholder="EMI" nam="inpEmi" id="inpEmi" title="EMI as on the date">
           <label for="inpInterest">Interest</label>
-          <input type="text" class="input-small" placeholder="Interest" name="inpInterest" id="inpInterest">
+          <input type="text" class="input-small" placeholder="Interest" name="inpInterest" id="inpInterest" title="Interest % per annum">
           <label for="inpStartDate">Start Month</label>
-          <input type="text" class="input-small" placeholder="mmyyyy" name="inpStartDate" id="inpStartDate">
+          <input type="text" class="input-small date-picker" placeholder="mmyyyy" name="inpStartDate" id="inpStartDate" title="Month from which you need schedule">
           <button type="button" class="btn btn-primary" name="btnCalculate" id="btnCalculate">Calculate</button>
         </form>
-        <p><span class="errorMsg"></span>
-      </div>
+      </div><!-- ./inputForm-->
     </div>
+    <div class="row">
+      <div class="col-lg-12 alert alert-danger errorMsg">
+        <p><span></span></p>
+      </div><!-- alert-->
+    </div>
+
     <div class="userBody">
       <div class="row" id="results-row">
         <div class="col-lg-4" id="repaymentTable">
@@ -57,7 +62,16 @@
           </table>
         </div>
 
-        <div class="col-lg-3" id="chart_div">
+        <div class="col-lg-3">
+          <div id="chart_div">
+          </div>
+          <div class="round-border totMsg">
+            <p>
+              <h4>Principal: <span id="totPrinMsg">3000000.56</span></h4>
+              <h4>Interest: <span id="totIntMsg">4500000.56</span></h4>
+              <h4>Total Amount: <span id="totPrinPlusIntMsg">7000000.43</span></h4>
+            </p>
+          </div>
         </div>
 
         <div class="col-lg-5" id="bar_chart_div">
@@ -68,15 +82,38 @@
       </div>
       <div class="row" id="lastEmiInfo">
         <div class="col-lg-12">
-          <h3><span class="glyphicon glyphicon-arrow-right"> </span><span class="message"></span></h3>
+          <h4><span class="glyphicon glyphicon-arrow-right"> </span><span class="message"></span> We are listening to you!! Click for a super short <a class="btn btn-primary btn-xs" data-toggle="modal" href="#surveyModal">Survey</a></h4>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="surveyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <!--h4 class="modal-title">Modal title</h4-->
+              </div>
+              <div class="modal-body">
+                <iframe src="https://docs.google.com/forms/d/1Xy5yyV06sPz3OUgcPODqvTcZQCL3_7BiOSqPZUPpS3c/viewform?embedded=true" width="300" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+              </div>
+              <!--div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div-->
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!--div class="col-lg-6">
+          <iframe src="https://docs.google.com/forms/d/1KESxHy44TK00uDMD8OM8SvMGxdFuauVJZDzSDE8mCCQ/viewform?embedded=true" width="350" height="180" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+        </div-->
+        <!--div class="col-lg-6">
+          <h4>We are listening to you!! Click for a super short <button type="button" class="btn btn-primary btn-xs" name="btnSurvey" id="btnSurvey">survey</button></h4>
+      </div-->
+      </div>
+
+      <div class="row footer">
+        <div class="col-12">
         </div>
       </div>
-    </div>
-
-    <div class="row footer">
-      <div class="col-12">
-      </div>
-    </div>
-  </div>
+    </div><!-- /.container -->
 </body>
 </html>

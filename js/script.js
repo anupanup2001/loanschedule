@@ -30,13 +30,15 @@ $(document).ready(function() {
 
         //Error check for negative amortization
         if (prin * interest*0.01/12 >= emi) {
-            $('.inputForm .errorMsg').html('Negative Amortization... EMI has to be more than ' +
+            $('.errorMsg span').html('Negative Amortization... EMI has to be more than ' +
                                           (prin * interest*0.01/12).toFixed(2) + '. Try again with sane values!');
+            var a = $('.errorMsg').show();
             $('.userBody').hide();
             return;
         }
         else {
-            $('.inputForm .errorMsg').html('');
+            $('.errorMsg span').html('');
+            $('.errorMsg').hide();
         }
         $(".userBody").show();
 //        event.preventDefault();
@@ -52,10 +54,28 @@ $(document).ready(function() {
 
     });
 
+    //Configure datePicker
+    $('.date-picker').datepicker( {
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'mmyy',
+        onClose: function(dateText, inst) { 
+            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+            $(this).datepicker('setDate', new Date(year, month, 1));
+        }
+    });
+
+
 
 
 
 });
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 var displayTable = function(elem, arr) {
     //var arr = calculateLoanSchedule(2290889, 22489, 10.25, 1);
@@ -78,8 +98,8 @@ var displayTable = function(elem, arr) {
 //    
 //elem.text(strTableData);
     var strLastEmiInfo = 'No. of months: ' + arr.length + ' Last EMI is <span class="emphasize">' + month_names[arr[arr.length - 1].month.getMonth()] + " " +
-        arr[arr.length-1].month.getFullYear() + "</span>";
-    $("#lastEmiInfo div h3 .message").html(strLastEmiInfo);
+        arr[arr.length-1].month.getFullYear() + ".</span> ";
+    $("#lastEmiInfo div h4 .message").html(strLastEmiInfo);
     
     var totPrinPaid = 0;
     var totIntPaid = 0;
@@ -88,24 +108,19 @@ var displayTable = function(elem, arr) {
         totIntPaid += arr[i].emiInt;
     }
 
-    // Load the Visualization API and the piechart package.
-    
+    //Fill in total message below PI diagram chart
 
-    // Set a callback to run when the Google Visualization API is loaded.
-//    google.setOnLoadCallback(drawChart);
-
-    // Callback that creates and populates a data table,
-    // instantiates the pie chart, passes in the data and
-    // draws it.
-//    function drawChart() {
+    $(".totMsg #totPrinMsg").text(numberWithCommas(Math.round(totPrinPaid*100)/100));
+    $(".totMsg #totIntMsg").text(numberWithCommas(Math.round(totIntPaid*100)/100));
+    $(".totMsg #totPrinPlusIntMsg").text(numberWithCommas(Math.round((totPrinPaid + totIntPaid)*100)/100));
 
     // Create the data table.
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Repayment Component');
     data.addColumn('number', 'Rupee');
     data.addRows([
-        ['Interest', Math.ceil(totIntPaid * 100)/100],
-        ['Principal', Math.ceil(totPrinPaid * 100)/100]
+        ['Interest', Math.round(totIntPaid * 100)/100],
+        ['Principal', Math.round(totPrinPaid * 100)/100]
     ]);
 
     // Set chart options
@@ -118,7 +133,6 @@ var displayTable = function(elem, arr) {
 //    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
     var chart = new google.visualization.PieChart($('#chart_div')[0]);
     chart.draw(data, options);
-//    }
 
     //Draw column chart
 
@@ -150,14 +164,14 @@ var drawColumnChart = function(colChartDiv, arrEmi) {
             currYearInt += arrEmi[i].emiInt;
         }
         else {
-            dataArr.push([currYear+'', Math.ceil(currYearInt*100)/100, Math.ceil(currYearPrin*100)/100]);
+            dataArr.push([currYear+'', Math.round(currYearInt*100)/100, Math.round(currYearPrin*100)/100]);
             currYear = arrEmi[i].month.getFullYear();
             currYearInt = 0;
             currYearPrin = 0;
         }
     }
 
-    dataArr.push([currYear+'', currYearInt, currYearPrin]);
+    dataArr.push([currYear+'', Math.round(currYearInt*100)/100, Math.round(currYearPrin*100)/100]);
     /*for (var i = 1; i < 20; i++) {
         dataArr.push([2004 + i + '', 100 + i * 10, 400 + i * 5]);
 //        dataArr[i][0] = 2004 + i;

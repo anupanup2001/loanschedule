@@ -24,10 +24,31 @@
 }
 
 .inputForm .errorMsg {
-    color: red;
-    font-weight: bold;
+//    color: red;
+//    font-weight: bold;
 }
 
 #bar_chart_div {
     height: 300px;
+}
+
+.round-border {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding-left: 25px;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.round-border span {
+    color: #dc3912;
+}
+
+.ui-datepicker-calendar {
+    display: none;
+}
+
+.errorMsg {
+    margin-top: 5px;
+    display: none;
 }
