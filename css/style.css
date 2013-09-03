@@ -52,3 +52,9 @@
     margin-top: 5px;
     display: none;
 }
+
+@media (max-width: 480px) {
+    .inputForm label {
+        width: 35%;
+    }
+}
