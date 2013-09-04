@@ -20,6 +20,7 @@ google.load('visualization', '1.0', {'packages':['corechart']});
 
 $(document).ready(function() {
     //$("#repaymenTable")
+    var emiArray = null;
     $('#btnCalculate').click(function(event){
         var prin = parseFloat($('#inpPrinRemain').val());
         var emi = parseFloat($('#inpEmi').val());
@@ -45,11 +46,13 @@ $(document).ready(function() {
         var $tb = $('#repaymentTable table tbody');
 //        var emiMonthArray = calculateLoanSchedule(2290889, 22489, 10.25, 1);
         var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth - 1, 1));
+        emiArray = emiMonthArray;
         displayTable($tb, emiMonthArray);
 
 
         $('#repaymentTable tbody tr').click(function(event) {
             alert(this.rowIndex);
+            console.log(emiArray[rowIndex]);
         });
 
     });

@@ -16,7 +16,8 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
 	roi: currRoi,
 	emiInt: emiInt,
 	emiPrin: emiPrin,
-        month: month
+        month: month,
+        prePayment: 0
     });
 
     //Now calculate remaining period
@@ -38,7 +39,8 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
 	    roi: currRoi,
 	    emiInt: emiInt,
 	    emiPrin: emiPrin,
-            month: currMonth
+            month: currMonth,
+            prePayment: 0
 	});
     }
     return arrSchedule;
