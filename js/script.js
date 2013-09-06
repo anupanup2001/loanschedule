@@ -47,12 +47,20 @@ $(document).ready(function() {
 //        var emiMonthArray = calculateLoanSchedule(2290889, 22489, 10.25, 1);
         var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth - 1, 1));
         emiArray = emiMonthArray;
+        //emiMonthArray[2] = null;
         displayTable($tb, emiMonthArray);
 
 
         $('#repaymentTable tbody tr').click(function(event) {
-            alert(this.rowIndex);
-            console.log(emiArray[rowIndex]);
+            //alert(this.rowIndex);
+//            alert(emiArray[this.rowIndex - 1].principalRem.toFixed(2));
+            //Toggle active class
+            $(this).toggleClass('active');
+            $('#labelMonthNumber').html(this.rowIndex);
+            $('#labelMonth').html(month_names[emiArray[this.rowIndex - 1].month.getMonth()] + " "
+                                  + emiArray[this.rowIndex - 1].month.getFullYear());
+            $('#dataChangeModal').modal();
+//            $(this).toggleClass('active');
         });
 
     });
@@ -71,11 +79,9 @@ $(document).ready(function() {
     });
 
 
-
-
-
 });
 
+//function recalculateArray(emiArray
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -96,8 +102,8 @@ var displayTable = function(elem, arr) {
         strTableData += "</tr>";
     }
     
-//    document.write(strTableData);
     elem.html(strTableData);
+    //arr[2] = null;
 //    
 //elem.text(strTableData);
     var strLastEmiInfo = 'No. of months: ' + arr.length + ' Last EMI is <span class="emphasize">' + month_names[arr[arr.length - 1].month.getMonth()] + " " +
