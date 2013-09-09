@@ -62,6 +62,14 @@ $(document).ready(function() {
         }
     });
 
+    //Add a demo calculation (Default values)
+
+    $('#inpPrinRemain').val('1000000');
+    $('#inpEmi').val('13494');
+    $('#inpInterest').val('10.5');
+    $('#inpStartDate').val('012013');
+    $('#btnCalculate').click(); //Simulate click
+
 
 
 });
@@ -90,7 +98,8 @@ var displayTable = function(elem, arr) {
     elem.html(strTableData);
 //    
 //elem.text(strTableData);
-    var strLastEmiInfo = 'No. of months: ' + arr.length + ' Last EMI is <span class="emphasize">' + month_names[arr[arr.length - 1].month.getMonth()] + " " +
+    var strLastEmiInfo = 'No. of months: ' + arr.length +
+        ' Last EMI is <span class="emphasize">' + month_names[arr[arr.length - 1].month.getMonth()] + " " +
         arr[arr.length-1].month.getFullYear() + ".</span> ";
     $("#lastEmiInfo div h4 .message").html(strLastEmiInfo);
     
