@@ -66,3 +66,15 @@
 .addthis_toolbox h4 {
     display:inline-block;
 }
+
+#dataChangeModal label {
+    width: 100px;
+}
+
+#dataChangeModal form {
+    text-align: center;
+}
+
+#repaymentTable tr:hover {
+    cursor: pointer;
+}

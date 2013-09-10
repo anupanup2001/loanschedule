@@ -55,14 +55,25 @@ $(document).ready(function() {
             //alert(this.rowIndex);
 //            alert(emiArray[this.rowIndex - 1].principalRem.toFixed(2));
             //Toggle active class
+            var l_nArrIndex = this.rowIndex - 1;
             $(this).toggleClass('active');
-            $('#labelMonthNumber').html(this.rowIndex);
-            $('#labelMonth').html(month_names[emiArray[this.rowIndex - 1].month.getMonth()] + " "
-                                  + emiArray[this.rowIndex - 1].month.getFullYear());
+            $('#labelMonthNumber').html(l_nArrIndex + 1);
+            $('#labelMonth').html(month_names[emiArray[l_nArrIndex].month.getMonth()] + " "
+                                  + emiArray[l_nArrIndex].month.getFullYear());
+            $('#inpChangeEMI').val(emiArray[l_nArrIndex].emi.toFixed(2));
+            $('#inpChangeInterest').val(emiArray[l_nArrIndex].roi.toFixed(2));
+            $('#inpChangeAddPrePayment').val(emiArray[l_nArrIndex].prePayment.toFixed(2));
+            $('#inpChangeAddLoan').val(emiArray[l_nArrIndex].addLoan.toFixed(2));
             $('#dataChangeModal').modal();
 //            $(this).toggleClass('active');
         });
 
+    });
+
+    $('#dataChangeModal').on('hidden.bs.modal', function () {
+        //Toggle highlighting of selected row
+        var l_nRowId = parseInt($('#labelMonthNumber').text());
+        $('#repaymentTable tbody tr:nth-child(' + l_nRowId + ')').toggleClass('active');
     });
 
     //Configure datePicker
@@ -77,6 +88,8 @@ $(document).ready(function() {
             $(this).datepicker('setDate', new Date(year, month, 1));
         }
     });
+
+//    $('tr').css( 'cursor', 'pointer' );
 
 
 });

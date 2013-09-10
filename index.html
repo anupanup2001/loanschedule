@@ -147,19 +147,19 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">#<span id="labelMonthNumber"></span> <span id="labelMonth"></span></h4>
+            <h4 class="modal-title">EMI # <span id="labelMonthNumber"></span>: <span id="labelMonth"></span></h4>
           </div>
           <div class="modal-body">
             <form class="form-inline">
-              <label for="inpPrinRemain">EMI</label>
-              <input type="text" class="input-small" placeholder="EMI" name="" id="inpPrinRemain" title="Loan amount remaining as on a particular date">
-              <label for="inpEmi">EMI</label>
-              <input type="text" class="input-small" placeholder="EMI" nam="inpEmi" id="inpEmi" title="EMI as on the date">
-              <label for="inpInterest">Interest</label>
-              <input type="text" class="input-small" placeholder="Interest" name="inpInterest" id="inpInterest" title="Interest % per annum">
-              <label for="inpStartDate">Start Month</label>
-              <input type="text" class="input-small date-picker" placeholder="mmyyyy" name="inpStartDate" id="inpStartDate" title="Month from which you need schedule">
-              <button type="button" class="btn btn-primary" name="btnCalculate" id="btnCalculate">Calculate</button>
+              <label for="inpChangeEMI">New EMI</label>
+              <input type="text" class="input-small" placeholder="EMI" name="inpChangeEMI" id="inpChangeEMI" title="Change EMI from this month"><br>
+              <label for="inpChangeInterest">New Interest</label>
+              <input type="text" class="input-small" placeholder="Interest" name="inpChangeInterest" id="inpChangeInterest" title="Change Interest from this month % pa"><br>
+              <label for="inpChangeAddPrePayment">PrePay Loan</label>
+              <input type="text" class="input-small" placeholder="PrePay" name="inpChangeAddPrePayment" id="inpChangeAddPrePayment" title="Add a Prepayment for this month"><br>
+              <label for="inpChangeAddLoan">Add Loan</label>
+              <input type="text" class="input-small" placeholder="Add Loan" name="inpChangeAddLoan" id="inpChangeAddLoan" title="Increase Loan from this month"><br>
+              <!--button type="button" class="btn btn-primary" name="btnCalculate" id="btnCalculate">Calculate</button-->
             </form>
           </div>
           <div class="modal-footer">
