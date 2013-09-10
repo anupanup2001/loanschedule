@@ -76,6 +76,17 @@ $(document).ready(function() {
         $('#repaymentTable tbody tr:nth-child(' + l_nRowId + ')').toggleClass('active');
     });
 
+    $('#btnChangeSave').click(function() {
+        var l_nIndex = parseInt($('#labelMonthNumber').text() - 1);
+        emiArray[l_nIndex].emi = parseFloat($('#inpChangeEMI').val());
+        emiArray[l_nIndex].roi = parseFloat($('#inpChangeInterest').val());
+        emiArray[l_nIndex].prePayment = parseFloat($('#inpChangeAddPrePayment').val());
+        emiArray[l_nIndex].addLoan = parseFloat($('#inpChangeAddLoan').val());
+        emiArray[l_nIndex].changed = true;
+        recalculateLoanSchedule(emiArray);
+        
+    });
+
     //Configure datePicker
     $('.date-picker').datepicker( {
         changeMonth: true,
