@@ -64,7 +64,7 @@ $(document).ready(function() {
             $('#inpChangeInterest').val(emiArray[l_nArrIndex].roi.toFixed(2));
             $('#inpChangeAddPrePayment').val(emiArray[l_nArrIndex].prePayment.toFixed(2));
             $('#inpChangeAddLoan').val(emiArray[l_nArrIndex].addLoan.toFixed(2));
-            $('#dataChangeModal').modal();
+            $('#dataChangeModal').modal('toggle');
 //            $(this).toggleClass('active');
         });
 
@@ -83,7 +83,29 @@ $(document).ready(function() {
         emiArray[l_nIndex].prePayment = parseFloat($('#inpChangeAddPrePayment').val());
         emiArray[l_nIndex].addLoan = parseFloat($('#inpChangeAddLoan').val());
         emiArray[l_nIndex].changed = true;
-        recalculateLoanSchedule(emiArray);
+        var l_sMsg = recalculateLoanSchedule(emiArray);
+        if (l_sMsg != "") {
+            alert(l_sMsg);
+        }
+        var $tb = $('#repaymentTable table tbody');
+        $('#dataChangeModal').modal('toggle')
+        displayTable($tb, emiArray);
+        $('#repaymentTable tbody tr').click(function(event) {
+            //alert(this.rowIndex);
+//            alert(emiArray[this.rowIndex - 1].principalRem.toFixed(2));
+            //Toggle active class
+            var l_nArrIndex = this.rowIndex - 1;
+            $(this).toggleClass('active');
+            $('#labelMonthNumber').html(l_nArrIndex + 1);
+            $('#labelMonth').html(month_names[emiArray[l_nArrIndex].month.getMonth()] + " "
+                                  + emiArray[l_nArrIndex].month.getFullYear());
+            $('#inpChangeEMI').val(emiArray[l_nArrIndex].emi.toFixed(2));
+            $('#inpChangeInterest').val(emiArray[l_nArrIndex].roi.toFixed(2));
+            $('#inpChangeAddPrePayment').val(emiArray[l_nArrIndex].prePayment.toFixed(2));
+            $('#inpChangeAddLoan').val(emiArray[l_nArrIndex].addLoan.toFixed(2));
+            $('#dataChangeModal').modal('toggle');
+//            $(this).toggleClass('active');
+        });
         
     });
 
@@ -123,7 +145,12 @@ var displayTable = function(elem, arr) {
     var strTableData = "";
 
     for (var i = 0; i < arr.length; i++) {
-        strTableData += "<tr>";
+        if (arr[i].changed) {
+            strTableData += '<tr class="success">';
+        }
+        else {
+            strTableData += "<tr>";
+        }
         strTableData += "<td>" + (i + 1) + "</td>";
         strTableData += "<td>" + arr[i].principalRem.toFixed(2) + "</td>";
         strTableData += "<td>" + arr[i].emiPrin.toFixed(2) + "</td>";
