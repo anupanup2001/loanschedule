@@ -69,8 +69,8 @@ var recalculateLoanSchedule = function(arrSchedule) {
     arrSchedule[0].emiPrin = emiPrin;
 
     //Now calculate for remaining period
-    var i = 0;
-    for (i = 0; principalRem - emiPrin > 0; i++) {
+    var i = 1;
+    for (i = 1; principalRem - emiPrin > 0; i++) {
         if (i < arrSchedule.length && arrSchedule[i].changed) {
             
             currRoi = arrSchedule[i].roi;
@@ -86,7 +86,7 @@ var recalculateLoanSchedule = function(arrSchedule) {
             return "Negative amortization from month " + arrSchedule[i].month;
         }
         if (i < arrSchedule.length) {
-            emiPrin = emiPrin - arrSchedule[i].prePayment
+            emiPrin = emiPrin + arrSchedule[i].prePayment
         }
         if (emiPrin > principalRem) {
             emiPrin = principalRem;
