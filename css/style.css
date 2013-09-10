@@ -5,13 +5,19 @@
 //    display: none;
 }
 
-
-#results-row {
+.inputForm {
+    padding: 5px;
+}
+#results-row, .inputForm, #lastEmiInfo {
     border: 1px solid black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 5px;
 }
 
 #chart_div {
-    margin: auto;
+    margin: 0 auto;
 }
 
 #lastEmiInfo span.emphasize {
@@ -22,6 +28,7 @@
 .userBody {
     display:none;
 }
+
 
 .inputForm .errorMsg {
 //    color: red;
