@@ -90,12 +90,34 @@ $(document).ready(function() {
 
     
     $('#btnChangeSave').click(function() {
+        var l_cEMIChange = 1;
+        var l_cInterestChange = 2;
+        var l_cPrePaymentChange = 4;
+        var l_cAddLoanChange = 8;
+
+        var l_changeFlag = 0;
         var l_nIndex = parseInt($('#labelMonthNumber').text() - 1);
-        emiArray[l_nIndex].emi = parseFloat($('#inpChangeEMI').val());
-        emiArray[l_nIndex].roi = parseFloat($('#inpChangeInterest').val());
-        emiArray[l_nIndex].prePayment = parseFloat($('#inpChangeAddPrePayment').val());
-        emiArray[l_nIndex].addLoan = parseFloat($('#inpChangeAddLoan').val());
-        emiArray[l_nIndex].changed = true;
+        //Check if any value changed
+        if (emiArray[l_nIndex].emi.toFixed(2) != $('#inpChangeEMI').val()) {
+            l_changeFlag = l_changeFlag | l_cEMIChange;
+            emiArray[l_nIndex].emi = parseFloat($('#inpChangeEMI').val());
+        }
+        
+        if (emiArray[l_nIndex].roi.toFixed(2) != $('#inpChangeInterest').val()) {
+            l_changeFlag = l_changeFlag | l_cInterestChange;
+            emiArray[l_nIndex].roi = parseFloat($('#inpChangeInterest').val());
+        }
+        
+        if (parseFloat($('#inpChangeAddPrePayment').val()) != 0) {
+            l_changeFlag = l_changeFlag | l_cPrePaymentChange;
+            emiArray[l_nIndex].prePayment = parseFloat($('#inpChangeAddPrePayment').val());
+        }
+
+        if (parseFloat($('#inpChangeAddLoan').val()) != 0) {
+            l_changeFlag = l_changeFlag | l_cAddLoanChange;
+            emiArray[l_nIndex].addLoan = parseFloat($('#inpChangeAddLoan').val());
+        }
+        emiArray[l_nIndex].changed = l_changeFlag;
         var l_sMsg = recalculateLoanSchedule(emiArray);
         if (l_sMsg != "") {
             alert(l_sMsg);
