@@ -1,3 +1,13 @@
+.logo h1 {
+    color: #99583D;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.logo h6 {
+    font-weight: bold;
+}
+
 #repaymentTable {
     height: 380px;
     overflow: auto;
