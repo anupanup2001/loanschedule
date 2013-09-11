@@ -2,10 +2,12 @@
     color: #99583D;
     font-weight: bold;
     font-style: italic;
+    margin-bottom: 0;
 }
 
-.logo h6 {
+.header h6 {
     font-weight: bold;
+    color: #357ebd;
 }
 
 #repaymentTable {
@@ -103,4 +105,10 @@
 
 .green {
     color: green;
+}
+
+.blue_bar {
+    height: 10px;
+    background-color: #357ebd;
+    border-radius: 10px;
 }
