@@ -122,6 +122,10 @@ $(document).ready(function() {
         }
     });
 
+
+    $('.pull-down').each(function() {
+        $(this).css('margin-top', $(this).parent().height()-$(this).height());
+    });
     //Add a demo calculation (Default values)
 
     $('#inpPrinRemain').val('1000000');
