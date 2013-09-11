@@ -51,8 +51,12 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
 };
 
 var recalculateLoanSchedule = function(arrSchedule) {
-//    var arrSchedule = [];
-//    return arrSchedule;
+    var l_cEMIChange = 1;
+    var l_cInterestChange = 2;
+//    var l_cPrePaymentChange = 4;
+//    var l_cAddLoanChange = 8;
+    var l_changeFlag = 0;
+
     if (arrSchedule.length <= 0) {
         return "";
     }
@@ -71,10 +75,15 @@ var recalculateLoanSchedule = function(arrSchedule) {
     //Now calculate for remaining period
     var i = 1;
     for (i = 1; principalRem - emiPrin > 0; i++) {
-        if (i < arrSchedule.length && arrSchedule[i].changed) {
+        if (i < arrSchedule.length ) {
             
-            currRoi = arrSchedule[i].roi;
-            currEmi = arrSchedule[i].emi;
+            l_changeFlag = arrSchedule[i].changed;
+            if ((l_changeFlag & l_cInterestChange) == l_cInterestChange) {
+                currRoi = arrSchedule[i].roi;
+            }
+            if ((l_changeFlag & l_cEMIChange) == l_cEMIChange) {
+                currEmi = arrSchedule[i].emi;
+            }
         }
         principalRem = principalRem - emiPrin;
         if (i < arrSchedule.length){
