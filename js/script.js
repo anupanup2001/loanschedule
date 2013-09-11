@@ -49,7 +49,7 @@ $(document).ready(function() {
         emiArray = emiMonthArray;
         //emiMonthArray[2] = null;
         displayTable($tb, emiMonthArray);
-
+/*
 
         $('#repaymentTable tbody tr').click(function(event) {
             //alert(this.rowIndex);
@@ -66,16 +66,29 @@ $(document).ready(function() {
             $('#inpChangeAddLoan').val(emiArray[l_nArrIndex].addLoan.toFixed(2));
             $('#dataChangeModal').modal('toggle');
 //            $(this).toggleClass('active');
-        });
+        });*/
 
     });
 
     $('#dataChangeModal').on('hidden.bs.modal', function () {
         //Toggle highlighting of selected row
         var l_nRowId = parseInt($('#labelMonthNumber').text());
-        $('#repaymentTable tbody tr:nth-child(' + l_nRowId + ')').toggleClass('active');
+        $('#repaymentTable tbody tr:nth-child(' + l_nRowId + ')').removeClass('active');
     });
 
+    $('#btnChangeUndoChange').click(function() {
+        var l_nIndex = parseInt($('#labelMonthNumber').text() - 1);
+        emiArray[l_nIndex].changed = false;
+        emiArray[l_nIndex].prePayment = 0;
+        emiArray[l_nIndex].addLoan = 0;
+        var l_sMsg = recalculateLoanSchedule(emiArray);
+        var $tb = $('#repaymentTable table tbody');
+        $('#dataChangeModal').modal('toggle')
+        displayTable($tb, emiArray);
+
+    });
+
+    
     $('#btnChangeSave').click(function() {
         var l_nIndex = parseInt($('#labelMonthNumber').text() - 1);
         emiArray[l_nIndex].emi = parseFloat($('#inpChangeEMI').val());
@@ -90,10 +103,7 @@ $(document).ready(function() {
         var $tb = $('#repaymentTable table tbody');
         $('#dataChangeModal').modal('toggle')
         displayTable($tb, emiArray);
-        $('#repaymentTable tbody tr').click(function(event) {
-            //alert(this.rowIndex);
-//            alert(emiArray[this.rowIndex - 1].principalRem.toFixed(2));
-            //Toggle active class
+/*        $('#repaymentTable tbody tr').click(function(event) {
             var l_nArrIndex = this.rowIndex - 1;
             $(this).toggleClass('active');
             $('#labelMonthNumber').html(l_nArrIndex + 1);
@@ -104,8 +114,7 @@ $(document).ready(function() {
             $('#inpChangeAddPrePayment').val(emiArray[l_nArrIndex].prePayment.toFixed(2));
             $('#inpChangeAddLoan').val(emiArray[l_nArrIndex].addLoan.toFixed(2));
             $('#dataChangeModal').modal('toggle');
-//            $(this).toggleClass('active');
-        });
+        });*/
         
     });
 
@@ -152,15 +161,28 @@ var displayTable = function(elem, arr) {
             strTableData += "<tr>";
         }
         strTableData += "<td>" + (i + 1) + "</td>";
+        strTableData += "<td>" + month_names[arr[i].month.getMonth()] + " " +
+            arr[i].month.getFullYear() + "</td>";
         strTableData += "<td>" + arr[i].principalRem.toFixed(2) + "</td>";
         strTableData += "<td>" + arr[i].emiPrin.toFixed(2) + "</td>";
         strTableData += "<td>" + arr[i].emiInt.toFixed(2) + "</td>";
-        strTableData += "<td>" + month_names[arr[i].month.getMonth()] + " " +
-            arr[i].month.getFullYear() + "</td>";
         strTableData += "</tr>";
     }
     
     elem.html(strTableData);
+    $('#repaymentTable tbody tr').click(function(event) {
+        var l_nArrIndex = this.rowIndex - 1;
+        $(this).toggleClass('active');
+        $('#labelMonthNumber').html(l_nArrIndex + 1);
+        $('#labelMonth').html(month_names[arr[l_nArrIndex].month.getMonth()] + " "
+                              + arr[l_nArrIndex].month.getFullYear());
+        $('#inpChangeEMI').val(arr[l_nArrIndex].emi.toFixed(2));
+        $('#inpChangeInterest').val(arr[l_nArrIndex].roi.toFixed(2));
+        $('#inpChangeAddPrePayment').val(arr[l_nArrIndex].prePayment.toFixed(2));
+        $('#inpChangeAddLoan').val(arr[l_nArrIndex].addLoan.toFixed(2));
+        $('#dataChangeModal').modal('toggle');
+    });
+
     //arr[2] = null;
 //    
 //elem.text(strTableData);
