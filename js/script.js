@@ -74,11 +74,12 @@ $(document).ready(function() {
         //Toggle highlighting of selected row
         var l_nRowId = parseInt($('#labelMonthNumber').text());
         $('#repaymentTable tbody tr:nth-child(' + l_nRowId + ')').removeClass('active');
+        $('#dataChangeModal input').removeClass('green');
     });
 
     $('#btnChangeUndoChange').click(function() {
         var l_nIndex = parseInt($('#labelMonthNumber').text() - 1);
-        emiArray[l_nIndex].changed = false;
+        emiArray[l_nIndex].changed = 0;
         emiArray[l_nIndex].prePayment = 0;
         emiArray[l_nIndex].addLoan = 0;
         var l_sMsg = recalculateLoanSchedule(emiArray);
@@ -97,6 +98,8 @@ $(document).ready(function() {
 
         var l_changeFlag = 0;
         var l_nIndex = parseInt($('#labelMonthNumber').text() - 1);
+
+        l_changeFlag = emiArray[l_nIndex].changed;
         //Check if any value changed
         if (emiArray[l_nIndex].emi.toFixed(2) != $('#inpChangeEMI').val()) {
             l_changeFlag = l_changeFlag | l_cEMIChange;
@@ -194,6 +197,19 @@ var displayTable = function(elem, arr) {
     elem.html(strTableData);
     $('#repaymentTable tbody tr').click(function(event) {
         var l_nArrIndex = this.rowIndex - 1;
+        var l_cEMIChange = 1;
+        var l_cInterestChange = 2;
+        var l_cPrePaymentChange = 4;
+        var l_cAddLoanChange = 8;
+        var l_changeFlag = arr[l_nArrIndex].changed;
+        //Highlight changed text
+
+        if ((l_changeFlag & l_cEMIChange) == l_cEMIChange) {$('#inpChangeEMI').addClass('green');}
+        if ((l_changeFlag & l_cInterestChange) == l_cInterestChange) {$('#inpChangeInterest').addClass('green');}
+        if ((l_changeFlag & l_cPrePaymentChange) == l_cPrePaymentChange) {$('#inpChangeAddPrePayment').addClass('green');}
+        if ((l_changeFlag & l_cAddLoanChange) == l_cAddLoanChange) {$('#inpChangeAddLoan').addClass('green');}
+
+        
         $(this).toggleClass('active');
         $('#labelMonthNumber').html(l_nArrIndex + 1);
         $('#labelMonth').html(month_names[arr[l_nArrIndex].month.getMonth()] + " "
