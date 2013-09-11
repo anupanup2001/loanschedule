@@ -258,7 +258,7 @@ var displayTable = function(elem, arr) {
     // Set chart options
     var options = {'title':'Repayment Component',
 //                   'width':100%,//325,
-                   'height':300,
+                   'height':280,
                    'is3D': true};
 
     // Instantiate and draw our chart, passing in some options.
