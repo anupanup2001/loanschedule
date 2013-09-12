@@ -13,6 +13,7 @@ app.configure(function(){
     app.use('/js', express.static(__dirname + '/js'));
     app.use('/css', express.static(__dirname + '/css'));
     app.use('/fonts', express.static(__dirname + '/fonts'));
+    app.use('/images', express.static(__dirname + '/images'));
 });
 var port = process.env.PORT || 8888;
 app.listen(port, function() {
