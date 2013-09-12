@@ -82,7 +82,9 @@ $(document).ready(function() {
         emiArray[l_nIndex].changed = 0;
         emiArray[l_nIndex].prePayment = 0;
         emiArray[l_nIndex].addLoan = 0;
-        var l_sMsg = recalculateLoanSchedule(emiArray);
+        var l_nInitialEMI = parseFloat($('#inpEmi').val());
+        var l_nInitialInterest = parseFloat($('#inpInterest').val());
+        var l_sMsg = recalculateLoanSchedule(emiArray, l_nInitialInterest, l_nInitialEMI);
         var $tb = $('#repaymentTable table tbody');
         $('#dataChangeModal').modal('toggle')
         displayTable($tb, emiArray);
@@ -121,7 +123,9 @@ $(document).ready(function() {
             emiArray[l_nIndex].addLoan = parseFloat($('#inpChangeAddLoan').val());
         }
         emiArray[l_nIndex].changed = l_changeFlag;
-        var l_sMsg = recalculateLoanSchedule(emiArray);
+        var l_nInitialEMI = parseFloat($('#inpEmi').val());
+        var l_nInitialInterest = parseFloat($('#inpInterest').val());
+        var l_sMsg = recalculateLoanSchedule(emiArray, l_nInitialInterest, l_nInitialEMI);
         if (l_sMsg != "") {
             alert(l_sMsg);
         }

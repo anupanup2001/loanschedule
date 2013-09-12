@@ -50,19 +50,41 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
     return arrSchedule;
 };
 
-var recalculateLoanSchedule = function(arrSchedule) {
+var recalculateLoanSchedule = function(arrSchedule, initialInterest, initialEMI) {
     var l_cEMIChange = 1;
     var l_cInterestChange = 2;
-//    var l_cPrePaymentChange = 4;
-//    var l_cAddLoanChange = 8;
+    var l_cPrePaymentChange = 4;
+    var l_cAddLoanChange = 8;
     var l_changeFlag = 0;
 
     if (arrSchedule.length <= 0) {
         return "";
     }
 
-    var currEmi = arrSchedule[0].emi;
-    var currRoi = arrSchedule[0].roi;
+    l_changeFlag = arrSchedule[0].changed;
+    if ((l_changeFlag & l_cPrePaymentChange) != l_cPrePaymentChange) {
+        arrSchedule[0].prePayment = 0;
+    }
+
+    if ((l_changeFlag & l_cAddLoanChange) != l_cAddLoanChange) {
+        arrSchedule[0].addLoan = 0;
+    }
+
+    var currEmi, currRoi;
+    if ((l_changeFlag & l_cEMIChange) == l_cEMIChange) {
+        currEmi = arrSchedule[0].emi;
+    }
+    else {
+        currEmi = initialEMI;
+        arrSchedule[0].emi = currEmi;
+    }
+    if ((l_changeFlag & l_cInterestChange) == l_cInterestChange) {
+        currRoi = arrSchedule[0].roi;
+    }
+    else {
+        currRoi = initialInterest;
+        arrSchedule[0].roi = currRoi;
+    }
     var principalRem = arrSchedule[0].principalRem + arrSchedule[0].addLoan;
     var emiInt = principalRem * currRoi / 12.0/100.0;
     var emiPrin = currEmi - emiInt - arrSchedule[0].prePayment;
