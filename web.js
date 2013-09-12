@@ -14,6 +14,7 @@ app.configure(function(){
     app.use('/css', express.static(__dirname + '/css'));
     app.use('/fonts', express.static(__dirname + '/fonts'));
     app.use('/images', express.static(__dirname + '/images'));
+    app.use(express.favicon(__dirname + '/images/favicon.ico'));
 });
 var port = process.env.PORT || 8888;
 app.listen(port, function() {
