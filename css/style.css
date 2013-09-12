@@ -6,9 +6,14 @@
     margin-top: 0px;
 }
 
+.logo img {
+    height: 54px;
+    padding-top: 5px;
+}
+
 .header h6 {
     font-weight: bold;
-    color: #357ebd;
+    color: #336699;
     margin-top: 0;
 }
 
@@ -33,7 +38,7 @@
 
 #lastEmiInfo span.emphasize {
     font-weight: bold;
-    color: rgb(0, 122, 255);
+    color: #336699;
 }
 
 .userBody {
@@ -103,12 +108,12 @@
 }
 
 .green {
-    color: green;
+    color: #01990F;
 }
 
 .blue_bar {
     height: 10px;
-    background-color: #357ebd;
+    background-color: #336699;
     border-radius: 10px;
 }
 

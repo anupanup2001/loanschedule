@@ -263,7 +263,10 @@ var displayTable = function(elem, arr) {
     var options = {'title':'Repayment Component',
 //                   'width':100%,//325,
                    'height':250,
-                   'is3D': true};
+                   'is3D': true,
+                   'colors':['#336699', '#990134']
+
+                  };
 
     // Instantiate and draw our chart, passing in some options.
 //    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -328,7 +331,8 @@ var drawColumnChart = function(colChartDiv, arrEmi) {
 
     var options = {
         title: 'Yearwise Principal & Interest',
-        hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+        hAxis: {title: 'Year', titleTextStyle: {color: '#336699'}},
+        colors:['#336699', '#990134']
     };
 
     var chart = new google.visualization.ColumnChart(colChartDiv);
