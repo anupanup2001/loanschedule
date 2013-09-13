@@ -87,7 +87,7 @@ var recalculateLoanSchedule = function(arrSchedule, initialInterest, initialEMI)
     }
     var principalRem = arrSchedule[0].principalRem + arrSchedule[0].addLoan;
     var emiInt = principalRem * currRoi / 12.0/100.0;
-    var emiPrin = currEmi - emiInt - arrSchedule[0].prePayment;
+    var emiPrin = currEmi - emiInt + arrSchedule[0].prePayment;
     var month = arrSchedule[0].month;
 
     //arrSchedule[0].principalRem = principalRem;
