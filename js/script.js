@@ -204,7 +204,7 @@ var displayTable = function(elem, arr) {
     
     elem.html(strTableData);
     $('#repaymentTable tbody tr').click(function(event) {
-        var l_nArrIndex = this.rowIndex - 1;
+        var l_nArrIndex = this.rowIndex;
         var l_cEMIChange = 1;
         var l_cInterestChange = 2;
         var l_cPrePaymentChange = 4;

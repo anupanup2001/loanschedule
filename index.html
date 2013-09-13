@@ -74,26 +74,32 @@
 
     <div class="userBody">
       <div class="row" id="results-row">
-        <div class="col-lg-4" id="repaymentTable">
-          <table class="table table-condensed table-hover">
-            <caption>Loan Payment Schedule</caption>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Date</th>
-                <th>Prin Rem</th>
-                <th>Prin Paid</th>
-                <th>Int paid</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!--
-                  <script>
-                    displayTable(2290889, 22489, 10.25, 1);
-                  </script> -->  
-            </tbody>
-          </table>
-        </div>
+        <div class="col-lg-4"> <!--id="repaymentTable"-->
+          <div>
+            <table class="table table-condensed table-hover table-header">
+                <caption>Loan Payment Schedule</caption>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Prin Rem</th>
+                    <th>Prin Paid</th>
+                    <th>Int paid</th>
+                  </tr>
+                </thead>
+            </table>
+          </div>
+          <div id="repaymentTable">
+            <table class="table table-condensed table-hover">
+                <tbody>
+                  <!--
+                      <script>
+                        displayTable(2290889, 22489, 10.25, 1);
+                      </script> -->
+                </tbody>
+            </table>
+          </div> <!-- ./repaymentTable-->
+        </div> <!-- ./lg-4-->
 
         <div class="col-lg-3">
           <div id="chart_div">
@@ -193,5 +199,6 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+  </div>
 </body>
 </html>

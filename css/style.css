@@ -19,11 +19,14 @@
 }
 
 #repaymentTable {
-    height: 350px;
+    height: 300px;
     overflow: auto;
     border: 1px;
 }
 
+.table-header {
+    margin-bottom:0px;
+}
 
 #results-row, .inputForm, #lastEmiInfo {
     border: 1px solid black;
