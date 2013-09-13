@@ -229,6 +229,37 @@ var displayTable = function(elem, arr) {
         $('#dataChangeModal').modal('toggle');
     });
 
+    $('#repaymentTable tbody tr').popover({
+        placement:'bottom',
+        trigger:'hover',
+        html:true,
+        title:'Click Row to edit',
+        content:function(){
+            return $('#rowPopover').html();
+        }
+    });
+
+    $('#repaymentTable tbody tr').mouseover(function() {
+        //Reset previously set green font
+        $('#rowPopover span').removeClass('green');
+        var l_nArrIndex = this.rowIndex;
+        var l_cEMIChange = 1;
+        var l_cInterestChange = 2;
+        var l_cPrePaymentChange = 4;
+        var l_cAddLoanChange = 8;
+        var l_changeFlag = arr[l_nArrIndex].changed;
+        $('#popEMI').text(arr[l_nArrIndex].emi.toFixed(2));
+        $('#popInterest').text(arr[l_nArrIndex].roi.toFixed(2));
+        $('#popPrePay').text(arr[l_nArrIndex].prePayment.toFixed(2));
+        $('#popAddLoan').text(arr[l_nArrIndex].addLoan.toFixed(2));
+
+        //Add text color as green
+        if ((l_changeFlag & l_cEMIChange) == l_cEMIChange) {$('#popEMI').addClass('green');}
+        if ((l_changeFlag & l_cInterestChange) == l_cInterestChange) {$('#popInterest').addClass('green');}
+        if ((l_changeFlag & l_cPrePaymentChange) == l_cPrePaymentChange) {$('#popPrePay').addClass('green');}
+        if ((l_changeFlag & l_cAddLoanChange) == l_cAddLoanChange) {$('#popAddLoan').addClass('green');}
+    });
+
     //arr[2] = null;
 //    
 //elem.text(strTableData);

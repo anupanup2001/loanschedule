@@ -127,3 +127,19 @@
     margin-bottom: 5px;
     font-weight: bold;
 }
+
+#rowPopover {
+    width: 200px;
+    display: none;
+}
+
+.popLabel {
+    width: 50%;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.popover {
+    max-width: 200px;
+    width: 200px;
+}
