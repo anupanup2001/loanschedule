@@ -171,41 +171,41 @@
     </div><!-- ./userBody-->
   </div><!-- /.container -->
 
-    <!-- Modal which will prompt user to change values in a month -->
-    <div class="modal fade" id="dataChangeModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">EMI # <span id="labelMonthNumber"></span>: <span id="labelMonth"></span></h4>
-          </div>
-          <div class="modal-body">
-            <form class="form-inline">
-              <label for="inpChangeEMI">New EMI</label>
-              <input type="text" class="input-small" placeholder="EMI" name="inpChangeEMI" id="inpChangeEMI" title="Change EMI from this month"><br>
-              <label for="inpChangeInterest">New Interest</label>
-              <input type="text" class="input-small" placeholder="Interest" name="inpChangeInterest" id="inpChangeInterest" title="Change Interest from this month % pa"><br>
-              <label for="inpChangeAddPrePayment">PrePay Loan</label>
-              <input type="text" class="input-small" placeholder="PrePay" name="inpChangeAddPrePayment" id="inpChangeAddPrePayment" title="Add a Prepayment for this month"><br>
-              <label for="inpChangeAddLoan">Add Loan</label>
-              <input type="text" class="input-small" placeholder="Add Loan" name="inpChangeAddLoan" id="inpChangeAddLoan" title="Increase Loan from this month"><!--br><br-->
-              <!--button type="button" class="btn btn-default btn-xs" name="btnChangeReset" id="btnChangeReset">Default value</button-->
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-default" id="btnChangeUndoChange">Undo Change</button>
-            <button type="button" class="btn btn-primary" id="btnChangeSave">Save changes</button>
+  <!-- Modal which will prompt user to change values in a month -->
+  <div class="modal fade" id="dataChangeModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">EMI # <span id="labelMonthNumber"></span>: <span id="labelMonth"></span></h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-inline">
+            <label for="inpChangeEMI">New EMI</label>
+            <input type="text" class="input-small" placeholder="EMI" name="inpChangeEMI" id="inpChangeEMI" title="Change EMI from this month"><br>
+            <label for="inpChangeInterest">New Interest</label>
+            <input type="text" class="input-small" placeholder="Interest" name="inpChangeInterest" id="inpChangeInterest" title="Change Interest from this month % pa"><br>
+            <label for="inpChangeAddPrePayment">PrePay Loan</label>
+            <input type="text" class="input-small" placeholder="PrePay" name="inpChangeAddPrePayment" id="inpChangeAddPrePayment" title="Add a Prepayment for this month"><br>
+            <label for="inpChangeAddLoan">Add Loan</label>
+            <input type="text" class="input-small" placeholder="Add Loan" name="inpChangeAddLoan" id="inpChangeAddLoan" title="Increase Loan from this month"><!--br><br-->
+            <!--button type="button" class="btn btn-default btn-xs" name="btnChangeReset" id="btnChangeReset">Default value</button-->
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-default" id="btnChangeUndoChange">Undo Change</button>
+          <button type="button" class="btn btn-primary" id="btnChangeSave">Save changes</button>
 
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-<div id="rowPopover">
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!--/.modal -->
+  <div id="rowPopover">
     <span class="popLabel">EMI</span><span class="popValue" id="popEMI">22489.00</span><br>
     <span class="popLabel">Interest</span><span class="popValue" id="popInterest">10.50</span><br>
     <span class="popLabel">Pre Pay</span><span class="popValue" id="popPrePay">100000.00</span><br>
     <span class="popLabel">Add Loan</span><span class="popValue" id="popAddLoan">0.00</span><br>
-</div>
+  </div>
 </body>
 </html>
