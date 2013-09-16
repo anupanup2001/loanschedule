@@ -57,6 +57,7 @@
           <label for="inpStartDate">Start Month</label>
           <input type="text" class="input-small date-picker" placeholder="mmyyyy" name="inpStartDate" id="inpStartDate" title="Month from which you need schedule">
           <button type="button" class="btn btn-primary" name="btnCalculate" id="btnCalculate">Calculate</button>
+          <button type="button" class="btn btn-default" name="btnDemo" id="btnDemo" data-toggle="modal" href="#demoVideoModal"><span class="glyphicon glyphicon-facetime-video"></span> Demo</button>
         </form>
       </div><!-- ./inputForm-->
     </div>
@@ -200,6 +201,24 @@
     <span class="popLabel">Pre Pay</span><span class="popValue" id="popPrePay">100000.00</span><br>
     <span class="popLabel">Add Loan</span><span class="popValue" id="popAddLoan">0.00</span><br>
   </div>
+  
+  <!-- Modal -->
+        <div class="modal fade" id="demoVideoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <!--h4 class="modal-title">Modal title</h4-->
+              </div>
+              <div class="modal-body demoVideoContainer">
+                <iframe width="480" height="360" src="http://www.youtube.com/embed/byUnkMZ1My4?rel=0&cc_load_policy=1" frameborder="0" allowfullscreen></iframe>
+              </div>
+              <!--div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div-->
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>

@@ -72,6 +72,10 @@ $(document).ready(function() {
         });*/
 
     });
+    
+    $('#btnDemo').on('click', function() {
+        //alert('Hello');
+    });
 
     $('#dataChangeModal').on('hidden.bs.modal', function () {
         //Toggle highlighting of selected row
@@ -183,7 +187,34 @@ $(document).ready(function() {
     $('#inpInterest').val('10.5');
     $('#inpStartDate').val('012013');
     $('#btnCalculate').click(); //Simulate click
+    
+    $('#demoVideoModal').on('shown.bs.modal', function() {
+        var $video = $('.demoVideoContainer iframe');
+        var l_nWidth = $(".demoVideoContainer").width();
+        $video.width(l_nWidth).height(l_nWidth/1.3);
+        /*
+    // Find all YouTube videos
+	var $allVideos = $("iframe[src^='http://www.youtube.com']"),
 
+	    // The element that is fluid width
+	    $fluidEl = $(".demoVideoContainer");
+
+	// Figure out and save aspect ratio for each video
+	$allVideos.each(function() {
+
+		$(this)
+			.data('aspectRatio', this.height / this.width)
+			
+			// and remove the hard coded width/height
+			.removeAttr('height')
+			.removeAttr('width');
+
+	});
+
+	// When the window is resized
+	// (You'll probably want to debounce this)*/
+    });
+    
 });
 
 //function recalculateArray(emiArray
