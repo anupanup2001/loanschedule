@@ -161,8 +161,17 @@ $(document).ready(function() {
     });
 
 
+    /*
     $('.pull-down').each(function() {
         $(this).css('margin-top', $(this).parent().height()-$(this).height());
+    });
+    */
+    
+    $('.inputForm input').keypress(function(e) {
+        if (e.which == 13) {
+            $('#btnCalculate').focus().click();
+            $(this).focus().select();
+        }
     });
     //Add a demo calculation (Default values)
 
@@ -171,6 +180,10 @@ $(document).ready(function() {
     $('#inpInterest').val('10.5');
     $('#inpStartDate').val('012013');
     $('#btnCalculate').click(); //Simulate click
+    
+    //Set focus to first input
+    $('#inpPrinRemain').focus();
+    $('#inpPrinRemain').select();
 
 
 
