@@ -49,6 +49,9 @@ $(document).ready(function() {
         emiArray = emiMonthArray;
         //emiMonthArray[2] = null;
         displayTable($tb, emiMonthArray);
+        //Set focus to first input
+        $('#inpPrinRemain').focus();
+        $('#inpPrinRemain').select();
 /*
 
         $('#repaymentTable tbody tr').click(function(event) {
@@ -180,12 +183,6 @@ $(document).ready(function() {
     $('#inpInterest').val('10.5');
     $('#inpStartDate').val('012013');
     $('#btnCalculate').click(); //Simulate click
-    
-    //Set focus to first input
-    $('#inpPrinRemain').focus();
-    $('#inpPrinRemain').select();
-
-
 
 });
 
