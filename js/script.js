@@ -278,6 +278,7 @@ function setErrorMsg(msg) {
     $('.errorMsg span').html(msg);
     if (msg == '') {
         $('.errorMsg').hide();
+        $('.userBody').show();
     }
     else {
         $('.errorMsg').show();
