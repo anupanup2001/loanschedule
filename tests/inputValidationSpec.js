@@ -27,7 +27,7 @@ function fillInputsWith(prinRem, emi, interest) {
 function clickCalculate() {
     var d = webdriver.promise.defer();
     driver.findElement(webdriver.By.name('btnCalculate')).click().then(function() {
-        driver.sleep(1000);
+        //driver.sleep(1000);
         d.fulfill(true);
     });
     return d.promise;
@@ -231,7 +231,7 @@ fillInputsWith("2290889","22", "10.25")
     .then(clickCalculate)
     .then(seesAnErrorMessage)
     .then(function(val) {
-        assert.equal(val, "Negative Amortization... EMI has to be more than 19568.01. Try again with sane values!");
+        assert.equal(val, "Negative Amortization... EMI has to be more than 19568.01");
     })
     .then(function(){
         console.log("Test 13: Passed");

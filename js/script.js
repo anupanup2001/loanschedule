@@ -22,13 +22,20 @@ $(document).ready(function() {
     //$("#repaymenTable")
     var emiArray = null;
     $('#btnCalculate').click(function(event){
-        var prin = parseFloat($('#inpPrinRemain').val());
-        var emi = parseFloat($('#inpEmi').val());
-        var interest = parseFloat($('#inpInterest').val());
+        var l_sPrin = $('#inpPrinRemain').val();
+        var l_sEmi = $('#inpEmi').val();
+        var l_sInterest = $('#inpInterest').val();
+        var l_sMsg = validateInputs(l_sPrin, l_sEmi, l_sInterest);
+        setErrorMsg(l_sMsg);
+        if (l_sMsg != "")
+            return;
+        var prin = parseFloat(l_sPrin);
+        var emi = parseFloat(l_sEmi);
+        var interest = parseFloat(l_sInterest);
         var startDate = $('#inpStartDate').val();
         var startMonth = startDate.slice(0,2);
         var startYear = startDate.slice(2);
-
+/*
         //Error check for negative amortization
         if (prin * interest*0.01/12 >= emi) {
             $('.errorMsg span').html('Negative Amortization... EMI has to be more than ' +
@@ -42,6 +49,7 @@ $(document).ready(function() {
             $('.errorMsg').hide();
         }
         $(".userBody").show();
+        */
 //        event.preventDefault();
         var $tb = $('#repaymentTable table tbody');
 //        var emiMonthArray = calculateLoanSchedule(2290889, 22489, 10.25, 1);
@@ -168,12 +176,7 @@ $(document).ready(function() {
     });
 
 
-    /*
-    $('.pull-down').each(function() {
-        $(this).css('margin-top', $(this).parent().height()-$(this).height());
-    });
-    */
-    
+     
     $('.inputForm input').keypress(function(e) {
         if (e.which == 13) {
             $('#btnCalculate').focus().click();
@@ -192,30 +195,95 @@ $(document).ready(function() {
         var $video = $('.demoVideoContainer iframe');
         var l_nWidth = $(".demoVideoContainer").width();
         $video.width(l_nWidth).height(l_nWidth/1.33);
-        /*
-    // Find all YouTube videos
-	var $allVideos = $("iframe[src^='http://www.youtube.com']"),
-
-	    // The element that is fluid width
-	    $fluidEl = $(".demoVideoContainer");
-
-	// Figure out and save aspect ratio for each video
-	$allVideos.each(function() {
-
-		$(this)
-			.data('aspectRatio', this.height / this.width)
-			
-			// and remove the hard coded width/height
-			.removeAttr('height')
-			.removeAttr('width');
-
-	});
-
-	// When the window is resized
-	// (You'll probably want to debounce this)*/
+        
     });
     
 });
+
+function validateInputs(principal, emi, interest) {
+    var l_sRet = "";
+    //Check for empty strings first
+    if (principal.match(/^ *$/) && emi.match(/^ *$/) && interest.match(/^ *$/)) {
+        l_sRet = "All input fields are mandatory";
+        return l_sRet;
+    }
+    if (principal.match(/^ *$/)) {
+        l_sRet = "Principal Remaining field is mandatory";
+        return l_sRet;
+    }
+    if (emi.match(/^ *$/)) {
+        l_sRet = "EMI field is mandatory";
+        return l_sRet;
+    }
+    if (interest.match(/^ *$/)) {
+        l_sRet = "Interest field is mandatory";
+        return l_sRet;
+    }
+    
+    //Check numeric values
+    if (!principal.match(/^-?[0-9]*\.?[0-9]*$/)) {
+        l_sRet = "Principal Remaining is not numeric";
+        return l_sRet;
+    }
+    if (!emi.match(/^-?[0-9]*\.?[0-9]*$/)) {
+        l_sRet = "EMI is not numeric";
+        return l_sRet;
+    }
+    if (!interest.match(/^-?[0-9]*\.?[0-9]*$/)) {
+        l_sRet = "Interest is not numeric";
+        return l_sRet;
+    }
+    
+    //Check negative values
+    if(principal.match(/^-/)) {
+        l_sRet = "Principal Remaining should be positive";
+        return l_sRet
+    }
+    if(emi.match(/^-/)) {
+        l_sRet = "EMI should be positive";
+        return l_sRet
+    }
+    if(interest.match(/^-/)) {
+        l_sRet = "Interest should be positive";
+        return l_sRet
+    }
+    
+    //Now for all numeric tests
+    var l_nPrin = parseFloat(principal);
+    var l_nEmi = parseFloat(emi);
+    var l_nInterest = parseFloat(interest);
+    var startDate = $('#inpStartDate').val();
+    var startMonth = startDate.slice(0,2);
+    var startYear = startDate.slice(2);
+
+    //Check if interest is greater than 100
+    if (l_nInterest > 100) {
+        l_sRet = "Interest should be less than 100%";
+        return l_sRet;
+    }
+    
+    //Error check for negative amortization
+    if (l_nPrin * l_nInterest*0.01/12 >= l_nEmi) {
+        l_sRet = 'Negative Amortization... EMI has to be more than ' + (l_nPrin * l_nInterest*0.01/12).toFixed(2);
+        return l_sRet;
+    }
+    
+    
+    return l_sRet;
+}
+
+//Function sets Alert message on some invalid input and hides
+//User body in case of error
+function setErrorMsg(msg) {
+    $('.errorMsg span').html(msg);
+    if (msg == '') {
+        $('.errorMsg').hide();
+    }
+    else {
+        $('.errorMsg').show();
+        $('.userBody').hide();
+    }
+}
 
 //function recalculateArray(emiArray
 function numberWithCommas(x) {
