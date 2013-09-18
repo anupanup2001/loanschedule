@@ -191,7 +191,7 @@ $(document).ready(function() {
     $('#demoVideoModal').on('shown.bs.modal', function() {
         var $video = $('.demoVideoContainer iframe');
         var l_nWidth = $(".demoVideoContainer").width();
-        $video.width(l_nWidth).height(l_nWidth/1.3);
+        $video.width(l_nWidth).height(l_nWidth/1.33);
         /*
     // Find all YouTube videos
 	var $allVideos = $("iframe[src^='http://www.youtube.com']"),
