@@ -89,8 +89,6 @@ var recalculateLoanSchedule = function(arrSchedule, initialInterest, initialEMI)
     var emiInt = principalRem * currRoi / 12.0/100.0;
     var emiPrin = currEmi - emiInt + arrSchedule[0].prePayment;
     var month = arrSchedule[0].month;
-
-    //arrSchedule[0].principalRem = principalRem;
     arrSchedule[0].emiInt = emiInt;
     arrSchedule[0].emiPrin = emiPrin;
 
@@ -145,11 +143,8 @@ var recalculateLoanSchedule = function(arrSchedule, initialInterest, initialEMI)
                 prePayment: 0,
                 addLoan: 0,
                 changed: 0
-                
             });
         }
-        
-        
     }
 
     //Truncate array if necessary
@@ -159,11 +154,3 @@ var recalculateLoanSchedule = function(arrSchedule, initialInterest, initialEMI)
 
     return "";
 };
-
-/*
-    var arr = calculateLoanSchedule(2290889, 22489, 10.25, 1);
-    for (var i = 0; i < arr.length; i++) {
-     console.log("<li>" + arr[i].principalRem + "</li>");
-     console.log("<li>" + arr[i].month + "</li>");
-    }
-*/

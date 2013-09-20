@@ -35,56 +35,16 @@ $(document).ready(function() {
         var startDate = $('#inpStartDate').val();
         var startMonth = startDate.slice(0,2);
         var startYear = startDate.slice(2);
-/*
-        //Error check for negative amortization
-        if (prin * interest*0.01/12 >= emi) {
-            $('.errorMsg span').html('Negative Amortization... EMI has to be more than ' +
-                                          (prin * interest*0.01/12).toFixed(2) + '. Try again with sane values!');
-            var a = $('.errorMsg').show();
-            $('.userBody').hide();
-            return;
-        }
-        else {
-            $('.errorMsg span').html('');
-            $('.errorMsg').hide();
-        }
-        $(".userBody").show();
-        */
-//        event.preventDefault();
+
         var $tb = $('#repaymentTable table tbody');
-//        var emiMonthArray = calculateLoanSchedule(2290889, 22489, 10.25, 1);
         var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth - 1, 1));
         emiArray = emiMonthArray;
-        //emiMonthArray[2] = null;
         displayTable($tb, emiMonthArray);
         //Set focus to first input
         $('#inpPrinRemain').focus();
         $('#inpPrinRemain').select();
-/*
-
-        $('#repaymentTable tbody tr').click(function(event) {
-            //alert(this.rowIndex);
-//            alert(emiArray[this.rowIndex - 1].principalRem.toFixed(2));
-            //Toggle active class
-            var l_nArrIndex = this.rowIndex - 1;
-            $(this).toggleClass('active');
-            $('#labelMonthNumber').html(l_nArrIndex + 1);
-            $('#labelMonth').html(month_names[emiArray[l_nArrIndex].month.getMonth()] + " "
-                                  + emiArray[l_nArrIndex].month.getFullYear());
-            $('#inpChangeEMI').val(emiArray[l_nArrIndex].emi.toFixed(2));
-            $('#inpChangeInterest').val(emiArray[l_nArrIndex].roi.toFixed(2));
-            $('#inpChangeAddPrePayment').val(emiArray[l_nArrIndex].prePayment.toFixed(2));
-            $('#inpChangeAddLoan').val(emiArray[l_nArrIndex].addLoan.toFixed(2));
-            $('#dataChangeModal').modal('toggle');
-//            $(this).toggleClass('active');
-        });*/
-
     });
     
-    $('#btnDemo').on('click', function() {
-        //alert('Hello');
-    });
-
     $('#dataChangeModal').on('hidden.bs.modal', function () {
         //Toggle highlighting of selected row
         var l_nRowId = parseInt($('#labelMonthNumber').text());
@@ -147,19 +107,6 @@ $(document).ready(function() {
         var $tb = $('#repaymentTable table tbody');
         $('#dataChangeModal').modal('toggle')
         displayTable($tb, emiArray);
-/*        $('#repaymentTable tbody tr').click(function(event) {
-            var l_nArrIndex = this.rowIndex - 1;
-            $(this).toggleClass('active');
-            $('#labelMonthNumber').html(l_nArrIndex + 1);
-            $('#labelMonth').html(month_names[emiArray[l_nArrIndex].month.getMonth()] + " "
-                                  + emiArray[l_nArrIndex].month.getFullYear());
-            $('#inpChangeEMI').val(emiArray[l_nArrIndex].emi.toFixed(2));
-            $('#inpChangeInterest').val(emiArray[l_nArrIndex].roi.toFixed(2));
-            $('#inpChangeAddPrePayment').val(emiArray[l_nArrIndex].prePayment.toFixed(2));
-            $('#inpChangeAddLoan').val(emiArray[l_nArrIndex].addLoan.toFixed(2));
-            $('#dataChangeModal').modal('toggle');
-        });*/
-        
     });
 
     //Configure datePicker
@@ -402,7 +349,6 @@ var displayTable = function(elem, arr) {
 
     // Set chart options
     var options = {'title':'Repayment Component',
-//                   'width':100%,//325,
                    'height':250,
                    'is3D': true,
                    'colors':['#336699', '#990134']
@@ -410,7 +356,6 @@ var displayTable = function(elem, arr) {
                   };
 
     // Instantiate and draw our chart, passing in some options.
-//    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
     var chart = new google.visualization.PieChart($('#chart_div')[0]);
     chart.draw(data, options);
 
@@ -452,24 +397,7 @@ var drawColumnChart = function(colChartDiv, arrEmi) {
     }
 
     dataArr.push([currYear+'', Math.round(currYearInt*100)/100, Math.round(currYearPrin*100)/100]);
-    /*for (var i = 1; i < 20; i++) {
-        dataArr.push([2004 + i + '', 100 + i * 10, 400 + i * 5]);
-//        dataArr[i][0] = 2004 + i;
-//        dataArr[i][1] = 100 + i * 10;
-//        dataArr[i][2] = 400 + i * 5;
-    }*/
-
     var data = google.visualization.arrayToDataTable(dataArr);
-    /*
-
-    var data = google.visualization.arrayToDataTable([
-        ['Year', 'Sales', 'Expenses'],
-        ['2004',  1000,      400],
-        ['2005',  1170,      460],
-        ['2006',  660,       1120],
-        ['2007',  1030,      540]
-    ]); */
-
     var options = {
         title: 'Yearwise Principal & Interest',
         hAxis: {title: 'Year', titleTextStyle: {color: '#336699'}},
