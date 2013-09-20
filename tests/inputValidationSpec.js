@@ -55,11 +55,30 @@ function seesNoErrorMessage() {
             d.fulfill(true);
         }
         else {
-            d.reject(new Error("Alert is still visible!"))
+            d.reject(new Error("Alert is still visible!"));
         }
-    })
+    });
 }
 
+function isTotalAmtPaid(l_fAmt) {
+    var d = webdriver.promise.defer();
+    driver.findElement(webdriver.By.id('totPrinPlusIntMsg')).getText().
+        then(function(val) {
+            assert.equal(val, l_fAmt);
+            return true;
+        });
+    return d.promise;
+}
+
+function isPrinAmtPaid(l_fAmt) {
+    var d = webdriver.promise.defer();
+    driver.findElement(webdriver.By.id('totPrinMsg')).getText().
+        then(function(val) {
+            assert.equal(val, l_fAmt);
+            return true;
+        });
+    return d.promise;
+}
 //Test 1: Principal is mandatory
 
 fillInputsWith("", "22489", "10.25")
@@ -239,4 +258,20 @@ fillInputsWith("2290889","22", "10.25")
         console.error("Test 13: " + err);
     });
 
+//Test 14: When EMI is greater than principal, proper value should be calculated
+
+fillInputsWith("1000", "1500", "10")
+    .then(clickCalculate)
+    .then(seesNoErrorMessage)
+    .then(function(){
+        isTotalAmtPaid("1008.33");
+    })
+    .then(function(){
+        isPrinAmtPaid("1000.00")
+    })
+    .then(function(){
+        console.log("Test 14: Passed");
+    },function(err){
+        console.error("Test 14: Failed " + err);
+    });
 driver.quit();

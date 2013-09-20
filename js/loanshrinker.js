@@ -7,7 +7,13 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
     var arrSchedule = [];
     var principalRem = principal;
     var emiInt = principal * roi/12.0/100.0;
-    var emiPrin = emi - emiInt;
+    var emiPrin;
+    if(emi > principalRem + emiInt) {
+        currEmi = principal + emiInt;
+    }
+    var emiPrin = currEmi - emiInt;
+
+    
 //    var month = new Date(2013,0,1);
     var month = startDate;
     arrSchedule.push({
@@ -25,8 +31,11 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
     //Now calculate remaining period
     var currMonth = month;
     for (var i = 1; principalRem - emiPrin > 0; i++) {
-	principalRem = principalRem - emiPrin;
-	emiInt = principalRem * roi/12.0/100.0;
+        principalRem = principalRem - emiPrin;
+        emiInt = principalRem * roi/12.0/100.0;
+        if (currEmi > principalRem + emiInt) {
+            currEmi = principalRem + emiInt;
+        }
         emiPrin = currEmi - emiInt;
         //For last month, emi should only be to complete loan.
         if (emiPrin > principalRem) {
@@ -34,18 +43,18 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
         }
         currMonth = new Date(currMonth);
         currMonth.setMonth(currMonth.getMonth() + 1);
-
-	arrSchedule.push({
-	    principalRem: principalRem,
-	    emi: currEmi,
-	    roi: currRoi,
-	    emiInt: emiInt,
-	    emiPrin: emiPrin,
-            month: currMonth,
-            prePayment: 0,
-            addLoan: 0,
-            changed: 0
-	});
+    
+        arrSchedule.push({
+            principalRem: principalRem,
+            emi: currEmi,
+            roi: currRoi,
+            emiInt: emiInt,
+            emiPrin: emiPrin,
+                month: currMonth,
+                prePayment: 0,
+                addLoan: 0,
+                changed: 0
+        });
     }
     return arrSchedule;
 };
