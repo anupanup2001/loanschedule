@@ -17,7 +17,7 @@ month_names[month_names.length] = "Dec";
 
 //Moved google.load to top to fix this bug -> http://stackoverflow.com/questions/9519673/why-does-google-load-cause-my-page-to-go-blank
 google.load('visualization', '1.0', {'packages':['corechart']});
-
+var pieChart, colChart;
 $(document).ready(function() {
     //$("#repaymenTable")
     var emiArray = null;
@@ -39,6 +39,10 @@ $(document).ready(function() {
         var $tb = $('#repaymentTable table tbody');
         var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth - 1, 1));
         emiArray = emiMonthArray;
+        
+        // Instantiate and draw our chart, passing in some options.
+        pieChart = new google.visualization.PieChart($('#chart_div')[0]);
+        colChart = new google.visualization.ColumnChart($('#bar_chart_div')[0]);
         displayTable($tb, emiMonthArray);
         //Set focus to first input
         $('#inpPrinRemain').focus();
@@ -352,12 +356,11 @@ var displayTable = function(elem, arr) {
                    'height':250,
                    'is3D': true,
                    'colors':['#336699', '#990134']
+                  
+    };
 
-                  };
-
-    // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.PieChart($('#chart_div')[0]);
-    chart.draw(data, options);
+    
+    pieChart.draw(data, options);
 
     //Draw column chart
 
@@ -401,9 +404,13 @@ var drawColumnChart = function(colChartDiv, arrEmi) {
     var options = {
         title: 'Yearwise Principal & Interest',
         hAxis: {title: 'Year', titleTextStyle: {color: '#336699'}},
-        colors:['#336699', '#990134']
+        colors:['#336699', '#990134'],
+        animation: {
+            duration: 500,
+            easing: 'linear'
+        }
     };
 
-    var chart = new google.visualization.ColumnChart(colChartDiv);
-    chart.draw(data, options);
+    //var chart = new google.visualization.ColumnChart(colChartDiv);
+    colChart.draw(data, options);
 }
