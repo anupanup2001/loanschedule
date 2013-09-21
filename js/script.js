@@ -315,11 +315,6 @@ var displayTable = function(elem, arr) {
         $('#popInterest').text(arr[l_nArrIndex].roi.toFixed(2));
         $('#popPrePay').text(arr[l_nArrIndex].prePayment.toFixed(2));
         $('#popAddLoan').text(arr[l_nArrIndex].addLoan.toFixed(2));
-        //Force dynamic content
-        //$(this).data('popover').tip().html = "Hello World";//$('#rowPopover').html();
-        $('#repaymentTable tbody tr').popover({content:function(){
-            return $('#rowPopover').html();
-        }});
         //Add text color as green
         if ((l_changeFlag & l_cEMIChange) == l_cEMIChange) {$('#popEMI').addClass('green');}
         if ((l_changeFlag & l_cInterestChange) == l_cInterestChange) {$('#popInterest').addClass('green');}
