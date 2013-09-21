@@ -9,6 +9,12 @@ app.get('/', function(request, response) {
     response.send(buf.toString());
 });
 
+app.get('/index2', function(request, response) {
+    buf = fs.readFile('index2.html',function(err, data) {
+        response.send(data.toString());
+    });
+})
+
 app.configure(function(){
     app.use('/js', express.static(__dirname + '/js'));
     app.use('/css', express.static(__dirname + '/css'));
