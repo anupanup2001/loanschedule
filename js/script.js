@@ -63,7 +63,8 @@ $(document).ready(function() {
         emiArray[l_nIndex].addLoan = 0;
         var l_nInitialEMI = parseFloat($('#inpEmi').val());
         var l_nInitialInterest = parseFloat($('#inpInterest').val());
-        var l_sMsg = recalculateLoanSchedule(emiArray, l_nInitialInterest, l_nInitialEMI);
+        var l_nInitialPrincipal = parseFloat($('#inpPrinRemain').val());
+        var l_sMsg = recalculateLoanSchedule(emiArray, l_nInitialPrincipal, l_nInitialInterest, l_nInitialEMI);
         var $tb = $('#repaymentTable table tbody');
         $('#dataChangeModal').modal('toggle')
         displayTable($tb, emiArray);
@@ -104,7 +105,8 @@ $(document).ready(function() {
         emiArray[l_nIndex].changed = l_changeFlag;
         var l_nInitialEMI = parseFloat($('#inpEmi').val());
         var l_nInitialInterest = parseFloat($('#inpInterest').val());
-        var l_sMsg = recalculateLoanSchedule(emiArray, l_nInitialInterest, l_nInitialEMI);
+        var l_nInitialPrincipal = parseFloat($('#inpPrinRemain').val());
+        var l_sMsg = recalculateLoanSchedule(emiArray, l_nInitialPrincipal, l_nInitialInterest, l_nInitialEMI);
         if (l_sMsg != "") {
             alert(l_sMsg);
         }
@@ -299,7 +301,32 @@ var displayTable = function(elem, arr) {
             return $('#rowPopover').html();
         }
     });
-
+    
+    //Just before popover is shown...
+    $('#repaymentTable tbody tr').on('show.bs.popover', function () {
+    $('#rowPopover span').removeClass('green');
+        var l_nArrIndex = this.rowIndex;
+        var l_cEMIChange = 1;
+        var l_cInterestChange = 2;
+        var l_cPrePaymentChange = 4;
+        var l_cAddLoanChange = 8;
+        var l_changeFlag = arr[l_nArrIndex].changed;
+        $('#popEMI').text(arr[l_nArrIndex].emi.toFixed(2));
+        $('#popInterest').text(arr[l_nArrIndex].roi.toFixed(2));
+        $('#popPrePay').text(arr[l_nArrIndex].prePayment.toFixed(2));
+        $('#popAddLoan').text(arr[l_nArrIndex].addLoan.toFixed(2));
+        //Force dynamic content
+        //$(this).data('popover').tip().html = "Hello World";//$('#rowPopover').html();
+        $('#repaymentTable tbody tr').popover({content:function(){
+            return $('#rowPopover').html();
+        }});
+        //Add text color as green
+        if ((l_changeFlag & l_cEMIChange) == l_cEMIChange) {$('#popEMI').addClass('green');}
+        if ((l_changeFlag & l_cInterestChange) == l_cInterestChange) {$('#popInterest').addClass('green');}
+        if ((l_changeFlag & l_cPrePaymentChange) == l_cPrePaymentChange) {$('#popPrePay').addClass('green');}
+        if ((l_changeFlag & l_cAddLoanChange) == l_cAddLoanChange) {$('#popAddLoan').addClass('green');}    
+    });
+/*
     $('#repaymentTable tbody tr').mouseover(function() {
         //Reset previously set green font
         $('#rowPopover span').removeClass('green');
@@ -320,7 +347,7 @@ var displayTable = function(elem, arr) {
         if ((l_changeFlag & l_cPrePaymentChange) == l_cPrePaymentChange) {$('#popPrePay').addClass('green');}
         if ((l_changeFlag & l_cAddLoanChange) == l_cAddLoanChange) {$('#popAddLoan').addClass('green');}
     });
-
+*/
     //arr[2] = null;
 //    
 //elem.text(strTableData);
