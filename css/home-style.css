@@ -1,7 +1,11 @@
-/* Overrides default bootstrap style. Customized for Aidoslabs.com homepage*/
+/* Overrides default bootstrap.css and carousel.css style. Customized for Aidoslabs.com homepage*/
 
 
+.left-align{
+    text-align:left
+}
 
+/* bootstrap.css*/
 .carousel-caption {
   position: absolute;
   right: 15%;
@@ -14,3 +18,29 @@
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
+
+.lead {
+  margin-bottom: 20px;
+  font-size: 16.099999999999998px;
+  font-weight: 200;
+  line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+  .lead {
+    font-size: 17px;
+  }
+}
+
+
+/* carousel.css */
+  .featurette-heading {
+    font-size: 30px;
+  }
+
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
