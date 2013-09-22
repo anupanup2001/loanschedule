@@ -264,10 +264,10 @@ fillInputsWith("1000", "1500", "10")
     .then(clickCalculate)
     .then(seesNoErrorMessage)
     .then(function(){
-        isTotalAmtPaid("1008.33");
+        isTotalAmtPaid("1,008.33");
     })
     .then(function(){
-        isPrinAmtPaid("1000.00")
+        isPrinAmtPaid("1,000.00")
     })
     .then(function(){
         console.log("Test 14: Passed");

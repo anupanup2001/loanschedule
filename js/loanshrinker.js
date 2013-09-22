@@ -8,7 +8,7 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
     var principalRem = principal;
     var emiInt = principal * roi/12.0/100.0;
     var emiPrin;
-    if(emi > principalRem + emiInt) {
+    if(emi > (principalRem + emiInt)) {
         currEmi = principal + emiInt;
     }
     var emiPrin = currEmi - emiInt;
@@ -30,10 +30,10 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
 
     //Now calculate remaining period
     var currMonth = month;
-    for (var i = 1; principalRem - emiPrin > 0; i++) {
+    for (var i = 1; (principalRem - emiPrin) > 0; i++) {
         principalRem = principalRem - emiPrin;
         emiInt = principalRem * roi/12.0/100.0;
-        if (currEmi > principalRem + emiInt) {
+        if (currEmi > (principalRem + emiInt)) {
             currEmi = principalRem + emiInt;
         }
         emiPrin = currEmi - emiInt;
@@ -59,7 +59,7 @@ var calculateLoanSchedule = function (principal, emi, roi, startDate) {
     return arrSchedule;
 };
 
-var recalculateLoanSchedule = function(arrSchedule, initialInterest, initialEMI) {
+var recalculateLoanSchedule = function(arrSchedule, initialPrincipal, initialInterest, initialEMI) {
     var l_cEMIChange = 1;
     var l_cInterestChange = 2;
     var l_cPrePaymentChange = 4;
@@ -94,16 +94,21 @@ var recalculateLoanSchedule = function(arrSchedule, initialInterest, initialEMI)
         currRoi = initialInterest;
         arrSchedule[0].roi = currRoi;
     }
-    var principalRem = arrSchedule[0].principalRem + arrSchedule[0].addLoan;
+    var principalRem = initialPrincipal + arrSchedule[0].addLoan - arrSchedule[0].prePayment;
     var emiInt = principalRem * currRoi / 12.0/100.0;
+    if (currEmi > (principalRem + emiInt)) {
+        currEmi = principalRem + emiInt;
+    }
     var emiPrin = currEmi - emiInt + arrSchedule[0].prePayment;
     var month = arrSchedule[0].month;
+    var prePayment = 0;
     arrSchedule[0].emiInt = emiInt;
     arrSchedule[0].emiPrin = emiPrin;
+    arrSchedule[0].principalRem = principalRem;
 
     //Now calculate for remaining period
     var i = 1;
-    for (i = 1; principalRem - emiPrin > 0; i++) {
+    for (i = 1; (principalRem - emiPrin + prePayment) > 0; i++) {
         if (i < arrSchedule.length ) {
             
             l_changeFlag = arrSchedule[i].changed;
@@ -113,21 +118,31 @@ var recalculateLoanSchedule = function(arrSchedule, initialInterest, initialEMI)
             if ((l_changeFlag & l_cEMIChange) == l_cEMIChange) {
                 currEmi = arrSchedule[i].emi;
             }
+            
         }
-        principalRem = principalRem - emiPrin;
+        
+        principalRem = principalRem - emiPrin + prePayment;
         if (i < arrSchedule.length){
-            principalRem = principalRem + arrSchedule[i].addLoan;
+            prePayment = arrSchedule[i].prePayment;
+            principalRem = principalRem + arrSchedule[i].addLoan - prePayment;
+        }
+        else {
+            prePayment = 0;
         }
         emiInt = principalRem * currRoi/12.0/100.0;
+        
+        if (currEmi > (principalRem + emiInt)) {
+            currEmi = principalRem + emiInt;
+        }
         emiPrin = currEmi - emiInt;
         if (emiPrin < 0) {
             return "Negative amortization from month " + arrSchedule[i].month;
         }
         if (i < arrSchedule.length) {
-            emiPrin = emiPrin + arrSchedule[i].prePayment
+            emiPrin = emiPrin + prePayment;
         }
-        if (emiPrin > principalRem) {
-            emiPrin = principalRem;
+        if (emiPrin > (principalRem + prePayment)) {
+            emiPrin = principalRem + prePayment;
         }
 
         //Update array if less than length.
