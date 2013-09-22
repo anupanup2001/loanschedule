@@ -32,6 +32,14 @@
   }
 }
 
+/* Change carousel indicator color to contrast against the white background */
+.carousel-indicators li {
+  border: 1px solid #000000;
+}
+
+.carousel-indicators .active {
+  background-color: #000000;
+}
 
 /* carousel.css */
   .featurette-heading {
