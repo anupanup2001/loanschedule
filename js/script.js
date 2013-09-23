@@ -22,10 +22,6 @@ $(document).ready(function() {
     //$("#repaymenTable")
     var emiArray = null;
     $('#btnCalculate').click(function(event){
-        calculateReport(emiArray);
-        //GA track Goal Calculate
-        _gaq.push(['_trackEvent', 'Calculate', 'Click']);
-        /*
         var l_sPrin = $('#inpPrinRemain').val();
         var l_sEmi = $('#inpEmi').val();
         var l_sInterest = $('#inpInterest').val();
@@ -50,9 +46,9 @@ $(document).ready(function() {
         displayTable($tb, emiMonthArray);
         //Set focus to first input
         $('#inpPrinRemain').focus();
-        $('#inpPrinRemain').select(); */
+        $('#inpPrinRemain').select();
     });
-  
+    
     $('#dataChangeModal').on('hidden.bs.modal', function () {
         //Toggle highlighting of selected row
         var l_nRowId = parseInt($('#labelMonthNumber').text());
@@ -77,7 +73,6 @@ $(document).ready(function() {
 
     
     $('#btnChangeSave').click(function() {
-        _gaq.push(['_trackEvent', 'ModifiedTable', 'Changed']);
         var l_cEMIChange = 1;
         var l_cInterestChange = 2;
         var l_cPrePaymentChange = 4;
@@ -89,25 +84,21 @@ $(document).ready(function() {
         l_changeFlag = emiArray[l_nIndex].changed;
         //Check if any value changed
         if (emiArray[l_nIndex].emi.toFixed(2) != $('#inpChangeEMI').val()) {
-            _gaq.push(['_trackEvent', 'ModifiedEMI', 'Changed']);
             l_changeFlag = l_changeFlag | l_cEMIChange;
             emiArray[l_nIndex].emi = parseFloat($('#inpChangeEMI').val());
         }
         
         if (emiArray[l_nIndex].roi.toFixed(2) != $('#inpChangeInterest').val()) {
-            _gaq.push(['_trackEvent', 'ModifiedInterest', 'Changed']);
             l_changeFlag = l_changeFlag | l_cInterestChange;
             emiArray[l_nIndex].roi = parseFloat($('#inpChangeInterest').val());
         }
         
         if (parseFloat($('#inpChangeAddPrePayment').val()) != 0) {
-            _gaq.push(['_trackEvent', 'ModifiedPrePay', 'Changed']);
             l_changeFlag = l_changeFlag | l_cPrePaymentChange;
             emiArray[l_nIndex].prePayment = parseFloat($('#inpChangeAddPrePayment').val());
         }
 
         if (parseFloat($('#inpChangeAddLoan').val()) != 0) {
-            _gaq.push(['_trackEvent', 'ModifiedAddLoan', 'Changed']);
             l_changeFlag = l_changeFlag | l_cAddLoanChange;
             emiArray[l_nIndex].addLoan = parseFloat($('#inpChangeAddLoan').val());
         }
@@ -151,53 +142,16 @@ $(document).ready(function() {
     $('#inpEmi').val('13494');
     $('#inpInterest').val('10.5');
     $('#inpStartDate').val('012013');
-    calculateReport(emiArray);
-    //$('#btnCalculate').click(); //Simulate click
+    $('#btnCalculate').click(); //Simulate click
     
     $('#demoVideoModal').on('shown.bs.modal', function() {
-        _gaq.push(['_trackEvent', 'DemoVideo', 'Click']);
         var $video = $('.demoVideoContainer iframe');
         var l_nWidth = $(".demoVideoContainer").width();
         $video.width(l_nWidth).height(l_nWidth/1.33);
         
     });
-    $('#surveyModal').on('shown.bs.modal', function () {
-        _gaq.push(['_trackEvent', 'Survey', 'Click']);
-    });
     
 });
-
-/*
-This function is responsible for calculating the entire report on page
-Table, pie diagram and chart diagram is populated.
-*/
-function calculateReport(emiArray) {
-    var l_sPrin = $('#inpPrinRemain').val();
-    var l_sEmi = $('#inpEmi').val();
-    var l_sInterest = $('#inpInterest').val();
-    var l_sMsg = validateInputs(l_sPrin, l_sEmi, l_sInterest);
-    setErrorMsg(l_sMsg);
-    if (l_sMsg != "")
-        return;
-    var prin = parseFloat(l_sPrin);
-    var emi = parseFloat(l_sEmi);
-    var interest = parseFloat(l_sInterest);
-    var startDate = $('#inpStartDate').val();
-    var startMonth = startDate.slice(0,2);
-    var startYear = startDate.slice(2);
-
-    var $tb = $('#repaymentTable table tbody');
-    var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth - 1, 1));
-    emiArray = emiMonthArray;
-    
-    // Instantiate and draw our chart, passing in some options.
-    pieChart = new google.visualization.PieChart($('#chart_div')[0]);
-    colChart = new google.visualization.ColumnChart($('#bar_chart_div')[0]);
-    displayTable($tb, emiMonthArray);
-    //Set focus to first input
-    $('#inpPrinRemain').focus();
-    $('#inpPrinRemain').select();
-}
 
 function validateInputs(principal, emi, interest) {
     var l_sRet = "";
