@@ -20,9 +20,9 @@ google.load('visualization', '1.0', {'packages':['corechart']});
 var pieChart, colChart;
 $(document).ready(function() {
     //$("#repaymenTable")
-    var emiArray = null;
+    var emiArray = [];
     $('#btnCalculate').click(function(event){
-        calculateReport(emiArray);
+        emiArray = calculateReport();
         //GA track Goal Calculate
         _gaq.push(['_trackEvent', 'Calculate', 'Click']);
         /*
@@ -58,6 +58,11 @@ $(document).ready(function() {
         var l_nRowId = parseInt($('#labelMonthNumber').text());
         $('#repaymentTable tbody tr:nth-child(' + l_nRowId + ')').removeClass('active');
         $('#dataChangeModal input').removeClass('green');
+    });
+    
+    $('#dataChangeModal').on('shown.bs.modal', function () {
+        $('#inpChangeEMI').focus();
+        $('#inpChangeEMI').select(); 
     });
 
     $('#btnChangeUndoChange').click(function() {
@@ -145,13 +150,20 @@ $(document).ready(function() {
             $(this).focus().select();
         }
     });
+    
+    $('#dataChangeModal input').keypress(function(e) {
+        if (e.which == 13) {
+            $('#btnChangeSave').focus().click();
+            //$(this).focus().select();
+        }
+    });
     //Add a demo calculation (Default values)
 
     $('#inpPrinRemain').val('1000000');
     $('#inpEmi').val('13494');
     $('#inpInterest').val('10.5');
     $('#inpStartDate').val('012013');
-    calculateReport(emiArray);
+    emiArray = calculateReport();
     //$('#btnCalculate').click(); //Simulate click
     
     $('#demoVideoModal').on('shown.bs.modal', function() {
@@ -171,7 +183,7 @@ $(document).ready(function() {
 This function is responsible for calculating the entire report on page
 Table, pie diagram and chart diagram is populated.
 */
-function calculateReport(emiArray) {
+function calculateReport() {
     var l_sPrin = $('#inpPrinRemain').val();
     var l_sEmi = $('#inpEmi').val();
     var l_sInterest = $('#inpInterest').val();
@@ -188,7 +200,7 @@ function calculateReport(emiArray) {
 
     var $tb = $('#repaymentTable table tbody');
     var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth - 1, 1));
-    emiArray = emiMonthArray;
+    emiMonthArray;
     
     // Instantiate and draw our chart, passing in some options.
     pieChart = new google.visualization.PieChart($('#chart_div')[0]);
@@ -197,6 +209,7 @@ function calculateReport(emiArray) {
     //Set focus to first input
     $('#inpPrinRemain').focus();
     $('#inpPrinRemain').select();
+    return emiMonthArray;
 }
 
 function validateInputs(principal, emi, interest) {
