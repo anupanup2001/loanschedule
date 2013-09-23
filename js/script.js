@@ -200,7 +200,7 @@ function calculateReport() {
 
     var $tb = $('#repaymentTable table tbody');
     var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth - 1, 1));
-    emiMonthArray;
+    //emiMonthArray;
     
     // Instantiate and draw our chart, passing in some options.
     pieChart = new google.visualization.PieChart($('#chart_div')[0]);
