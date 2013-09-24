@@ -149,3 +149,8 @@
 .userBody thead th:nth-child(2) {
     width: 22%;
 }
+
+.infoLabel {
+    width: 40%;
+    display: inline-block;
+}
