@@ -135,7 +135,7 @@ var recalculateLoanSchedule = function(arrSchedule, initialPrincipal, initialInt
             currEmi = principalRem + emiInt;
         }
         emiPrin = currEmi - emiInt;
-        if (emiPrin < 0) {
+        if (Math.round(emiPrin) < 0) {
             return "Negative amortization from month " + arrSchedule[i].month;
         }
         if (i < arrSchedule.length) {
