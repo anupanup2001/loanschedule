@@ -178,7 +178,6 @@ $(document).ready(function() {
     $('#surveyModal').on('shown.bs.modal', function () {
         _gaq.push(['_trackEvent', 'Survey', 'Click']);
     });
-    
 });
 
 /*
@@ -427,8 +426,16 @@ var displayTable = function(elem, arr) {
     $(".totMsg #totIntMsg").text(numberWithCommas(Math.round(totIntPaid*100)/100));
     $(".totMsg #totPrinPlusIntMsg").text(numberWithCommas(Math.round((totPrinPaid + totIntPaid)*100)/100));
     if (g_report.origTotAmount > 0) {
-        $(".totMsg #totSaveMsg").text(numberWithCommas(Math.round((g_report.origTotAmount - totPrinPaid - totIntPaid)*100)/100));
+        var l_fSaving = Math.round((g_report.origTotAmount - totPrinPaid - totIntPaid)*100)/100;
+        $(".totMsg #totSaveMsg").text(numberWithCommas(l_fSaving));
+        if (l_fSaving > 0) {
+            $('#totSaveMsg').addClass('green');
+        }
+        else {
+            $('#totSaveMsg').removeClass('green');
+        }
     }
+    
     
 
     // Create the data table.
