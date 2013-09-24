@@ -18,6 +18,7 @@ month_names[month_names.length] = "Dec";
 //Moved google.load to top to fix this bug -> http://stackoverflow.com/questions/9519673/why-does-google-load-cause-my-page-to-go-blank
 google.load('visualization', '1.0', {'packages':['corechart']});
 var pieChart, colChart;
+var g_report = new Object();
 $(document).ready(function() {
     //$("#repaymenTable")
     var emiArray = [];
@@ -164,6 +165,7 @@ $(document).ready(function() {
     $('#inpInterest').val('10.5');
     $('#inpStartDate').val('012013');
     emiArray = calculateReport();
+    g_report.emiArray = emiArray;
     //$('#btnCalculate').click(); //Simulate click
     
     $('#demoVideoModal').on('shown.bs.modal', function() {
@@ -200,6 +202,8 @@ function calculateReport() {
 
     var $tb = $('#repaymentTable table tbody');
     var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth - 1, 1));
+    g_report.origTotAmount = calculateTotalAmount(emiMonthArray);
+    //alert(g_report.origTotAmount);
     //emiMonthArray;
     
     // Instantiate and draw our chart, passing in some options.
@@ -422,6 +426,10 @@ var displayTable = function(elem, arr) {
     $(".totMsg #totPrinMsg").text(numberWithCommas(Math.round(totPrinPaid*100)/100));
     $(".totMsg #totIntMsg").text(numberWithCommas(Math.round(totIntPaid*100)/100));
     $(".totMsg #totPrinPlusIntMsg").text(numberWithCommas(Math.round((totPrinPaid + totIntPaid)*100)/100));
+    if (g_report.origTotAmount > 0) {
+        $(".totMsg #totSaveMsg").text(numberWithCommas(Math.round((g_report.origTotAmount - totPrinPaid - totIntPaid)*100)/100));
+    }
+    
 
     // Create the data table.
     var data = new google.visualization.DataTable();
