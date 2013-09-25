@@ -5,15 +5,20 @@ var app = express();
 
 app.get('/', function(request, response) {
 //  response.send('Hello World 2!');
-    buf = fs.readFileSync('index.html');
-    response.send(buf.toString());
+    //fs.readFileSync('index.html');
+    fs.readFile('index.html', function(err, data) {
+        if (err) throw err;
+        response.send(data.toString());
+    });
+    //response.send(buf.toString());
 });
 
 app.get('/index2', function(request, response) {
-    buf = fs.readFile('index2.html',function(err, data) {
+    fs.readFile('index2.html',function(err, data) {
+        if (err) throw err;
         response.send(data.toString());
     });
-})
+});
 
 app.configure(function(){
     app.use('/js', express.static(__dirname + '/js'));

@@ -135,7 +135,7 @@ var recalculateLoanSchedule = function(arrSchedule, initialPrincipal, initialInt
             currEmi = principalRem + emiInt;
         }
         emiPrin = currEmi - emiInt;
-        if (emiPrin < 0) {
+        if (Math.round(emiPrin) < 0) {
             return "Negative amortization from month " + arrSchedule[i].month;
         }
         if (i < arrSchedule.length) {
@@ -177,4 +177,34 @@ var recalculateLoanSchedule = function(arrSchedule, initialPrincipal, initialInt
     }
 
     return "";
+};
+
+var calculateTotalInterest = function(arr) {
+    if (arr.length == 0) return 0;
+    var l_nTotMonths = arr.length;
+    var l_nTotInterestPaid = 0;
+    for (var i = 0; i < l_nTotMonths; i++) {
+        l_nTotInterestPaid += arr[i].emiInt;
+    }
+    return l_nTotInterestPaid;
+};
+
+var calculateTotalPrincipal = function(arr) {
+    if (arr.length == 0) return 0;
+    var l_nTotMonths = arr.length;
+    var l_nTotPrincipalPaid = 0;
+    for (var i = 0; i < l_nTotMonths; i++) {
+        l_nTotPrincipalPaid += arr[i].emiPrin;
+    }
+    return l_nTotPrincipalPaid;
+};
+
+var calculateTotalAmount = function(arr) {
+    if (arr.length == 0) return 0;
+    var l_nTotMonths = arr.length;
+    var l_nTotAmtPaid = 0;
+    for (var i = 0; i < l_nTotMonths; i++){
+        l_nTotAmtPaid += (arr[i].emiPrin + arr[i].emiInt);
+    }
+    return l_nTotAmtPaid;
 };

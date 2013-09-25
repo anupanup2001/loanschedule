@@ -18,10 +18,15 @@ month_names[month_names.length] = "Dec";
 //Moved google.load to top to fix this bug -> http://stackoverflow.com/questions/9519673/why-does-google-load-cause-my-page-to-go-blank
 google.load('visualization', '1.0', {'packages':['corechart']});
 var pieChart, colChart;
+var g_report = new Object();
 $(document).ready(function() {
     //$("#repaymenTable")
-    var emiArray = null;
+    var emiArray = [];
     $('#btnCalculate').click(function(event){
+        emiArray = calculateReport();
+        //GA track Goal Calculate
+        _gaq.push(['_trackEvent', 'Calculate', 'Click']);
+        /*
         var l_sPrin = $('#inpPrinRemain').val();
         var l_sEmi = $('#inpEmi').val();
         var l_sInterest = $('#inpInterest').val();
@@ -46,14 +51,19 @@ $(document).ready(function() {
         displayTable($tb, emiMonthArray);
         //Set focus to first input
         $('#inpPrinRemain').focus();
-        $('#inpPrinRemain').select();
+        $('#inpPrinRemain').select(); */
     });
-    
+  
     $('#dataChangeModal').on('hidden.bs.modal', function () {
         //Toggle highlighting of selected row
         var l_nRowId = parseInt($('#labelMonthNumber').text());
         $('#repaymentTable tbody tr:nth-child(' + l_nRowId + ')').removeClass('active');
         $('#dataChangeModal input').removeClass('green');
+    });
+    
+    $('#dataChangeModal').on('shown.bs.modal', function () {
+        $('#inpChangeEMI').focus();
+        $('#inpChangeEMI').select(); 
     });
 
     $('#btnChangeUndoChange').click(function() {
@@ -73,6 +83,7 @@ $(document).ready(function() {
 
     
     $('#btnChangeSave').click(function() {
+        _gaq.push(['_trackEvent', 'ModifiedTable', 'Changed']);
         var l_cEMIChange = 1;
         var l_cInterestChange = 2;
         var l_cPrePaymentChange = 4;
@@ -84,21 +95,25 @@ $(document).ready(function() {
         l_changeFlag = emiArray[l_nIndex].changed;
         //Check if any value changed
         if (emiArray[l_nIndex].emi.toFixed(2) != $('#inpChangeEMI').val()) {
+            _gaq.push(['_trackEvent', 'ModifiedEMI', 'Changed']);
             l_changeFlag = l_changeFlag | l_cEMIChange;
             emiArray[l_nIndex].emi = parseFloat($('#inpChangeEMI').val());
         }
         
         if (emiArray[l_nIndex].roi.toFixed(2) != $('#inpChangeInterest').val()) {
+            _gaq.push(['_trackEvent', 'ModifiedInterest', 'Changed']);
             l_changeFlag = l_changeFlag | l_cInterestChange;
             emiArray[l_nIndex].roi = parseFloat($('#inpChangeInterest').val());
         }
         
         if (parseFloat($('#inpChangeAddPrePayment').val()) != 0) {
+            _gaq.push(['_trackEvent', 'ModifiedPrePay', 'Changed']);
             l_changeFlag = l_changeFlag | l_cPrePaymentChange;
             emiArray[l_nIndex].prePayment = parseFloat($('#inpChangeAddPrePayment').val());
         }
 
         if (parseFloat($('#inpChangeAddLoan').val()) != 0) {
+            _gaq.push(['_trackEvent', 'ModifiedAddLoan', 'Changed']);
             l_changeFlag = l_changeFlag | l_cAddLoanChange;
             emiArray[l_nIndex].addLoan = parseFloat($('#inpChangeAddLoan').val());
         }
@@ -136,22 +151,69 @@ $(document).ready(function() {
             $(this).focus().select();
         }
     });
+    
+    $('#dataChangeModal input').keypress(function(e) {
+        if (e.which == 13) {
+            $('#btnChangeSave').focus().click();
+            //$(this).focus().select();
+        }
+    });
     //Add a demo calculation (Default values)
 
     $('#inpPrinRemain').val('1000000');
     $('#inpEmi').val('13494');
     $('#inpInterest').val('10.5');
     $('#inpStartDate').val('012013');
-    $('#btnCalculate').click(); //Simulate click
+    emiArray = calculateReport();
+    g_report.emiArray = emiArray;
+    //$('#btnCalculate').click(); //Simulate click
     
     $('#demoVideoModal').on('shown.bs.modal', function() {
+        _gaq.push(['_trackEvent', 'DemoVideo', 'Click']);
         var $video = $('.demoVideoContainer iframe');
         var l_nWidth = $(".demoVideoContainer").width();
         $video.width(l_nWidth).height(l_nWidth/1.33);
         
     });
-    
+    $('#surveyModal').on('shown.bs.modal', function () {
+        _gaq.push(['_trackEvent', 'Survey', 'Click']);
+    });
 });
+
+/*
+This function is responsible for calculating the entire report on page
+Table, pie diagram and chart diagram is populated.
+*/
+function calculateReport() {
+    var l_sPrin = $('#inpPrinRemain').val();
+    var l_sEmi = $('#inpEmi').val();
+    var l_sInterest = $('#inpInterest').val();
+    var l_sMsg = validateInputs(l_sPrin, l_sEmi, l_sInterest);
+    setErrorMsg(l_sMsg);
+    if (l_sMsg != "")
+        return;
+    var prin = parseFloat(l_sPrin);
+    var emi = parseFloat(l_sEmi);
+    var interest = parseFloat(l_sInterest);
+    var startDate = $('#inpStartDate').val();
+    var startMonth = startDate.slice(0,2);
+    var startYear = startDate.slice(2);
+
+    var $tb = $('#repaymentTable table tbody');
+    var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth - 1, 1));
+    g_report.origTotAmount = calculateTotalAmount(emiMonthArray);
+    //alert(g_report.origTotAmount);
+    //emiMonthArray;
+    
+    // Instantiate and draw our chart, passing in some options.
+    pieChart = new google.visualization.PieChart($('#chart_div')[0]);
+    colChart = new google.visualization.ColumnChart($('#bar_chart_div')[0]);
+    displayTable($tb, emiMonthArray);
+    //Set focus to first input
+    $('#inpPrinRemain').focus();
+    $('#inpPrinRemain').select();
+    return emiMonthArray;
+}
 
 function validateInputs(principal, emi, interest) {
     var l_sRet = "";
@@ -363,6 +425,18 @@ var displayTable = function(elem, arr) {
     $(".totMsg #totPrinMsg").text(numberWithCommas(Math.round(totPrinPaid*100)/100));
     $(".totMsg #totIntMsg").text(numberWithCommas(Math.round(totIntPaid*100)/100));
     $(".totMsg #totPrinPlusIntMsg").text(numberWithCommas(Math.round((totPrinPaid + totIntPaid)*100)/100));
+    if (g_report.origTotAmount > 0) {
+        var l_fSaving = Math.round((g_report.origTotAmount - totPrinPaid - totIntPaid)*100)/100;
+        $(".totMsg #totSaveMsg").text(numberWithCommas(l_fSaving));
+        if (l_fSaving > 0) {
+            $('#totSaveMsg').addClass('green');
+        }
+        else {
+            $('#totSaveMsg').removeClass('green');
+        }
+    }
+    
+    
 
     // Create the data table.
     var data = new google.visualization.DataTable();

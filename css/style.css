@@ -67,7 +67,7 @@
     margin-bottom: 10px;
 }
 
-.round-border span {
+.round-border span:nth-child(2) {
     color: #990134;
 }
 
@@ -111,8 +111,12 @@
     cursor: pointer;
 }
 
-.green {
+.green, .round-border span.green:nth-child(2) {
     color: #01990F;
+}
+
+.round-border span.green:nth-child(2) {
+    font-weight: bold;
 }
 
 .blue_bar {
@@ -142,4 +146,15 @@
 .popover {
     max-width: 200px;
     width: 200px;
+}
+.userBody thead th:first-child {
+    width: 10%;
+}
+.userBody thead th:nth-child(2) {
+    width: 22%;
+}
+
+.infoLabel {
+    width: 40%;
+    display: inline-block;
 }
