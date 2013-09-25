@@ -7,6 +7,11 @@ body > .container {
   color: #5a5a5a;
 }
 
+/*Overriding negative row margin bug in bootstrap http://stackoverflow.com/questions/17988242/twitter-bootstrap-3-rc1-horizontal-scroll-issue*/
+@media (min-width: 768px) {
+  .row { margin-right: 0; margin-left: 0; }
+}
+
 
 
 /* CUSTOMIZE THE NAVBAR
