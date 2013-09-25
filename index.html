@@ -30,17 +30,48 @@
 </head>
 <body>
   <div class="container">
-    <div class="row header">
-      <div class="row">
-        <div class="col-lg-12 logo">
-          <!--h1>AidosLabs</h1-->
-          <img src="images/Logo small.png" alt="AidosLabs">
-        </div> <!-- ./logo-->
-      </div> <!-- ./row-->
-      <div class="blue_bar col-lg-12">
-      </div> <!-- ./blue_bar-->
-      <!--/div--><!-- ./row -->
-    </div><!-- ./header -->
+    <nav class="navbar navbar-default" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+          <img src="images/logo small.png">
+        </a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav pull-left">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="/loanplanner">Loan Planner</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">About</a>
+          </li>
+          <li>
+            <a href="#">Contact</a>
+          </li>
+        </ul>
+        <form class="navbar-form navbar-right" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
     <div class="row">
       <div class="col-lg-12 title">
         <h3>Loan Schedule/Amortization scheduler</h3>
