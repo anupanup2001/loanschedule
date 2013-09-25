@@ -2,7 +2,7 @@
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 
-body {
+.container {
   padding-bottom: 40px;
   color: #5a5a5a;
 }
@@ -14,7 +14,7 @@ body {
 
 /* Special class on .container surrounding .navbar, used for positioning it into place. */
 .navbar-wrapper {
-  position: relative;
+  /*position: relative;*/
   z-index: 15;
 }
 
@@ -27,7 +27,7 @@ body {
   margin-bottom: 60px;
 
   /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
-  margin-top: -90px;
+  margin-top: -10px;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
