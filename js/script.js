@@ -451,7 +451,10 @@ var displayTable = function(elem, arr) {
     var options = {'title':'Repayment Component',
                    'height':250,
                    'is3D': true,
-                   'colors':['#336699', '#990134']
+                   'colors':['#336699', '#990134'],
+                   'titleTextStyle':{
+                        'fontSize':12
+                   }
                   
     };
 
@@ -504,6 +507,9 @@ var drawColumnChart = function(colChartDiv, arrEmi) {
         animation: {
             duration: 500,
             easing: 'linear'
+        },
+        'titleTextStyle':{
+            'fontSize':12
         }
     };
 
