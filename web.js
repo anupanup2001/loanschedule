@@ -3,7 +3,8 @@ var express = require('express');
 var fs = require('fs');
 var needle = require('needle');
 var app = express();
-
+var nodemailer = require('nodemailer');
+console.log(process.env.FBMAILP);
 app.use(express.bodyParser());
 app.get('/', function(request, response) {
 //  response.send('Hello World 2!');
@@ -41,7 +42,7 @@ app.post('/sendEmail', function(request, response) {
     var ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
     //console.log("Ip = " + ip);
     var postData = {
-        privatekey: "6LeMFugSAAAAAOxpmAxnh7E_TLalai2w5U5REeYn",
+        privatekey: process.env.CAPTCHA_KEY || "wrong",
         remoteip: ip,
         challenge: request.body.challenge,
         response: request.body.response
@@ -50,7 +51,41 @@ app.post('/sendEmail', function(request, response) {
         if(err) {
             throw err;
         }
-        
+        if(body.replace(/\n/g, " ").split(" ")[0] == "true") {
+            //Captcha successful and hence send mail
+            var smtpTransport = nodemailer.createTransport("SMTP", {
+                host: "smtp.aidoslabs.com",
+                port: 465,
+                secureConnection: true,
+                auth: {
+                    user: "sales@aidoslabs.com",
+                    pass: process.env.FBMAILP || "wrong"
+                },
+                debug: false
+            });
+            
+            var mailOptions = {
+                from: "Aidoslabs Sales <sales@aidoslabs.com>",
+                to: "feedback@aidoslabs.com",
+                subject: "[Feedback]",
+                //text: "Hello World",
+                html: "Name: " + request.body.name + "<br>" +
+                    "Email Id: " + request.body.email + "<br>" +
+                    "Feedback: " + request.body.message.replace(/\n/g, "<br>")
+            };
+            
+            smtpTransport.sendMail(mailOptions, function(error, response){
+                if (error) {
+                    //Error sending mail. Inform client.
+                    response.end("false\n" + error);
+                }
+                /*else {
+                    //console.log("Message Sent: " + response.message );
+                }*/
+            });
+                    
+        }
+        //Send response back to client
         response.end(body);
         
     });
