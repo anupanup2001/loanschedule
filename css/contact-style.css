@@ -1,0 +1,7 @@
+.main-body label {
+  width: 18%;
+}
+
+.main-body input, .main-body textarea {
+  width: 50%;
+}

@@ -1,13 +1,15 @@
+/*jslint node: true */
 var express = require('express');
 var fs = require('fs');
-
+var needle = require('needle');
 var app = express();
 
+app.use(express.bodyParser());
 app.get('/', function(request, response) {
 //  response.send('Hello World 2!');
     //fs.readFileSync('index.html');
     fs.readFile('index.html', function(err, data) {
-        if (err) throw err;
+        if (err) {throw err;}
         response.send(data.toString());
     });
     //response.send(buf.toString());
@@ -15,16 +17,44 @@ app.get('/', function(request, response) {
 
 app.get('/index2', function(request, response) {
     fs.readFile('index2.html',function(err, data) {
-        if (err) throw err;
+        if (err) {throw err;}
         response.send(data.toString());
     });
 });
 
 app.get('/loanplanner', function(request, response) {
     fs.readFile('index.html', function(err, data){
-        if (err) throw err;
+        if (err) {throw err;}
         response.send(data.toString());
     });
+});
+
+app.get('/contact', function(request, response) {
+    fs.readFile('contact.html', function(err, data) {
+        if (err) {throw err;}
+        response.send(data.toString());
+    });
+});
+
+app.post('/sendEmail', function(request, response) {
+    //console.log(request.body);
+    var ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
+    //console.log("Ip = " + ip);
+    var postData = {
+        privatekey: "6LeMFugSAAAAAOxpmAxnh7E_TLalai2w5U5REeYn",
+        remoteip: ip,
+        challenge: request.body.challenge,
+        response: request.body.response
+    };
+    needle.post('http://www.google.com/recaptcha/api/verify', postData, function(err, resp, body){
+        if(err) {
+            throw err;
+        }
+        
+        response.end(body);
+        
+    });
+    
 });
 
 app.configure(function(){
@@ -36,5 +66,5 @@ app.configure(function(){
 });
 var port = process.env.PORT || 8888;
 app.listen(port, function() {
-  console.log("Listening on " + port);
+    console.log("Listening on " + port);
 });
