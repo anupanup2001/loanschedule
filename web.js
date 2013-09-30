@@ -4,12 +4,12 @@ var fs = require('fs');
 var needle = require('needle');
 var app = express();
 var nodemailer = require('nodemailer');
-console.log(process.env.FBMAILP);
+//console.log(process.env.FBMAILP);
 app.use(express.bodyParser());
 app.get('/', function(request, response) {
 //  response.send('Hello World 2!');
     //fs.readFileSync('index.html');
-    fs.readFile('index.html', function(err, data) {
+    fs.readFile('index2.html', function(err, data) {
         if (err) {throw err;}
         response.send(data.toString());
     });
