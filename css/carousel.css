@@ -12,7 +12,10 @@ body > .container {
   .row { margin-right: 0; margin-left: 0; }
 }
 
-
+/* Copyright div should be at bottom  */
+footer .copyright {
+  padding-top: 50px;
+}
 
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */

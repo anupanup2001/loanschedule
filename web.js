@@ -4,7 +4,7 @@ var fs = require('fs');
 var needle = require('needle');
 var app = express();
 var nodemailer = require('nodemailer');
-
+//console.log(process.env.FBMAILP);
 app.use(express.bodyParser());
 app.get('/', function(request, response) {
 //  response.send('Hello World 2!');
