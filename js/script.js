@@ -190,8 +190,9 @@ function calculateReport() {
     var l_sInterest = $('#inpInterest').val();
     var l_sMsg = validateInputs(l_sPrin, l_sEmi, l_sInterest);
     setErrorMsg(l_sMsg);
-    if (l_sMsg != "")
+    if (l_sMsg !== "") {
         return;
+    }
     var prin = parseFloat(l_sPrin);
     var emi = parseFloat(l_sEmi);
     var interest = parseFloat(l_sInterest);
@@ -202,6 +203,7 @@ function calculateReport() {
     var $tb = $('#repaymentTable table tbody');
     var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth - 1, 1));
     g_report.origTotAmount = calculateTotalAmount(emiMonthArray);
+    g_report.origTotMonths = emiMonthArray.length;
     //alert(g_report.origTotAmount);
     //emiMonthArray;
     
@@ -366,7 +368,7 @@ var displayTable = function(elem, arr) {
     
     //Just before popover is shown...
     $('#repaymentTable tbody tr').on('show.bs.popover', function () {
-    $('#rowPopover span').removeClass('green');
+        $('#rowPopover span').removeClass('green');
         var l_nArrIndex = this.rowIndex;
         var l_cEMIChange = 1;
         var l_cInterestChange = 2;
@@ -415,7 +417,7 @@ var displayTable = function(elem, arr) {
     
     var totPrinPaid = 0;
     var totIntPaid = 0;
-    for(var i = 0; i < arr.length; i++) {
+    for(i = 0; i < arr.length; i++) {
         totPrinPaid += arr[i].emiPrin;
         totIntPaid += arr[i].emiInt;
     }
@@ -435,6 +437,21 @@ var displayTable = function(elem, arr) {
             $('#totSaveMsg').removeClass('green');
         }
     }
+    var l_nSaveMonths = g_report.origTotMonths - arr.length;
+    var l_strSaveMonths = '';
+    if (l_nSaveMonths >= 12){
+        l_strSaveMonths = Math.floor(l_nSaveMonths/12) + " years, " + l_nSaveMonths % 12 + " month(s)";
+    }
+    else {
+        l_strSaveMonths = l_nSaveMonths + " month(s)";
+    }
+    $(".totMsg #totMonthsSaveMsg").text(l_strSaveMonths);
+    if (l_nSaveMonths > 0) {
+        $('#totMonthsSaveMsg').addClass('green');
+    }
+    else {
+        $('#totMonthsSaveMsg').removeClass('green');
+    }
     
     
 
@@ -453,8 +470,8 @@ var displayTable = function(elem, arr) {
                    'is3D': true,
                    'colors':['#336699', '#990134'],
                    'titleTextStyle':{
-                        'fontSize':12
-                   }
+        'fontSize':12
+    }
                   
     };
 
