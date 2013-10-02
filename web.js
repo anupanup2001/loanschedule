@@ -9,7 +9,7 @@ app.use(express.bodyParser());
 app.get('/', function(request, response) {
 //  response.send('Hello World 2!');
     //fs.readFileSync('index.html');
-    fs.readFile('index2.html', function(err, data) {
+    fs.readFile('index.html', function(err, data) {
         if (err) {throw err;}
         response.send(data.toString());
     });
@@ -17,14 +17,14 @@ app.get('/', function(request, response) {
 });
 
 app.get('/index2', function(request, response) {
-    fs.readFile('index2.html',function(err, data) {
+    fs.readFile('index.html',function(err, data) {
         if (err) {throw err;}
         response.send(data.toString());
     });
 });
 
 app.get('/loanplanner', function(request, response) {
-    fs.readFile('index.html', function(err, data){
+    fs.readFile('loanplanner.html', function(err, data){
         if (err) {throw err;}
         response.send(data.toString());
     });
@@ -32,6 +32,13 @@ app.get('/loanplanner', function(request, response) {
 
 app.get('/contact', function(request, response) {
     fs.readFile('contact.html', function(err, data) {
+        if (err) {throw err;}
+        response.send(data.toString());
+    });
+});
+
+app.get('/about', function(request, response) {
+    fs.readFile('about.html', function(err, data) {
         if (err) {throw err;}
         response.send(data.toString());
     });

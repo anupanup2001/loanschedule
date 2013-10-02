@@ -1,183 +1,204 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="canonical" href="http://www.aidoslabs.com/loanplanner">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" media="screen">
-  <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <link rel="stylesheet" type="text/css" href="css/carousel.css">
-  <title>Loan Amortization Table - Get your loan repayment schedule and its variation with changes in interest, emi, loan amount</title>
-  <meta name="description" content="AidosLabs - Innovative financial solutions. Loan Amortization Schedule Calculator helps you be in control of your loans. Helps you graphically see how you can shrink it and be loan free soon!">
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="canonical" href="http://www.aidoslabs.com">
+    <meta name="description" content="AidosLabs - Personal financing solutions. Loan Amortization Schedule Calculator helps you be in control of your loans. Helps you graphically see how you can shrink it and be loan free soon!">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <title>Aidoslabs - Personal Financing Solutions</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/carousel.css" rel="stylesheet">
+    <!-- Personalization CSS for aidoslabs.com -->
+    <link href="css/home-style.css" rel="stylesheet">  
+    <!-- CSS for the addthis div -->
+    <!-- <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.min.css"> -->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
       <script src="js/respond.min.js"></script>
     <![endif]-->
-  <!--Google Analytics Tracking code -->
-  <script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-43668994-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
+    <!--Google Analytics Tracking code -->
+    <script type="text/javascript">
   
-
-</script>
-
-</head>
-<body style>
-  <a name="top"></a>
-  <div class="container">
-    <nav class="navbar" role="navigation">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">
-          <img src="images/logo small.png">
-        </a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav pull-left">
-          <!--li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="/loanplanner">Loan Planner</a></li>
-          </ul>
-          </li-->
-          <li><a href="/loanplanner" class="active">Loan Planner</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="/contact">Contact Us</a></li>
-        </ul>
-          <!--form class="navbar-form navbar-right" role="search">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
-          </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-          </form-->
-      </div>
-      <!-- /.navbar-collapse -->
-    </nav>
-    <div class="row">
-      <div class="col-lg-12 title">
-        <h3>Loan Planner</h3>
-      </div><!-- ./title-->
-      <div class="col-lg-12 inputForm">
-        <form class="form-inline">
-          <label for="inpPrinRemain">Principal Remaining</label>
-          <input type="text" class="input-small" placeholder="Principal Remaining" name="inpPrinRemain" id="inpPrinRemain" title="Loan amount remaining as on a particular date">
-          <label for="inpEmi">EMI</label>
-          <input type="text" class="input-small" placeholder="EMI" name="inpEmi" id="inpEmi" title="EMI as on the date">
-          <label for="inpInterest">Interest</label>
-          <input type="text" class="input-small" placeholder="Interest" name="inpInterest" id="inpInterest" title="Interest % per annum">
-          <label for="inpStartDate">Start Month</label>
-          <input type="text" class="input-small date-picker" placeholder="mmyyyy" name="inpStartDate" id="inpStartDate" title="Month from which you need schedule">
-          <button type="button" class="btn btn-primary" name="btnCalculate" id="btnCalculate">Calculate</button>
-          <button type="button" class="btn btn-default" name="btnDemo" id="btnDemo" data-toggle="modal" href="#demoVideoModal"><span class="glyphicon glyphicon-facetime-video"></span> Demo</button>
-        </form>
-      </div><!-- ./inputForm-->
-    </div>
-    <div class="row">
-      <div class="col-lg-12 alert alert-danger errorMsg">
-        <p><span></span></p>
-      </div><!-- alert-->
-    </div>
-
-    <div class="userBody">
-      <div class="row" id="results-row">
-        <div class="col-lg-5"> <!--id="repaymentTable"-->
-          <div>
-            <table class="table table-condensed table-hover table-header">
-                <caption>Amortization Schedule</caption>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Date</th>
-                    <th>Principal Bal</th>
-                    <th>Principal Paid</th>
-                    <th>Interest paid</th>
-                  </tr>
-                </thead>
-            </table>
-          </div>
-          <div id="repaymentTable">
-            <table class="table table-condensed table-hover">
-                <tbody>
-                </tbody>
-            </table>
-          </div> <!-- ./repaymentTable-->
-        </div> <!-- ./lg-4-->
-
-        <div class="col-lg-3">
-          <div id="chart_div">
-          </div>
-          <div class="round-border totMsg">
-            <!--p-->
-              <h4><span class="infoLabel">Principal: </span><span id="totPrinMsg">3000000.56</span></h4>
-              <h4><span class="infoLabel">Interest: </span><span id="totIntMsg">4500000.56</span></h4>
-              <h4><span class="infoLabel">Total: </span><span id="totPrinPlusIntMsg">7000000.43</span></h4>
-              <h4><span class="infoLabel">You save: </span><span id="totSaveMsg">0.00</span></h4>
-              <h4><span></span><span id="totMonthsSaveMsg">0</span></h4>
-            <!--/p-->
-          </div>
-        </div>
-
-        <div class="col-lg-4" id="bar_chart_div">
-          <p>This is bar chart div speaking. </p>
-        </div>
-
-
-      </div><!-- ./ results-row-->
-      <div class="row" id="lastEmiInfo">
-        <div class="col-lg-7">
-          <h4><span class="glyphicon glyphicon-arrow-right"> </span><span class="message"></span> We are listening to you!! <a class="btn btn-primary btn-xs" data-toggle="modal" href="#surveyModal">Survey</a></h4>
-        </div>
-        
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="surveyModal" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <!--h4 class="modal-title">Modal title</h4-->
-              </div>
-              <div class="modal-body">
-                <iframe src="https://docs.google.com/forms/d/1Xy5yyV06sPz3OUgcPODqvTcZQCL3_7BiOSqPZUPpS3c/viewform?embedded=true" width="100%" height="500px" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-              </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-      </div>
-
-      <div class="row footer">
-        <div class="col-12">
-        </div>
-      </div>
-    </div><!-- ./userBody-->
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-43668994-1']);
+      _gaq.push(['_trackPageview']);
     
-    <!-- Place this tag where you want the widget to render. -->
-    <div class="row">
-      <div class="col-lg-12 comment">
-        <div class="g-post" data-href="https://plus.google.com/112209384680469972410/posts/DgeEUKV9q8a"></div>
-      </div><!-- . /comment-->
-    </div>
-    <!--div class="g-post" data-href="https://plus.google.com/112209384680469972410/posts/DgeEUKV9q8a"></div-->
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    
+      
+    
+    </script>
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>
+	
+    <!--<div class="navbar-wrapper">
+      <div class="container">
+
+        <div class="navbar navbar-default navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a href="#"><img src="images/Logo small caption stroke.png"></a>
+            </div>
+            <div class="navbar-collapse collapse pull-right">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+				<li><a href="#about">Products</a></li>
+                <li><a href="#contact">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>-->
+    <div class="container">
+    <nav class="navbar" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/"><img src="images/logo small.png"></a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav pull-left">
+      <!--li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/loanplanner">Loan Planner</a></li>
+        </ul>
+      </li-->
+      <li><a href="/loanplanner">Loan Planner</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact Us</a></li>
+    </ul>
+    
+    <!--form class="navbar-form navbar-right" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form-->
+  </div><!-- /.navbar-collapse -->
+</nav>
+    
+
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="images/snapshot.png" alt="Snapshot">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Loan Planner</h1>
+              <p>Total visibility and control over your loan repayment</p>
+              <p><a class="btn btn-large btn-primary" href="/loanplanner">Loan Planner</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="images/coin stack.png" alt="Second slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Save More</h1>
+              <p>Optimize your savings through intelligent pre-payment decisions</p>
+              <p><a class="btn btn-large btn-primary" href="/loanplanner">Loan Planner</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="images/chess.png" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Manage EMI</h1>
+              <p>Accelerate your loan repayment by effectively managing your EMI</p>
+              <p><a class="btn btn-large btn-primary" href="/loanplanner">Loan Planner</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="images/mountain.png" alt="Third slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Improve Visibility</h1>
+              <p>Gain better visibility of your expenses throughout the tenure of your loan</p>
+              <p><a class="btn btn-large btn-primary" href="/loanplanner">Loan Planner</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div><!-- /.carousel -->
+
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4">
+          <img src="images/coin stack-small.png" alt="Save More">
+          <h2>Save More</h2>
+          <p class="left-align">Pre-payment is a tool very few use. Well-timed pre-payments can end up saving you lakhs of rupees. Most employees are paid yearly bonuses. Use at least a part of this bonus to pre-pay your loan and save lakhs of rupees that you ‘donate’ to the bank as interest.<br>As an example, if you pay Rs. 50,000 after one year of taking a 25 lakh loan at 10.5% interest, you end up saving about 3 lakh rupees! Use the pre-payment feature in our tool to see for yourself.</p>
+          <p><a class="btn btn-default" href="/loanplanner">Loan Planner &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img src="images/chess-small.png" alt="Manage EMI">
+          <h2>Manage EMI</h2>
+          <p class="left-align">Few people realize the amount of money they pay as interest to the bank on their loans. By increasing the EMI that you pay on your loan by a small amount, you can reduce the tenure of your loan as well as save money.<br>For a 25 Lakh loan at an interest rate of 10.5%, you pay an approximate EMI of Rs. 25000 per month for 20 years. You end up paying around 59.6 lakh rupees. Now, assume the interest rate remains constant at 10.5%. By just increasing your EMI by 500, i.e. a total EMI of 25,500, the total amount paid reduces to about 57.1 lakh rupees. That is a saving of about 2.5 lakh. Not only that, your loan gets repaid faster by about 15 months!! Try for yourself by using our tool. Click the button below.
+            </p>
+          <p><a class="btn btn-default" href="/loanplanner">Loan Planner &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img src="images/mountain-small.png" alt="Improve Visibility">
+          <h2>Improve Visibility</h2>
+          <p class="left-align">Our tool offers a rich graphical interface that lets you see where your money is going. You can see the amount your EMI’s would contribute towards interest and principle every year.</p>
+          <p><a class="btn btn-default" href="/loanplanner">Loan Planner &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+    </div><!-- /.container Marketing-->
+      <!-- FOOTER -->
+      
     <footer>      
       <div id="row">
         <!-- AddThis Button BEGIN -->
@@ -211,69 +232,21 @@
       <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
       <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5228bbcb58f36e8a"></script>
       <!-- AddThis Button END -->
+      
+      
+     
     </footer>
-  </div><!-- /.container -->
 
-  <!-- Modal which will prompt user to change values in a month -->
-  <div class="modal fade" id="dataChangeModal" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">EMI # <span id="labelMonthNumber"></span>: <span id="labelMonth"></span></h4>
-        </div>
-        <div class="modal-body">
-          <form class="form-inline">
-            <label for="inpChangeEMI">New EMI</label>
-            <input type="text" class="input-small" placeholder="EMI" name="inpChangeEMI" id="inpChangeEMI" title="Change EMI from this month"><br>
-            <label for="inpChangeInterest">New Interest</label>
-            <input type="text" class="input-small" placeholder="Interest" name="inpChangeInterest" id="inpChangeInterest" title="Change Interest from this month % pa"><br>
-            <label for="inpChangeAddPrePayment">PrePay Loan</label>
-            <input type="text" class="input-small" placeholder="PrePay" name="inpChangeAddPrePayment" id="inpChangeAddPrePayment" title="Add a Prepayment for this month"><br>
-            <label for="inpChangeAddLoan">Add Loan</label>
-            <input type="text" class="input-small" placeholder="Add Loan" name="inpChangeAddLoan" id="inpChangeAddLoan" title="Increase Loan from this month"><!--br><br-->
-            <!--button type="button" class="btn btn-default btn-xs" name="btnChangeReset" id="btnChangeReset">Default value</button-->
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-default" id="btnChangeUndoChange">Undo Change</button>
-          <button type="button" class="btn btn-primary" id="btnChangeSave">Save changes</button>
+    
+    </div><!-- /.container -->
 
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!--/.modal -->
-  <div id="rowPopover">
-    <span class="popLabel">EMI</span><span class="popValue" id="popEMI"></span><br>
-    <span class="popLabel">Interest</span><span class="popValue" id="popInterest"></span><br>
-    <span class="popLabel">Pre Pay</span><span class="popValue" id="popPrePay"></span><br>
-    <span class="popLabel">Add Loan</span><span class="popValue" id="popAddLoan"></span><br>
-  </div>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="demoVideoModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <!--h4 class="modal-title">Modal title</h4-->
-        </div>
-        <div class="modal-body demoVideoContainer">
-          <iframe width="480" height="360" src="http://www.youtube.com/embed/byUnkMZ1My4?rel=0&cc_load_policy=1" frameborder="0" allowfullscreen></iframe>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="js/loanshrinker.js"></script>
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script type="text/javascript" src="js/script.js"></script>
-  <script type="text/javascript" src="js/respond.min.js"></script>
-  <!-- Google Plus page scripts. -->
-  <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-</body>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/holder.js"></script>
+    <script srv="js/script_index.js"></script>
+  </body>
 </html>
