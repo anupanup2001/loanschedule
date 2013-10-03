@@ -413,7 +413,9 @@ var displayTable = function(elem, arr) {
     var strLastEmiInfo = 'No. of months: ' + arr.length +
         ' Last EMI is <span class="emphasize">' + month_names[arr[arr.length - 1].month.getMonth()] + " " +
         arr[arr.length-1].month.getFullYear() + ".</span> ";
-    $("#lastEmiInfo div h4 .message").html(strLastEmiInfo);
+    //$("#lastEmiInfo div h4 .message").html(strLastEmiInfo);
+    //$('#totEmiMonthsMsg').text(arr.length);
+    $('#totLastEmiMsg').text(month_names[arr[arr.length - 1].month.getMonth()] + ' ' + arr[arr.length-1].month.getFullYear());
     
     var totPrinPaid = 0;
     var totIntPaid = 0;
@@ -424,12 +426,12 @@ var displayTable = function(elem, arr) {
 
     //Fill in total message below PI diagram chart
 
-    $(".totMsg #totPrinMsg").text(numberWithCommas(Math.round(totPrinPaid*100)/100));
-    $(".totMsg #totIntMsg").text(numberWithCommas(Math.round(totIntPaid*100)/100));
-    $(".totMsg #totPrinPlusIntMsg").text(numberWithCommas(Math.round((totPrinPaid + totIntPaid)*100)/100));
+    $("#totPrinMsg").text(numberWithCommas(Math.round(totPrinPaid*100)/100));
+    $("#totIntMsg").text(numberWithCommas(Math.round(totIntPaid*100)/100));
+    $("#totPrinPlusIntMsg").text(numberWithCommas(Math.round((totPrinPaid + totIntPaid)*100)/100));
     if (g_report.origTotAmount > 0) {
         var l_fSaving = Math.round((g_report.origTotAmount - totPrinPaid - totIntPaid)*100)/100;
-        $(".totMsg #totSaveMsg").text(numberWithCommas(l_fSaving));
+        $("#totSaveMsg").text(numberWithCommas(l_fSaving));
         if (l_fSaving > 0) {
             $('#totSaveMsg').addClass('green');
         }
@@ -438,14 +440,22 @@ var displayTable = function(elem, arr) {
         }
     }
     var l_nSaveMonths = g_report.origTotMonths - arr.length;
+    if (l_nSaveMonths <= 0) {
+        $('#totEmiMonthsMsg').text(arr.length + " (+" + (0 - l_nSaveMonths) + ")");
+        $('#totEmiMonthsMsg').removeClass('green');
+    }
+    else {
+        $('#totEmiMonthsMsg').addClass('green');
+        $('#totEmiMonthsMsg').text(arr.length + " (" + (0 - l_nSaveMonths) + ")");
+    }
     var l_strSaveMonths = '';
     if (l_nSaveMonths >= 12){
-        l_strSaveMonths = Math.floor(l_nSaveMonths/12) + " years, " + l_nSaveMonths % 12 + " month(s)";
+        l_strSaveMonths = Math.floor(l_nSaveMonths/12) + " yr, " + l_nSaveMonths % 12 + " mnth";
     }
     else {
         l_strSaveMonths = l_nSaveMonths + " month(s)";
     }
-    $(".totMsg #totMonthsSaveMsg").text(l_strSaveMonths);
+    $("#totMonthsSaveMsg").text(l_strSaveMonths);
     if (l_nSaveMonths > 0) {
         $('#totMonthsSaveMsg').addClass('green');
     }
@@ -466,7 +476,7 @@ var displayTable = function(elem, arr) {
 
     // Set chart options
     var options = {'title':'Repayment Component',
-                   'height':250,
+                   //'height':230,
                    'is3D': true,
                    'colors':['#990134', '#336699'],
                    'titleTextStyle':{
@@ -519,10 +529,11 @@ var drawColumnChart = function(colChartDiv, arrEmi) {
     var data = google.visualization.arrayToDataTable(dataArr);
     var options = {
         title: 'Yearwise Principal & Interest',
+        //height: 230,
         hAxis: {title: 'Year', titleTextStyle: {color: '#336699'}},
         colors:['#990134', '#336699'],
         animation: {
-            duration: 500,
+            duration: 1000,
             easing: 'linear'
         },
         'titleTextStyle':{
