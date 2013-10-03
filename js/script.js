@@ -1,7 +1,7 @@
 //var totPrinPaid = 0;
 //var totIntPaid = 0;
 
-var month_names = new Array ( );
+var month_names = [];
 month_names[month_names.length] = "Jan";
 month_names[month_names.length] = "Feb";
 month_names[month_names.length] = "Mar";
@@ -18,7 +18,7 @@ month_names[month_names.length] = "Dec";
 //Moved google.load to top to fix this bug -> http://stackoverflow.com/questions/9519673/why-does-google-load-cause-my-page-to-go-blank
 google.load('visualization', '1.0', {'packages':['corechart']});
 var pieChart, colChart;
-var g_report = new Object();
+var g_report = {};
 $(document).ready(function() {
     //$("#repaymenTable")
     var emiArray = [];
@@ -122,11 +122,11 @@ $(document).ready(function() {
         var l_nInitialInterest = parseFloat($('#inpInterest').val());
         var l_nInitialPrincipal = parseFloat($('#inpPrinRemain').val());
         var l_sMsg = recalculateLoanSchedule(emiArray, l_nInitialPrincipal, l_nInitialInterest, l_nInitialEMI);
-        if (l_sMsg != "") {
+        if (l_sMsg !== "") {
             alert(l_sMsg);
         }
         var $tb = $('#repaymentTable table tbody');
-        $('#dataChangeModal').modal('toggle')
+        $('#dataChangeModal').modal('toggle');
         displayTable($tb, emiArray);
     });
 
@@ -254,15 +254,15 @@ function validateInputs(principal, emi, interest) {
     //Check negative values
     if(principal.match(/^-/)) {
         l_sRet = "Principal Remaining should be positive";
-        return l_sRet
+        return l_sRet;
     }
     if(emi.match(/^-/)) {
         l_sRet = "EMI should be positive";
-        return l_sRet
+        return l_sRet;
     }
     if(interest.match(/^-/)) {
         l_sRet = "Interest should be positive";
-        return l_sRet
+        return l_sRet;
     }
     
     //Now for all numeric tests
@@ -293,7 +293,7 @@ function validateInputs(principal, emi, interest) {
 //User body in case of error
 function setErrorMsg(msg) {
     $('.errorMsg span').html(msg);
-    if (msg == '') {
+    if (msg === '') {
         $('.errorMsg').hide();
         $('.userBody').show();
     }
@@ -347,8 +347,8 @@ var displayTable = function(elem, arr) {
         
         $(this).toggleClass('active');
         $('#labelMonthNumber').html(l_nArrIndex + 1);
-        $('#labelMonth').html(month_names[arr[l_nArrIndex].month.getMonth()] + " "
-                              + arr[l_nArrIndex].month.getFullYear());
+        $('#labelMonth').html(month_names[arr[l_nArrIndex].month.getMonth()] + " " +
+                               arr[l_nArrIndex].month.getFullYear());
         $('#inpChangeEMI').val(arr[l_nArrIndex].emi.toFixed(2));
         $('#inpChangeInterest').val(arr[l_nArrIndex].roi.toFixed(2));
         $('#inpChangeAddPrePayment').val(arr[l_nArrIndex].prePayment.toFixed(2));
@@ -468,7 +468,7 @@ var displayTable = function(elem, arr) {
     var options = {'title':'Repayment Component',
                    'height':250,
                    'is3D': true,
-                   'colors':['#336699', '#990134'],
+                   'colors':['#990134', '#336699'],
                    'titleTextStyle':{
         'fontSize':12
     }
@@ -520,7 +520,7 @@ var drawColumnChart = function(colChartDiv, arrEmi) {
     var options = {
         title: 'Yearwise Principal & Interest',
         hAxis: {title: 'Year', titleTextStyle: {color: '#336699'}},
-        colors:['#336699', '#990134'],
+        colors:['#990134', '#336699'],
         animation: {
             duration: 500,
             easing: 'linear'
@@ -532,4 +532,4 @@ var drawColumnChart = function(colChartDiv, arrEmi) {
 
     //var chart = new google.visualization.ColumnChart(colChartDiv);
     colChart.draw(data, options);
-}
+};
