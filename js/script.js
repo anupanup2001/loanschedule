@@ -76,7 +76,7 @@ $(document).ready(function() {
         var l_nInitialPrincipal = parseFloat($('#inpPrinRemain').val());
         var l_sMsg = recalculateLoanSchedule(emiArray, l_nInitialPrincipal, l_nInitialInterest, l_nInitialEMI);
         var $tb = $('#repaymentTable table tbody');
-        $('#dataChangeModal').modal('toggle')
+        $('#dataChangeModal').modal('toggle');
         displayTable($tb, emiArray);
 
     });
@@ -177,6 +177,21 @@ $(document).ready(function() {
     });
     $('#surveyModal').on('shown.bs.modal', function () {
         _gaq.push(['_trackEvent', 'Survey', 'Click']);
+    });
+    
+    $('#btnUndoAllModifications').click(function() {
+        _gaq.push(['_trackEvent', 'UndoAllMod', 'Click']);
+        for (var i = 0; i < emiArray.length; i++) {
+            emiArray[i].changed = 0;
+            emiArray[i].prePayment = 0;
+            emiArray[i].addLoan = 0;
+        }
+        var l_nInitialEMI = parseFloat($('#inpEmi').val());
+        var l_nInitialInterest = parseFloat($('#inpInterest').val());
+        var l_nInitialPrincipal = parseFloat($('#inpPrinRemain').val());
+        var l_sMsg = recalculateLoanSchedule(emiArray, l_nInitialPrincipal, l_nInitialInterest, l_nInitialEMI);
+        var $tb = $('#repaymentTable table tbody');
+        displayTable($tb, emiArray);
     });
 });
 
@@ -443,9 +458,11 @@ var displayTable = function(elem, arr) {
     if (l_nSaveMonths <= 0) {
         $('#totEmiMonthsMsg').text(arr.length + " (+" + (0 - l_nSaveMonths) + ")");
         $('#totEmiMonthsMsg').removeClass('green');
+        $('#totLastEmiMsg').removeClass('green');
     }
     else {
         $('#totEmiMonthsMsg').addClass('green');
+        $('#totLastEmiMsg').addClass('green');
         $('#totEmiMonthsMsg').text(arr.length + " (" + (0 - l_nSaveMonths) + ")");
     }
     var l_strSaveMonths = '';

@@ -164,5 +164,9 @@
 }
 
 .navbar {
-  border-bottom: 0;
+    border-bottom: 0;
+}
+
+#btnUndoAllModifications {
+    cursor:pointer;
 }
