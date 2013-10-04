@@ -84,9 +84,12 @@
     display: none;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1200px) {
     .inputForm label {
         width: 35%;
+    }
+    .inputForm > form {
+        max-width: 350px;
     }
 }
 
