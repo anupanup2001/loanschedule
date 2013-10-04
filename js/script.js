@@ -464,7 +464,12 @@ var displayTable = function(elem, arr) {
         }
     }
     var l_nSaveMonths = g_report.origTotMonths - arr.length;
-    if (l_nSaveMonths <= 0) {
+    
+    if (l_nSaveMonths === 0) {
+        $('#totEmiMonthsMsg').text(arr.length);
+        $('#totEmiMonthsMsg').removeClass('green');
+    }
+    else if (l_nSaveMonths < 0) {
         $('#totEmiMonthsMsg').text(arr.length + " (+" + (0 - l_nSaveMonths) + ")");
         $('#totEmiMonthsMsg').removeClass('green');
         $('#totLastEmiMsg').removeClass('green');
