@@ -5,7 +5,7 @@ var driver = new webdriver.Builder().
     withCapabilities(webdriver.Capabilities.chrome()).
     build();
 driver.manage().window().maximize();
-driver.get('http://localhost:8888');
+driver.get('http://localhost:8888/loanplanner');
 
 webdriver.promise.controlFlow().on('uncaughtException', function(e) {
  console.error('Unhandled error: ' + e);
@@ -267,7 +267,7 @@ fillInputsWith("1000", "1500", "10")
         isTotalAmtPaid("1,008.33");
     })
     .then(function(){
-        isPrinAmtPaid("1,000.00")
+        isPrinAmtPaid("1,000")
     })
     .then(function(){
         console.log("Test 14: Passed");
