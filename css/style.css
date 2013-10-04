@@ -123,7 +123,7 @@
 }
 
 .totMsg span.green:nth-child(2) {
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .blue_bar {
@@ -173,3 +173,15 @@
 #btnUndoAllModifications {
     cursor:pointer;
 }
+
+#results-row caption {
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+.totMsg {
+    max-width: 300px;
+    padding-top: 2px;
+}
+
+.totMsg .title {font-weight: bold;}
