@@ -444,6 +444,15 @@ var displayTable = function(elem, arr) {
     $("#totPrinMsg").text(numberWithCommas(Math.round(totPrinPaid*100)/100));
     $("#totIntMsg").text(numberWithCommas(Math.round(totIntPaid*100)/100));
     $("#totPrinPlusIntMsg").text(numberWithCommas(Math.round((totPrinPaid + totIntPaid)*100)/100));
+    var l_nTotPrePay = getTotalPrepay(arr);
+    $("#totPrePaymentMsg").text(numberWithCommas(Math.round((l_nTotPrePay) * 100)/100));
+    
+    if (l_nTotPrePay > 0) {
+        $("#totPrePaymentMsg").addClass('green');
+    }
+    else {
+        $("#totPrePaymentMsg").removeClass('green');
+    }
     if (g_report.origTotAmount > 0) {
         var l_fSaving = Math.round((g_report.origTotAmount - totPrinPaid - totIntPaid)*100)/100;
         $("#totSaveMsg").text(numberWithCommas(l_fSaving));

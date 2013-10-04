@@ -208,3 +208,11 @@ var calculateTotalAmount = function(arr) {
     }
     return l_nTotAmtPaid;
 };
+
+function getTotalPrepay(arr) {
+    var l_nTotPrePay = 0;
+    for (var i = 0; i < arr.length; i++) {
+        l_nTotPrePay += arr[i].prePayment;
+    }
+    return l_nTotPrePay;
+}
