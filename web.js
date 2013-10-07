@@ -68,7 +68,7 @@ app.post('/sendEmail', function(request, response) {
                     user: "sales@aidoslabs.com",
                     pass: process.env.FBMAILP || "wrong"
                 },
-                debug: true
+                debug: false
             });
             
             var mailOptions = {

@@ -251,10 +251,10 @@ function attachTooltipEvents() {
     });
     
     $('#btnCalculate').on('click', function(){
-        if (l_newTooltipShown === false) {
-            $('[data-toggle="tooltip"]').tooltip('hide');
-            $('#repaymentTableHeader').tooltip('show');
-        }
+        //if (l_newTooltipShown === false) {
+        $('[data-toggle="tooltip"]').tooltip('hide');
+        $('#repaymentTableHeader').tooltip('show');
+        //}
         l_newTooltipShown = true;
     });
     
