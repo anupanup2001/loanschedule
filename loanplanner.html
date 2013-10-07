@@ -82,14 +82,14 @@
       <div class="col-xs-12 inputForm">
         <form class="form-inline">
           <label for="inpPrinRemain">Principal Remaining</label>
-          <input type="text" class="input-small" placeholder="Principal Remaining" name="inpPrinRemain" id="inpPrinRemain" title="Loan amount remaining as on a particular date">
+          <input type="text" class="input-small" placeholder="Principal Remaining" name="inpPrinRemain" id="inpPrinRemain" title="Step 1: Enter Loan amount or principal amount remaining as on a particular date" data-toggle="tooltip">
           <label for="inpEmi">EMI</label>
-          <input type="text" class="input-small" placeholder="EMI" name="inpEmi" id="inpEmi" title="EMI as on the date">
+          <input type="text" class="input-small" placeholder="EMI" name="inpEmi" id="inpEmi" title="Step 2: Enter EMI for your loan as on the same date" data-toggle="tooltip">
           <label for="inpInterest">Interest</label>
-          <input type="text" class="input-small" placeholder="Interest" name="inpInterest" id="inpInterest" title="Interest % per annum">
+          <input type="text" class="input-small" placeholder="Interest" name="inpInterest" id="inpInterest" title="Step 3: Enter Rate of Interest for your loan in % per annum" data-toggle="tooltip">
           <label for="inpStartDate">Start Month</label>
-          <input type="text" class="input-small date-picker" placeholder="mmyyyy" name="inpStartDate" id="inpStartDate" title="Month from which you need schedule">
-          <button type="button" class="btn btn-primary" name="btnCalculate" id="btnCalculate">Calculate</button>
+          <input type="text" class="input-small date-picker" placeholder="mmyyyy" name="inpStartDate" id="inpStartDate" title="Step 4: Select Month when Loan remaining is as mentioned in step 1" data-toggle="tooltip">
+          <button type="button" class="btn btn-primary" name="btnCalculate" id="btnCalculate" data-toggle="tooltip" title="Step 5: Click on calculate to generate Loan statistics">Calculate</button>
           <button type="button" class="btn btn-default" name="btnDemo" id="btnDemo" data-toggle="modal" href="#demoVideoModal"><span class="glyphicon glyphicon-facetime-video"></span> Demo</button>
         </form>
       </div><!-- ./inputForm-->
@@ -104,7 +104,7 @@
       <div class="row" id="results-row">
         <div class="col-md-5"> <!--id="repaymentTable"-->
           <div>
-            <table class="table table-condensed table-hover table-header">
+            <table class="table table-condensed table-hover table-header" data-toggle="tooltip" title="Step 6: Click on any month row to add a prepayment, change EMI, change interest or add loan" id="repaymentTableHeader">
                 <caption>Amortization Schedule</caption>
                 <thead>
                   <tr>

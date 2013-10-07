@@ -201,9 +201,66 @@ $(document).ready(function() {
         }
     });
     $('#btnSendEmail').click(sendEmail);
+    attachTooltipEvents();
     
 });
 
+function attachTooltipEvents() {
+    var l_newTooltipShown = false;
+    
+    $('[data-toggle="tooltip"]').tooltip({
+        animation:true,
+        trigger:'manual'
+        //placement: 'top'
+    });
+    $('[data-toggle="tooltip"]').on('focusout', function(){
+        if ($(this).attr('id') != "inpStartDate") {
+            l_newTooltipShown = false;
+        }
+    });
+    $('#inpPrinRemain').on('keydown', function(){
+        if (l_newTooltipShown === false) {
+            $('[data-toggle="tooltip"]').tooltip('hide');
+            $('#inpEmi').tooltip('show');
+        }
+        l_newTooltipShown = true;
+    });
+    
+    $('#inpEmi').on('keydown', function(){
+        if (l_newTooltipShown === false) {
+            $('[data-toggle="tooltip"]').tooltip('hide');
+            $('#inpInterest').tooltip('show');
+        }
+        l_newTooltipShown = true;
+    });
+    
+    $('#inpInterest').on('keydown', function(){
+        if (l_newTooltipShown === false) {
+            $('[data-toggle="tooltip"]').tooltip('hide');
+            $('#inpStartDate').tooltip('show');
+        }
+        l_newTooltipShown = true;
+    });
+    
+    $('#inpStartDate').on('focusin', function(){
+        if (l_newTooltipShown === false) {
+            $('[data-toggle="tooltip"]').tooltip('hide');
+            $('#btnCalculate').tooltip('show');
+        }
+        l_newTooltipShown = true;
+    });
+    
+    $('#btnCalculate').on('click', function(){
+        if (l_newTooltipShown === false) {
+            $('[data-toggle="tooltip"]').tooltip('hide');
+            $('#repaymentTableHeader').tooltip('show');
+        }
+        l_newTooltipShown = true;
+    });
+    
+    $('#inpPrinRemain').tooltip('show');
+    
+}
 function sendEmail() {
     //Get user parameters
     var l_strName = $('#inpEmailName').val();
@@ -442,6 +499,8 @@ var displayTable = function(elem, arr) {
         $('#inpChangeAddPrePayment').val(arr[l_nArrIndex].prePayment.toFixed(2));
         $('#inpChangeAddLoan').val(arr[l_nArrIndex].addLoan.toFixed(2));
         $('#dataChangeModal').modal('toggle');
+        //Hide shown tooltip if any
+        $('[data-toggle="tooltip"]').tooltip('hide');        
     });
 
     $('#repaymentTable tbody tr').popover({
