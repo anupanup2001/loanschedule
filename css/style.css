@@ -185,3 +185,10 @@
 }
 
 .totMsg .title {font-weight: bold;}
+
+.feedback label {
+    width: 30%;
+}
+
+.feedback textarea {
+    width: 29%;

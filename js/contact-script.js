@@ -9,6 +9,13 @@ function sendEmail() {
     var l_strName = $('#inpEmailName').val();
     var l_strEmail = $('#inpEmailAddress').val();
     var l_strMessage = $('#inpEmailMessage').val();
+    if (l_strMessage === '') {
+        $('#alertEmailMsg').removeClass('alert-success').addClass('alert-danger').text("Empty feedback. Try again");
+        return;
+    }
+    
+    $('#alertEmailMsg').removeClass('alert-success').addClass('alert-danger').text("Please wait... Sending feedback.");
+    $('#btnSendEmail').attr("disabled", "disabled");
     var postParams = {
         challenge: Recaptcha.get_challenge(),
         response: Recaptcha.get_response(),
@@ -30,11 +37,21 @@ function sendEmail() {
                     $('#inpEmailMessage').val('');
                 }
                 else {
-                    //Captcha unsuccessful.
-                    $('#alertEmailMsg').removeClass('alert-success').addClass('alert-danger').text("Please enter captcha again. Error: " + data.replace(/\n/g, " ").split(" ")[1]);
-                    showRecaptcha('captcha', data.replace(/\n/g, " ").split(" ")[1]);
-                    //alert(data.replace(/\n/g, " ").split(" ")[1]);
+                    //Captcha unsuccessful or mail error.
+                    if (data.replace(/\n/g, " ").split(" ")[1] == "Error:") {
+                        //Mail sending error
+                        $('#alertEmailMsg').removeClass('alert-success').addClass('alert-danger').text("Please try again later. " + data.replace(/\n/g, "^").split("^")[1]);
+                        Recaptcha.destroy();
+                        showRecaptcha('captcha', null);
+                    }
+                    else {
+                        $('#alertEmailMsg').removeClass('alert-success').addClass('alert-danger').text("Please enter captcha again. Error: " + data.replace(/\n/g, " ").split(" ")[1]);
+                        Recaptcha.destroy();
+                        showRecaptcha('captcha', null);
+                        //alert(data.replace(/\n/g, " ").split(" ")[1]);
+                    }
                 }
+                $('#btnSendEmail').removeAttr("disabled");
     
             });
 }

@@ -12,7 +12,7 @@
     <!-- CSS for header and footer-->
     <link href="css/headerfooter.css" rel="stylesheet"> 
   <title>Aidoslabs Loan Planner - Get your loan repayment schedule and its variation with changes in interest, emi, loan amount</title>
-  <meta name="description" content="AidosLabs - Innovative financial solutions. Loan Amortization Schedule Calculator helps you be in control of your loans. Helps you graphically see how you can shrink it and be loan free soon!">
+  <meta name="description" content="AidosLabs - Innovative financial solutions. Loan Amortization Schedule Calculator helps you be in control of your home loan or any other loan. Helps you graphically see how changes in EMI or prepayment can shrink your home loan drastically!">
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -160,40 +160,61 @@
 
 
       </div><!-- ./ results-row-->
-      <div class="row" id="lastEmiInfo">
+      <!--div class="row" id="lastEmiInfo">
         <div class="col-xs-12">
           <h4><span class="glyphicon glyphicon-arrow-right"> </span><span class="message"></span> We are listening to you!! <a class="btn btn-primary btn-xs" data-toggle="modal" href="#surveyModal">Survey</a></h4>
         </div>
-        
+      </div-->        
 
 
-        <!-- Modal -->
-        <div class="modal fade" id="surveyModal" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <!--h4 class="modal-title">Modal title</h4-->
-              </div>
-              <div class="modal-body">
-                <iframe src="https://docs.google.com/forms/d/1Xy5yyV06sPz3OUgcPODqvTcZQCL3_7BiOSqPZUPpS3c/viewform?embedded=true" width="100%" height="500px" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-              </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-      </div>
-
-      <div class="row footer">
-        <div class="col-12">
-        </div>
-      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="surveyModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <!--h4 class="modal-title">Modal title</h4-->
+            </div>
+            <div class="modal-body">
+              <iframe src="https://docs.google.com/forms/d/1Xy5yyV06sPz3OUgcPODqvTcZQCL3_7BiOSqPZUPpS3c/viewform?embedded=true" width="100%" height="500px" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
     </div><!-- ./userBody-->
     
     <!-- Place this tag where you want the widget to render. -->
     <div class="row">
-      <div class="col-xs-12 comment">
+      <div class="col-md-6 comment">
         <div class="g-post" data-href="https://plus.google.com/112209384680469972410/posts/DgeEUKV9q8a"></div>
       </div><!-- . /comment-->
+      <div class="col-md-6 feedback">
+        <h3>Instant Feedback!</h3><br>
+        <form role="form">
+          <div class="form-group">
+            <label for="inpEmailName">Name (Optional)</label>
+            <input id="inpEmailName" placeholder="Enter your name">
+          </div>
+          
+          <div class="form-group">
+            <label for="inpEmailAddress">Email (Optional)</label>
+            <input type="email" id="inpEmailAddress" placeholder="Enter your email address">
+          </div>
+          
+          <div class="form-group">
+            <label for="inpEmailMessage">Message</label>
+            <textarea id="inpEmailMessage" placeholder="Your message" rows="3"></textarea>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 container">
+                <div id="captcha"></div>
+                <button type="button" class="btn btn-primary" id="btnSendEmail"><span class="glyphicon glyphicon-envelope"></span> Send</button>
+                <div class="alert" id="alertEmailMsg"></div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
     <!--div class="g-post" data-href="https://plus.google.com/112209384680469972410/posts/DgeEUKV9q8a"></div-->
     <footer>      
@@ -223,7 +244,7 @@
         </div>
         
         <div class="col-sm-4 copyright">
-          <p>&copy; 2013 Aidoslabs &middot; <span class="pull-right"><a href="#">Back to top</a></span></p>
+          <p>&copy; 2013 Aidoslabs &middot; <a class="btn btn-primary btn-xs" data-toggle="modal" href="#surveyModal">Survey</a> <span class="pull-right"><a href="#">Back to top</a></span></p>
         </div>
       </div>
       <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
@@ -286,6 +307,7 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <script src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
   <script type="text/javascript" src="js/loanshrinker.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>

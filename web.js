@@ -68,7 +68,7 @@ app.post('/sendEmail', function(request, response) {
                     user: "sales@aidoslabs.com",
                     pass: process.env.FBMAILP || "wrong"
                 },
-                debug: false
+                debug: true
             });
             
             var mailOptions = {
@@ -81,19 +81,22 @@ app.post('/sendEmail', function(request, response) {
                     "Feedback: " + request.body.message.replace(/\n/g, "<br>")
             };
             
-            smtpTransport.sendMail(mailOptions, function(error, response){
+            smtpTransport.sendMail(mailOptions, function(error, resp){
                 if (error) {
                     //Error sending mail. Inform client.
                     response.end("false\n" + error);
                 }
-                /*else {
-                    //console.log("Message Sent: " + response.message );
-                }*/
+                else {
+                    console.log("Message Sent: " + response.message );
+                    response.end(body);
+                }
             });
                     
         }
+        else {
         //Send response back to client
-        response.end(body);
+            response.end(body);
+        }
         
     });
     
