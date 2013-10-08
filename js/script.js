@@ -213,11 +213,11 @@ function attachTooltipEvents() {
         trigger:'manual'
         //placement: 'top'
     });
-    $('[data-toggle="tooltip"]').on('focusout', function(){
+    /*$('[data-toggle="tooltip"]').on('focusout', function(){
         if ($(this).attr('id') != "inpStartDate") {
             l_newTooltipShown = false;
         }
-    });
+    });*/
     $('#inpPrinRemain').on('keydown', function(){
         if (l_newTooltipShown === false) {
             $('[data-toggle="tooltip"]').tooltip('hide');
@@ -226,36 +226,32 @@ function attachTooltipEvents() {
         l_newTooltipShown = true;
     });
     
-    $('#inpEmi').on('keydown', function(){
-        if (l_newTooltipShown === false) {
-            $('[data-toggle="tooltip"]').tooltip('hide');
-            $('#inpInterest').tooltip('show');
-        }
-        l_newTooltipShown = true;
+    $('#inpEmi').on('focus', function(){
+       
+        $('[data-toggle="tooltip"]').tooltip('hide');
+        $('#inpInterest').tooltip('show');
+        l_newTooltipShown = false;
+       
     });
     
-    $('#inpInterest').on('keydown', function(){
-        if (l_newTooltipShown === false) {
-            $('[data-toggle="tooltip"]').tooltip('hide');
-            $('#inpStartDate').tooltip('show');
-        }
-        l_newTooltipShown = true;
+    $('#inpInterest').on('focus', function(){
+        
+        $('[data-toggle="tooltip"]').tooltip('hide');
+        $('#inpStartDate').tooltip('show');
+        
     });
     
-    $('#inpStartDate').on('focusin', function(){
-        if (l_newTooltipShown === false) {
-            $('[data-toggle="tooltip"]').tooltip('hide');
-            $('#btnCalculate').tooltip('show');
-        }
-        l_newTooltipShown = true;
+    $('#inpStartDate').on('focus', function(){
+        
+        $('#inpStartDate').tooltip('hide');
+        $('#btnCalculate').tooltip('show');
     });
     
     $('#btnCalculate').on('click', function(){
         //if (l_newTooltipShown === false) {
         $('[data-toggle="tooltip"]').tooltip('hide');
         $('#repaymentTableHeader').tooltip('show');
-        //}
-        l_newTooltipShown = true;
+        
     });
     
     $('#inpPrinRemain').tooltip('show');

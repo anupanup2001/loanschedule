@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,7 +49,7 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">
-          <img src="images/logo small.png">
+          <img src="images/logo_small.png">
         </a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -104,7 +104,7 @@
       <div class="row" id="results-row">
         <div class="col-md-5"> <!--id="repaymentTable"-->
           <div>
-            <table class="table table-condensed table-hover table-header" data-toggle="tooltip" title="Step 6: Click on any month row to add a prepayment, change EMI, change interest or add loan" id="repaymentTableHeader">
+            <table class="table table-condensed table-hover table-header" data-toggle="tooltip" title="Step 6: Do you know you can shrink your loan by prepaying part of loan before time or by increasing your EMI? Click on any month row to add a prepayment, change EMI, change interest" id="repaymentTableHeader">
                 <caption>Amortization Schedule</caption>
                 <thead>
                   <tr>
@@ -118,7 +118,7 @@
             </table>
           </div>
           <div id="repaymentTable">
-            <table class="table table-condensed table-hover">
+            <table class="table table-condensed table-hover table-striped">
                 <tbody>
                 </tbody>
             </table>
@@ -222,11 +222,13 @@
         <!-- AddThis Button BEGIN -->
         <div class="col-sm-4">
           <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-            <h4>Share</h4>
+            <h4>Recommend</h4>
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_google_plusone" g:plusone:count="false" g:plusone:size="large"></a>
             <a class="addthis_button_preferred_1"></a>
             <a class="addthis_button_preferred_2"></a>
             <a class="addthis_button_preferred_3"></a>
-            <a class="addthis_button_preferred_4"></a>
+            <!--a class="addthis_button_preferred_4"></a-->
             <a class="addthis_button_compact"></a>
             <a class="addthis_counter addthis_bubble_style"></a>
           </div>
