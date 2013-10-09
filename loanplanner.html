@@ -149,12 +149,12 @@
             <h5 class="title">Loan Summary</h5>
             <h5><span class="infoLabel">EMI months: </span><span id="totEmiMonthsMsg"></span></h5>
             <h5><span class="infoLabel">Last EMI: </span><span id="totLastEmiMsg"></span></h5>
-            <h5><span class="infoLabel">Principal: </span><span id="totPrinMsg">3000000.56</span></h5>
-            <h5><span class="infoLabel">Interest: </span><span id="totIntMsg">4500000.56</span></h5>
-            <h5><span class="infoLabel">Total: </span><span id="totPrinPlusIntMsg">7000000.43</span></h5>
-            <h5><span class="infoLabel">PrePay: </span><span id="totPrePaymentMsg">7000000.43</span></h5>
-            <h5><span class="infoLabel">You save: </span><span id="totSaveMsg">0.00</span></h5>
-            <h5><span class="infoLabel">Saved: </span><span id="totMonthsSaveMsg">0</span></h5>
+            <h5><span class="infoLabel">Principal: </span><span id="totPrinMsg"></span></h5>
+            <h5><span class="infoLabel">Interest: </span><span id="totIntMsg"></span></h5>
+            <h5><span class="infoLabel">Total: </span><span id="totPrinPlusIntMsg"></span></h5>
+            <h5><span class="infoLabel">PrePay: </span><span id="totPrePaymentMsg"></span></h5>
+            <h5><span class="infoLabel">You save: </span><span id="totSaveMsg"></span></h5>
+            <h5><span class="infoLabel">Saved: </span><span id="totMonthsSaveMsg"></span></h5>
           </div>
           <div class="googleAds container">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -255,11 +255,17 @@
     <footer>      
       <div id="row">
         <!-- AddThis Button BEGIN -->
-        <div class="col-sm-4">
+          <div class="col-sm-3">
           <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-            <h4>Recommend</h4>
-            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-            <a class="addthis_button_google_plusone" g:plusone:count="false" g:plusone:size="large"></a>
+            <h4>Like</h4>
+            <a class="addthis_button_google_plusone" g:plusone:count="false" g:plusone:size="medium"></a>
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count" fb:like:action="recommend"></a>
+            
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+            <h4>Share</h4>
             <a class="addthis_button_preferred_1"></a>
             <a class="addthis_button_preferred_2"></a>
             <a class="addthis_button_preferred_3"></a>
@@ -269,7 +275,7 @@
           </div>
         </div>
         
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <!-- AddThis Follow BEGIN -->
           <h4>Follow Us</h4>
           <div class="addthis_toolbox addthis_32x32_style addthis_default_style">
@@ -280,7 +286,7 @@
           <!-- AddThis Follow END -->
         </div>
         
-        <div class="col-sm-4 copyright">
+        <div class="col-sm-3 copyright">
           <p>&copy; 2013 Aidoslabs &middot; <a class="btn btn-primary btn-xs" data-toggle="modal" href="#surveyModal">Survey</a> <span class="pull-right"><a href="#">Back to top</a></span></p>
         </div>
       </div>
