@@ -44,6 +44,13 @@ app.get('/about', function(request, response) {
     });
 });
 
+app.get('/Sitemap', function(request, response) {
+    fs.readFile('Sitemap.xml', function(err, data) {
+        if (err) {throw err;}
+        response.send(data.toString());
+    });
+});
+
 app.post('/sendEmail', function(request, response) {
     //console.log(request.body);
     var ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
