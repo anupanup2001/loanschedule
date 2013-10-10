@@ -9,6 +9,7 @@
   <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/carousel.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"> <!-- FontAwesome -->
     <!-- CSS for header and footer-->
     <link href="css/headerfooter.css" rel="stylesheet"> 
   <title>Aidoslabs Loan Planner - Get your loan repayment schedule and its variation with changes in interest, emi, loan amount</title>
@@ -107,12 +108,16 @@
             <table class="table table-condensed table-hover table-header" data-toggle="tooltip" title="Step 6: Do you know you can shrink your loan by prepaying part of loan before time or by increasing your EMI? Click on any month row to add a prepayment, change EMI, change interest" id="repaymentTableHeader">
                 <caption>Amortization Schedule</caption>
                 <thead>
+                  <tr> <!-- Undo and Redo buttons: Begin-->
+                    <th><button type="button" class="btn btn-default" id="btnUndoAllModifications" title="Undo all table modifications"><i class="icon-undo"></i></button></th>
+                    <th><button type="button" class="btn btn-default" title="Redo"><i class="icon-repeat"></i></button></th>
+                  </tr> <!-- Undo and Redo buttons: End-->
                   <tr>
                     <th>#</th>
                     <th>Date</th>
                     <th>Principal Bal</th>
                     <th>Principal Paid</th>
-                    <th>Interest paid <span class="glyphicon glyphicon-remove-circle" id="btnUndoAllModifications" title="Undo all table modifications"></span></th>
+                    <th>Interest paid</th>
                   </tr>
                 </thead>
             </table>
