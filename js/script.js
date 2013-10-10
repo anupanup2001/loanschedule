@@ -202,17 +202,26 @@ $(document).ready(function() {
     });
     $('#btnSendEmail').click(sendEmail);
     attachTooltipEvents();
+    $( window ).resize(setTooltipOptions);
     
 });
 
-function attachTooltipEvents() {
-    var l_newTooltipShown = false;
-    
+function setTooltipOptions() {
+    var l_placement = "top";
+    if ($(window).width() <= 1200) {
+        l_placement = "bottom";
+    }
     $('[data-toggle="tooltip"]').tooltip({
         animation:true,
-        trigger:'manual'
-        //placement: 'top'
+        trigger:'manual',
+        placement: l_placement
     });
+}
+
+function attachTooltipEvents() {
+    var l_newTooltipShown = false;
+    setTooltipOptions();
+    
     /*$('[data-toggle="tooltip"]').on('focusout', function(){
         if ($(this).attr('id') != "inpStartDate") {
             l_newTooltipShown = false;
