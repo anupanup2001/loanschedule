@@ -202,20 +202,23 @@ $(document).ready(function() {
     });
     $('#btnSendEmail').click(sendEmail);
     attachTooltipEvents();
-    $( window ).resize(setTooltipOptions);
-    
 });
 
 function setTooltipOptions() {
-    var l_placement = "top";
-    if ($(window).width() <= 1200) {
-        l_placement = "bottom";
-    }
+    
     $('[data-toggle="tooltip"]').tooltip({
         animation:true,
         trigger:'manual',
-        placement: l_placement
+        placement: function(){
+            if ($(window).width() <= 1200) {
+                return  "bottom";
+            }
+            else {
+                return "top";
+            }
+        }
     });
+    
 }
 
 function attachTooltipEvents() {
