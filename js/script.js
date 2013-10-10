@@ -238,6 +238,11 @@ function attachTooltipEvents() {
         l_newTooltipShown = true;
     });
     
+    $('#inpPrinRemain').on('click', function(){
+        $('[data-toggle="tooltip"]:not(#inpEmi)').tooltip('hide');
+        $('#inpEmi').tooltip('show');
+    });
+    
     $('#inpEmi').on('focus', function(){
        
         $('[data-toggle="tooltip"]:not(#inpInterest)').tooltip('hide');
