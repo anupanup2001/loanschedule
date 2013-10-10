@@ -202,17 +202,29 @@ $(document).ready(function() {
     });
     $('#btnSendEmail').click(sendEmail);
     attachTooltipEvents();
-    
 });
 
-function attachTooltipEvents() {
-    var l_newTooltipShown = false;
+function setTooltipOptions() {
     
     $('[data-toggle="tooltip"]').tooltip({
         animation:true,
-        trigger:'manual'
-        //placement: 'top'
+        trigger:'manual',
+        placement: function(){
+            if ($(window).width() <= 1200) {
+                return  "bottom";
+            }
+            else {
+                return "top";
+            }
+        }
     });
+    
+}
+
+function attachTooltipEvents() {
+    var l_newTooltipShown = false;
+    setTooltipOptions();
+    
     /*$('[data-toggle="tooltip"]').on('focusout', function(){
         if ($(this).attr('id') != "inpStartDate") {
             l_newTooltipShown = false;
@@ -220,15 +232,20 @@ function attachTooltipEvents() {
     });*/
     $('#inpPrinRemain').on('keydown', function(){
         if (l_newTooltipShown === false) {
-            $('[data-toggle="tooltip"]').tooltip('hide');
+            $('[data-toggle="tooltip"]:not(#inpEmi)').tooltip('hide');
             $('#inpEmi').tooltip('show');
         }
         l_newTooltipShown = true;
     });
     
+    $('#inpPrinRemain').on('click', function(){
+        $('[data-toggle="tooltip"]:not(#inpEmi)').tooltip('hide');
+        $('#inpEmi').tooltip('show');
+    });
+    
     $('#inpEmi').on('focus', function(){
        
-        $('[data-toggle="tooltip"]').tooltip('hide');
+        $('[data-toggle="tooltip"]:not(#inpInterest)').tooltip('hide');
         $('#inpInterest').tooltip('show');
         l_newTooltipShown = false;
        
@@ -236,20 +253,20 @@ function attachTooltipEvents() {
     
     $('#inpInterest').on('focus', function(){
         
-        $('[data-toggle="tooltip"]').tooltip('hide');
+        $('[data-toggle="tooltip"]:not(#inpStartDate)').tooltip('hide');
         $('#inpStartDate').tooltip('show');
         
     });
     
     $('#inpStartDate').on('focus', function(){
         
-        $('#inpStartDate').tooltip('hide');
+        $('[data-toggle="tooltip"]:not(#btnCalculate)').tooltip('hide');
         $('#btnCalculate').tooltip('show');
     });
     
     $('#btnCalculate').on('click', function(){
         //if (l_newTooltipShown === false) {
-        $('[data-toggle="tooltip"]').tooltip('hide');
+        $('[data-toggle="tooltip"]:not(#repaymentTableHeader)').tooltip('hide');
         $('#repaymentTableHeader').tooltip('show');
         
     });
