@@ -192,3 +192,8 @@
 
 .feedback textarea {
     width: 61%;
+}
+
+#google-comments {
+    margin-top: 20px;
+}
