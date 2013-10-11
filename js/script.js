@@ -202,6 +202,16 @@ $(document).ready(function() {
     });
     $('#btnSendEmail').click(sendEmail);
     attachTooltipEvents();
+    
+    $('#haze').fadeTo(2000,0.2);
+
+});
+
+//Fade out the table until user clicks on 'calculate'
+$(document).ready(function() {
+  $('#btnCalculate').click(function() {
+    $('#haze').fadeTo(1000,1);
+  });
 });
 
 function setTooltipOptions() {
