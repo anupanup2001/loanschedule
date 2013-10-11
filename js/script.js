@@ -225,11 +225,6 @@ function attachTooltipEvents() {
     var l_newTooltipShown = false;
     setTooltipOptions();
     
-    /*$('[data-toggle="tooltip"]').on('focusout', function(){
-        if ($(this).attr('id') != "inpStartDate") {
-            l_newTooltipShown = false;
-        }
-    });*/
     $('#inpPrinRemain').on('keydown', function(){
         if (l_newTooltipShown === false) {
             $('[data-toggle="tooltip"]:not(#inpEmi)').tooltip('hide');

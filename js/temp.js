@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('#haze').fadeTo(2000,0.2);
+  $('#haze').fadeTo(3000,0.3);
 
 });
 
