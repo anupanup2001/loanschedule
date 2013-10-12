@@ -19,6 +19,7 @@ month_names[month_names.length] = "Dec";
 google.load('visualization', '1.0', {'packages':['corechart']});
 var pieChart, colChart;
 var g_report = {};
+g_report.arrUndo = [];
 $(document).ready(function() {
     //$("#repaymenTable")
     var emiArray = [];
@@ -91,33 +92,70 @@ $(document).ready(function() {
 
         var l_changeFlag = 0;
         var l_nIndex = parseInt($('#labelMonthNumber').text() - 1);
-
+        //Save old values for Undo Information
+        var l_oldValues = {
+            changed: emiArray[l_nIndex].changed,
+            emi: emiArray[l_nIndex].emi,
+            roi: emiArray[l_nIndex].roi,
+            prePayment: emiArray[l_nIndex].prePayment,
+            addLoan: emiArray[l_nIndex].addLoan,
+        };
         l_changeFlag = emiArray[l_nIndex].changed;
         //Check if any value changed
+        var l_bModified = false;
         if (emiArray[l_nIndex].emi.toFixed(2) != $('#inpChangeEMI').val()) {
             _gaq.push(['_trackEvent', 'ModifiedEMI', 'Changed']);
             l_changeFlag = l_changeFlag | l_cEMIChange;
             emiArray[l_nIndex].emi = parseFloat($('#inpChangeEMI').val());
+            l_bModified = true;
         }
         
         if (emiArray[l_nIndex].roi.toFixed(2) != $('#inpChangeInterest').val()) {
             _gaq.push(['_trackEvent', 'ModifiedInterest', 'Changed']);
             l_changeFlag = l_changeFlag | l_cInterestChange;
             emiArray[l_nIndex].roi = parseFloat($('#inpChangeInterest').val());
+            l_bModified = true;
         }
         
-        if (parseFloat($('#inpChangeAddPrePayment').val()) != 0) {
+        //if (parseFloat($('#inpChangeAddPrePayment').val()) != 0) {
+        if (emiArray[l_nIndex].prePayment.toFixed(2) != $('#inpChangeAddPrePayment').val()) {
             _gaq.push(['_trackEvent', 'ModifiedPrePay', 'Changed']);
             l_changeFlag = l_changeFlag | l_cPrePaymentChange;
             emiArray[l_nIndex].prePayment = parseFloat($('#inpChangeAddPrePayment').val());
+            l_bModified = true;
         }
 
-        if (parseFloat($('#inpChangeAddLoan').val()) != 0) {
+        //if (parseFloat($('#inpChangeAddLoan').val()) != 0) {
+        if (emiArray[l_nIndex].addLoan.toFixed(2) != $('#inpChangeAddLoan').val()) {
             _gaq.push(['_trackEvent', 'ModifiedAddLoan', 'Changed']);
             l_changeFlag = l_changeFlag | l_cAddLoanChange;
             emiArray[l_nIndex].addLoan = parseFloat($('#inpChangeAddLoan').val());
+            l_bModified = true;
+        }
+        
+        //If no modifications, return.
+        if (!l_bModified) {
+            return;
         }
         emiArray[l_nIndex].changed = l_changeFlag;
+        
+        //Save new values for undo information
+        var l_newValues = {
+            changed: emiArray[l_nIndex].changed,
+            emi: emiArray[l_nIndex].emi,
+            roi: emiArray[l_nIndex].roi,
+            prePayment: emiArray[l_nIndex].prePayment,
+            addLoan: emiArray[l_nIndex].addLoan,
+        };
+        
+        var l_undoObject = {
+            nIndex: l_nIndex,
+            oldValues: l_oldValues,
+            newValues: l_newValues
+        };
+        
+        g_report.arrUndo.push(l_undoObject);
+        
         var l_nInitialEMI = parseFloat($('#inpEmi').val());
         var l_nInitialInterest = parseFloat($('#inpInterest').val());
         var l_nInitialPrincipal = parseFloat($('#inpPrinRemain').val());
@@ -135,7 +173,7 @@ $(document).ready(function() {
         changeMonth: true,
         changeYear: true,
         showButtonPanel: true,
-        dateFormat: 'mmyy',
+        dateFormat: 'M yy',
         onClose: function(dateText, inst) { 
             var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
             var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
@@ -163,7 +201,7 @@ $(document).ready(function() {
     $('#inpPrinRemain').val('1000000');
     $('#inpEmi').val('13494');
     $('#inpInterest').val('10.5');
-    $('#inpStartDate').val('012013');
+    $('#inpStartDate').val('Jan 2013');
     emiArray = calculateReport();
     g_report.emiArray = emiArray;
     //$('#btnCalculate').click(); //Simulate click
@@ -235,11 +273,6 @@ function attachTooltipEvents() {
     var l_newTooltipShown = false;
     setTooltipOptions();
     
-    /*$('[data-toggle="tooltip"]').on('focusout', function(){
-        if ($(this).attr('id') != "inpStartDate") {
-            l_newTooltipShown = false;
-        }
-    });*/
     $('#inpPrinRemain').on('keydown', function(){
         if (l_newTooltipShown === false) {
             $('[data-toggle="tooltip"]:not(#inpEmi)').tooltip('hide');
@@ -361,15 +394,19 @@ function calculateReport() {
     if (l_sMsg !== "") {
         return;
     }
+    
+    $('#haze').fadeTo(1000,1);
     var prin = parseFloat(l_sPrin);
     var emi = parseFloat(l_sEmi);
     var interest = parseFloat(l_sInterest);
     var startDate = $('#inpStartDate').val();
-    var startMonth = startDate.slice(0,2);
-    var startYear = startDate.slice(2);
+    var startMonth = month_names.indexOf(startDate.slice(0,3));
+    var startYear = startDate.slice(4);
+    //var startMonth = startDate.slice(0,2);
+    //var startYear = startDate.slice(2);
 
     var $tb = $('#repaymentTable table tbody');
-    var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth - 1, 1));
+    var emiMonthArray = calculateLoanSchedule(prin, emi, interest, new Date(startYear, startMonth, 1));
     g_report.origTotAmount = calculateTotalAmount(emiMonthArray);
     g_report.origTotMonths = emiMonthArray.length;
     //alert(g_report.origTotAmount);
