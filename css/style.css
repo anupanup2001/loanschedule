@@ -203,3 +203,8 @@
     padding-bottom: 5px;    
     margin-bottom: 0px;
 }
+
+#surveyPop {
+  background-color: #eaccd6;
+  display:none;
+}

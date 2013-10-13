@@ -243,6 +243,11 @@ $(document).ready(function() {
     
     //fade the table initially to avoid confusing users
     $('#haze').fadeTo(2000,0.3);
+    //Unhide the surveyPop a few seconds after user clicks calculate
+    $('#btnCalculate').click(function(){
+      $('#surveyPop').delay(15000).slideDown(500);
+    });
+    
 
 });
 
