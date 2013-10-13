@@ -242,13 +242,16 @@ $(document).ready(function() {
     attachTooltipEvents();
     
     //fade the table initially to avoid confusing users
-    $('#haze').fadeTo(2000,0.3);
+    $('#haze').fadeTo(1000,0.3);
     //Unhide the surveyPop a few seconds after user clicks calculate
     $('#btnCalculate').click(function(){
-      $('#surveyPop').delay(15000).slideDown(500);
+      $('#surveyPop').delay(20000).slideDown(500);
+      $('#haze').fadeTo(1000,1);
+      //$('#modMsg').delay(5000).effect("shake", {times:2, distance:2}, 1000);
     });
     
-
+    
+    
 });
 
 function setTooltipOptions() {
@@ -394,7 +397,7 @@ function calculateReport() {
         return;
     }
     
-    $('#haze').fadeTo(1000,1);
+
     var prin = parseFloat(l_sPrin);
     var emi = parseFloat(l_sEmi);
     var interest = parseFloat(l_sInterest);

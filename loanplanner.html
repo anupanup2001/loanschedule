@@ -108,14 +108,14 @@
       <div class="row" id="results-row">
         <div class="col-md-5"> <!--id="repaymentTable"-->
           <div>
-            <table class="table table-condensed table-hover table-header" data-toggle="tooltip" title="Step 6: Do you know you can shrink your loan by prepaying part of loan before time or by increasing your EMI? Click on any month row to add a prepayment, change EMI, change interest" id="repaymentTableHeader">
+            <table class="table table-condensed table-hover table-header">
                 <caption class="title"><h3>Amortization Repayment Schedule</h3></caption>
                 <div class="row">
                   <div class="col-xs-3">
                     <button type="button" class="btn btn-default" id="btnUndoAllModifications" title="Undo all table modifications"><i class="icon-undo"></i></button>
                     <button type="button" class="btn btn-default" title="Redo" disabled="disabled"><i class="icon-repeat"></i></button>
                   </div>
-                  <div class="col-xs-9 alert alert-info">Click on a row for modifications</div>
+                  <div class="col-xs-9 alert alert-info" data-toggle="tooltip" title="Step 6: Modify row to add Prepayment" id="repaymentTableHeader"><p id="modMsg">Click on a row for modifications</p></div>
                 </div>
                 <thead>
                   <!--tr> 
