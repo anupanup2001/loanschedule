@@ -247,7 +247,7 @@ $(document).ready(function() {
     $('#btnCalculate').click(function(){
       $('#surveyPop').delay(20000).slideDown(500);
       $('#haze').fadeTo(1000,1);
-      //$('#modMsg').delay(5000).effect("shake", {times:2, distance:2}, 1000);
+      $('#modMsg').delay(5000).effect("shake", {times:2, distance:10}, 1000);
     });
     
     
@@ -311,8 +311,8 @@ function attachTooltipEvents() {
     
     $('#btnCalculate').on('click', function(){
         //if (l_newTooltipShown === false) {
-        $('[data-toggle="tooltip"]:not(#repaymentTableHeader)').tooltip('hide');
-        $('#repaymentTableHeader').tooltip('show');
+        //$('[data-toggle="tooltip"]:not(#repaymentTableHeader)').tooltip('hide');
+        //$('#repaymentTableHeader').tooltip('show');
         
     });
     
