@@ -311,7 +311,7 @@ function attachTooltipEvents() {
     
     $('#btnCalculate').on('click', function(){
         //if (l_newTooltipShown === false) {
-        $('[data-toggle="tooltip"]:not(#repaymentTableHeader)').tooltip('hide');
+        $('[data-toggle="tooltip"]').tooltip('hide');
         //$('#repaymentTableHeader').tooltip('show');
         
     });
@@ -566,7 +566,7 @@ var displayTable = function(elem, arr) {
     });
 
     $('#repaymentTable tbody tr').popover({
-        placement:'bottom',
+        placement:'right',
         trigger:'hover',
         html:true,
         title:'Click Row to edit',
