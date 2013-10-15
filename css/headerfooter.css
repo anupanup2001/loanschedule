@@ -4,3 +4,9 @@
 #footer{
   margin-top: 50px;
 }
+
+.navbar-nav .addthis_toolbox {
+  width: 100px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
